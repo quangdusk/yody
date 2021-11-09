@@ -16,7 +16,6 @@ import { setAuthenticated, setEntry } from "containers/App/actions";
 import ServiceBase from "utils/ServiceBase";
 import { createStructuredSelector } from "reselect";
 import { Form, Row, Typography, Button, Checkbox, Col, Input } from "antd";
-import { Paper } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 import _ from "lodash";
@@ -99,7 +98,7 @@ const SignIn = ({ className, isAuthenticated, setAuthenticated }) => {
 
   // }, [])
   return (
-    <Paper
+    <div
       className={className}
       style={{
         // backgroundImage: `url(${BackgroundSingin})`,
@@ -111,7 +110,7 @@ const SignIn = ({ className, isAuthenticated, setAuthenticated }) => {
       }}
     >
       
-    </Paper>
+    </div>
   );
 };
 

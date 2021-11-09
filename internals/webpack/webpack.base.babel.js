@@ -17,6 +17,7 @@
      mode = process.env.UAT;
      tail = process.env.NODE_CONFIG;
    }
+
  
    // Get the root path (assuming your webpack config is in the root of your project!)
    const currentPath = path.join(__dirname);

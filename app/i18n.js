@@ -8,7 +8,7 @@
  *   You CANNOT use import/export in this file.
  */
  import '@formatjs/intl-pluralrules/polyfill';
- import '@formatjs/intl-pluralrules/dist/locale-data/en'; // Add locale data for de
+ import '@formatjs/intl-pluralrules/locale-data/en'; // Add locale data for de
  
  // if (!Intl.RelativeTimeFormat) {
  //   require('@formatjs/intl-relativetimeformat/polyfill');
