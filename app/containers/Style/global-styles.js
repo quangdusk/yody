@@ -62,9 +62,6 @@ const GlobalStyle = createGlobalStyle`
             width: 1170px;
         }
     }
-
-    
-
 `;
 
 export default GlobalStyle;

@@ -64,7 +64,7 @@ const AuthorizedLayout = ({
         [className]: true,
       })}
     >
-      <SideBar appConfig={appConfig} collapsed={collapsed} />
+      {/* <SideBar appConfig={appConfig} collapsed={collapsed} /> */}
       <Layout className="site-layout">
         <TopMenu
           toggle={toggle}
@@ -72,7 +72,7 @@ const AuthorizedLayout = ({
           onLogOut={onLogOut}
           location={location}
         />
-        <Content
+        {/* <Content
           className="site-layout-background"
           style={{
             margin: "5px 16px",
@@ -80,7 +80,7 @@ const AuthorizedLayout = ({
           }}
         >
           {children}
-        </Content>
+        </Content> */}
       </Layout>
     </Layout>
   );
@@ -109,18 +109,8 @@ export default styled(
     padding: 0;
     height: 80px;
     line-height: inherit;
-    // position: sticky;
-    // top: 0;
-    // z-index: 10;
   }
-  // main {
-  //   min-height: calc(100vh - 56px - 200px);
-  //   .main_container {
-  //     padding: 0px 1rem 1rem 1rem;
-  //   }
-  // }
-  // footer {
-  //   z-index: 100;
-  //   padding: 0;
-  // }
+  .site-layout-background {
+    background: var(--body-bg);
+  }
 `;

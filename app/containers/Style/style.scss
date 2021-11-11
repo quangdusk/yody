@@ -1,3 +1,9 @@
+:root {
+  --body-bg: #ffffff;
+  --text-color: #333333;
+  --blue-color: #2a2a86;
+  --yellow-color: #ffa601;
+}
 
 
 @for $i from 0 through 7 {
@@ -68,4 +74,23 @@
 .text {
   text-align: left;
   padding-left: 20px;
+}
+.clearStyle {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.toUpperCase {
+  text-transform: uppercase;
+}
+.headerTop {
+  font-size: 13px;
+  padding-left: 15px !important;
+}
+.headerTop a {
+  color: var(--text-color);
+}
+@keyframes scaleUp {
+  0% {transform: scale(1)}
+  50% {transform: scale(1.2)}
+  100% {transform: scale(1)}
 }

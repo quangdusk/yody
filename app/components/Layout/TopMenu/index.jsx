@@ -29,7 +29,7 @@ import { $Cookies } from "../../../utils/cookies";
 import { Ui } from "../../../utils/Ui";
 import { defineMessages, FormattedMessage } from "react-intl";
 import { BsBoxArrowInRight } from "react-icons/bs";
-import {REACT_APP_URL_ID} from "utils/constants"
+import { REACT_APP_URL_ID } from "utils/constants";
 import Globals from "utils/globals";
 
 // import AppLocale from "../../../languageProvider";
@@ -47,6 +47,7 @@ const TopMenu = memo(
     collapsed,
     location,
   }) => {
+    let deviceWidth = window.innerWidth > 0 ? window.innerWidth : screen.width;
     const prefix = "app.routing.";
     const urlName = location.pathname;
     const _messages = defineMessages({
@@ -56,16 +57,7 @@ const TopMenu = memo(
       },
     });
     const urlRoutes = urlName.slice(0, 3);
-    let urlRouter = "";
-    if (urlRoutes == "/tc") {
-      urlRouter = "Tài chính";
-    } else if (urlRoutes == "/vh") {
-      urlRouter = "Vận hành";
-    } else if (urlRoutes == "/kb") {
-      urlRouter = "Khai báo";
-    }  else if (urlRoutes == "/kh") {
-      urlRouter = "Khách hàng";
-    }
+
     const proFile = $Cookies.get("ERP_REPORT")
       ? JSON.parse($Cookies.get("ERP_REPORT"))
       : {};
@@ -78,8 +70,8 @@ const TopMenu = memo(
       Ui.showSuccess({ message: "Đã đăng xuất." });
       // logout sso
       Globals.clear();
-      console.log('REACT_APP_URL_ID',REACT_APP_URL_ID)
-      window.location.href = `${REACT_APP_URL_ID}`
+      console.log("REACT_APP_URL_ID", REACT_APP_URL_ID);
+      window.location.href = `${REACT_APP_URL_ID}`;
       // onLogOut();
     };
     const handleCancel = () => {
@@ -89,12 +81,53 @@ const TopMenu = memo(
       <Header
         className={classNames({
           [className]: true,
-          "site-layout-background": true,
         })}
         style={{ padding: 0 }}
       >
-        <Row gutter={15}>
-          <Col md={11} className="customerMenu">
+        <div className="headerTop container">
+          <Row gutter={15} className="clearStyle container">
+            <Col md={12} className="customerMenu">
+              <Row
+                justify="space-between"
+                align="middle"
+                style={{ height: "100%" }}
+              >
+                <Link to="/">Tra cứu đơn hàng</Link>
+                <Link to="/">Tạp trí thời trang</Link>
+                <Link to="/">Liên hệ</Link>
+                <Link className="toUpperCase" to="/">
+                  Hệ thống cửa hàng toàn quốc
+                </Link>
+                <Link className="career" to="/">Tuyển dụng</Link>
+              </Row>
+            </Col>
+            <Col md={12}>
+              <Row justify="end" align="middle" style={{ height: "100%" }}> 
+                <a href="tel:1800 2086">
+                  <b>1800 2086</b>
+                </a>
+              </Row>
+            </Col>
+          </Row>
+        </div>
+        {/* <Row gutter={15} className="clearStyle container">
+          <Col md={12} className="customerMenu">
+            <Row justify="start">
+              <Col md={4}>
+                <p>Tra cứu đơn hàng</p>
+              </Col>
+              <Col md={4}>
+                <p>Tạp trí thời trang</p>
+              </Col>
+              <Col md={4}>
+                <p className="toUpperCase">Hệ thống cửa hàng toàn quốc</p>
+              </Col>
+              <Col md={4}>
+                <p>Tuyển dụng</p>
+              </Col>
+            </Row>
+          </Col> */}
+        {/* <Col md={11} className="customerMenu">
             {React.createElement(
               collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
               {
@@ -142,17 +175,17 @@ const TopMenu = memo(
             }}
           >
             <h3 className="text-center">Bạn có thực sự muốn thoát ??</h3>
-          </Modal>
-        </Row>
+          </Modal> */}
+        {/* </Row> */}
         <Divider
           style={{
-            border: "1px solid #cccccc",
+            // border: "1px solid #cccccc",
             margin: "unset",
             marginBottom: "10px",
           }}
         />
 
-        <Row gutter={15}>
+        <Row gutter={15} className="clearStyle">
           <Col md={22} className="customerHome">
             <Breadcrumb style={{ padding: "0px 25px" }} separator="/">
               <Breadcrumb.Item href="">
@@ -163,14 +196,6 @@ const TopMenu = memo(
                   <b>Trang chủ</b>
                 </Link>
               </Breadcrumb.Item>
-              {urlRouter && (
-                <Breadcrumb.Item>
-                  <Link to="/">
-                    <b>{urlRouter}</b>
-                  </Link>
-                </Breadcrumb.Item>
-              )}
-
               <Breadcrumb.Item>
                 <Link to={urlName}>
                   <b>
@@ -206,7 +231,6 @@ export default styled(TopMenu)`
     height: 40px;
     .anticon svg {
       font-size: 20px;
-      // margin-top: 8px;
     }
   }
   .customerHome {
@@ -219,4 +243,24 @@ export default styled(TopMenu)`
     font-size: 25px;
     color: #7f7f7f;
   }
+  .toUpperCase {
+    padding: 0px 5px 0px 5px;
+    background: var(--blue-color);
+    color: var(--yellow-color);
+    font-weight: 600;
+  }
+  .toUpperCase:hover {
+    background: linear-gradient(
+      90deg, var(--blue-color) 32%, var(--yellow-color) 30%);
+    color: var(--body-bg);
+  }
+  .career {
+    color: var(--body-bg);
+    background: red;
+    padding: 0px 5px;
+    animation-name: scaleUp;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }
+  
 `;

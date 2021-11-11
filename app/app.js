@@ -56,7 +56,6 @@ const render = (messages) => {
       <ConfigProvider locale={frFR}>
         <LanguageProvider messages={messages}>
           <ConnectedRouter history={history}>
-            <h1>Nguyen Dac Quang</h1>
             <App />
           </ConnectedRouter>
         </LanguageProvider>
