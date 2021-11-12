@@ -72,6 +72,7 @@ const AuthorizedLayout = ({
           onLogOut={onLogOut}
           location={location}
         />
+        <SubTopMenu/>
         {/* <Content
           className="site-layout-background"
           style={{
@@ -107,10 +108,14 @@ export default styled(
   min-height: 100vh;
   header {
     padding: 0;
-    height: 80px;
+    height: 130px;
     line-height: inherit;
   }
   .site-layout-background {
     background: var(--body-bg);
+  }
+  .site-layout {
+    font-family: Quicksand, sans-serif;
+    font-weight: 600;
   }
 `;

@@ -12,7 +12,7 @@ const DefaultStyle = css`
     // background-position: bottom;
   }
   body.fontLoaded {
-    font-family: Roboto, Helvetica, Arial, sans-serif !important;
+    font-family: Roboto, Helvetica, Arial, Quicksand, sans-serif !important;
   }
   .MuiCardHeader-root{
     padding:10px 16px 0px 16px !important;

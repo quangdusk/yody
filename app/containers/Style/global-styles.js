@@ -55,11 +55,25 @@ const GlobalStyle = createGlobalStyle`
         .container {
             width: 970px;
         }
+        .header__menu-detail {
+            width: 970px;
+        }
     }
     
     @media (min-width: 1200px) {
         .container {
             width: 1170px;
+        }
+        .header__menu-detail {
+            width: 880px;
+        }
+        .ant-popover.ant-popover-placement-bottomLeft {
+            left: 328px !important;
+        }
+    }
+    @media (min-width: 1560px) {
+        .ant-popover.ant-popover-placement-bottomLeft {
+            left: 520px !important;
         }
     }
 `;
