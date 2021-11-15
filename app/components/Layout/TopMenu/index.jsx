@@ -24,12 +24,11 @@ import {
   UserOutlined,
   VideoCameraOutlined,
   HomeOutlined,
-  LogoutOutlined
+  LogoutOutlined,
 } from "@ant-design/icons";
 import { $Cookies } from "../../../utils/cookies";
 import { Ui } from "../../../utils/Ui";
 import { defineMessages, FormattedMessage } from "react-intl";
-import { BsBoxArrowInRight } from "react-icons/bs";
 import { REACT_APP_URL_ID } from "utils/constants";
 import Globals from "utils/globals";
 import Yody from "images/yody.png";
@@ -84,16 +83,12 @@ const TopMenu = memo(
         className={classNames({
           [className]: true,
         })}
-        style={{ padding: 0 }}
+        style={{ padding: 0, background: "#fff" }}
       >
         <div className="headerTop container">
           <Row gutter={15} className="clearStyle container">
             <Col md={18} className="customerMenu">
-              <Row
-                justify="start"
-                align="middle"
-                style={{ height: "100%" }}
-              >
+              <Row justify="start" align="middle" style={{ height: "100%" }}>
                 <Link to="/">Tra cứu đơn hàng</Link>
                 <Link to="/">Tạp trí thời trang</Link>
                 <Link to="/">Liên hệ</Link>
@@ -120,7 +115,7 @@ const TopMenu = memo(
             marginBottom: "10px",
           }}
         />
-        <div className="headerTop container">
+        <div className="headerTop container headerTopFix">
           <Row
             gutter={15}
             className="clearStyle container"
@@ -141,9 +136,11 @@ const TopMenu = memo(
               <Row justify="end" align="middle">
                 <Col>
                   {/* <Button className="header-height" style={{ marginRight: "10px", fontSize: "20px" }}> */}
-                    <Badge count={99} style={{marginRight: "30px"}}>
-                      <AiOutlineShoppingCart style={{ fontSize: "30px", marginRight: "30px" }} />
-                    </Badge>
+                  <Badge count={99} style={{ marginRight: "30px" }}>
+                    <AiOutlineShoppingCart
+                      style={{ fontSize: "30px", marginRight: "30px" }}
+                    />
+                  </Badge>
                   {/* </Button> */}
                 </Col>
                 <Col>
@@ -224,4 +221,12 @@ export default styled(TopMenu)`
   .customerMenu .ant-row a {
     margin-right: 15px;
   }
+  // .headerTopFix {
+  //   top: 0; 
+  //   left: 0;
+  //   position: fixed; 
+  //   width: 100%; 
+  //   z-index: 100; 
+  //   background: #fff;
+  // }
 `;

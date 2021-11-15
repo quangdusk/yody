@@ -17,9 +17,6 @@ const DefaultStyle = css`
   .MuiCardHeader-root{
     padding:10px 16px 0px 16px !important;
   }
-  // .ant-divider-horizontal{
-  //   padding:10px !important;
-  // }
 `;
 
 export default DefaultStyle;

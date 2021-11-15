@@ -7,9 +7,9 @@ import { Link } from "react-router-dom";
 import { defineMessages, FormattedMessage } from "react-intl";
 import * as style from "components/Variables";
 import { AiOutlineLine } from "react-icons/ai";
-import Slider from "react-slick";
+import classNames from "classnames";
 const prefix = "app.routing.";
-function Footer({ className, pathName }) {
+function SubTopMenu({ className, pathName }) {
   const _messages = defineMessages({
     moduleName: {
       id: `${prefix}${pathName}`,
@@ -269,7 +269,11 @@ function Footer({ className, pathName }) {
   };
   const menuNew = () => {
     return (
-      <>
+      <div
+        className={classNames({
+          [className]: true,
+        })}
+      >
         <Row justify="space-around">
           <Col>
             <Link to="/">
@@ -279,7 +283,7 @@ function Footer({ className, pathName }) {
                   color: "var(--header-menu-detail-light)",
                   fontSize: "13px",
                   marginBottom: "0.5em",
-                  marginTop: "1em"
+                  marginTop: "1em",
                 }}
               >
                 BST áo khoác yody
@@ -291,7 +295,7 @@ function Footer({ className, pathName }) {
                   marginBottom: "0.5em!important",
                   color: "var(--header-menu-detail-light)",
                   fontSize: "13px",
-                  marginBottom: "0.5em"
+                  marginBottom: "0.5em",
                 }}
               >
                 BST áo khoác gió
@@ -299,12 +303,17 @@ function Footer({ className, pathName }) {
             </Link>
           </Col>
         </Row>
-      </>
+      </div>
     );
   };
 
   return (
-    <div style={{ background: "rgb(238, 238, 238)" }}>
+    <div
+      style={{ background: "rgb(238, 238, 238)" }}
+      className={classNames({
+        [className]: true,
+      })}
+    >
       <Row
         className="container"
         justify="start"
@@ -394,13 +403,12 @@ function Footer({ className, pathName }) {
   );
 }
 
-Footer.propTypes = {
+SubTopMenu.propTypes = {
   className: PropTypes.any,
   pathName: PropTypes.any,
 };
 
-export default memo(styled(Footer)`
-  padding: 1rem 0 1rem 0;
+export default memo(styled(SubTopMenu)`
   a {
     color: ${style.color.haiVan.primary};
     font-weight: bold;
@@ -409,4 +417,11 @@ export default memo(styled(Footer)`
   a:hover {
     color: ${style.color.haiVan.bg} !important;
   }
+  .ant-popover-placement-bottomRight .ant-popover-arrow {
+    display: none !important;
+  }
+  .ant-breadcrumb-separator {
+    margin: 0 !important;
+  }
+  
 `);

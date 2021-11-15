@@ -2,6 +2,7 @@ import _ from "lodash";
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import SignIn from "containers/SignIn/Loadable";
+import Home from "containers/Home/Loadable";
 
 import AuthorizedLayout from "components/Layout/AuthorizedLayout";
 import GuestLayout from "components/Layout/GuestLayout";
@@ -29,14 +30,15 @@ export const publicRouter = [
     path: "/",
     layout: AuthorizedLayout,
     component: MainRouter,
-  }
+  },
 ];
 export const authorizedRoutes = [
-  // {
-  //   path: "/",
-  //   exact: true,
-  //   component: Dashboard,
-  // },
+  {
+    path: "/quang",
+    exact: true,
+    layout: AuthorizedLayout,
+    component: Home,
+  },
   // {
   //   path: "*",
   //   exact: true,

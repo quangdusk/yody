@@ -73,15 +73,13 @@ const AuthorizedLayout = ({
           location={location}
         />
         <SubTopMenu/>
-        {/* <Content
-          className="site-layout-background"
+        <Content
           style={{
-            margin: "5px 16px",
             minHeight: 280,
           }}
         >
           {children}
-        </Content> */}
+        </Content>
       </Layout>
     </Layout>
   );
