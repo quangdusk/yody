@@ -212,7 +212,7 @@ export default styled(TopMenu)`
   .ant-input-group-addon button span {
     font-size: 20px;
   }
-  .header-height {
+  .header-height, .header-height: hover {
     margin-top: 3px;
     background: var(--yellow-color);
     color: var(--blue-color);
@@ -221,12 +221,5 @@ export default styled(TopMenu)`
   .customerMenu .ant-row a {
     margin-right: 15px;
   }
-  // .headerTopFix {
-  //   top: 0; 
-  //   left: 0;
-  //   position: fixed; 
-  //   width: 100%; 
-  //   z-index: 100; 
-  //   background: #fff;
-  // }
+  
 `;

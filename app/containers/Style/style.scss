@@ -30,6 +30,9 @@
     margin-left: 0px + $i * 5 !important;
   }
 }
+.upperCase {
+  text-transform: uppercase;
+}
 .borderInput {
   border: none;
 }

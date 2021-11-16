@@ -18,6 +18,7 @@ const Banner = memo(({ className }) => {
       className={classNames({
         [className]: true,
       })}
+      style={{background: "var(--body-bg)"}}
     >
       <Carousel
         showThumbs={false}

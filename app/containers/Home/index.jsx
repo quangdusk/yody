@@ -4,6 +4,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import Banner from "./Banner/index"
 import _ from "lodash";
+import Sale from "./Sale";
 let time;
 const Home = ({ className }) => {
   const [data, setData] = useState([]);
@@ -42,6 +43,7 @@ const Home = ({ className }) => {
   return (
     <>
         <Banner />
+        <Sale />
     </>
   );
 };
