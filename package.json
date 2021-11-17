@@ -67,6 +67,7 @@
     "sanitize.css": "^13.0.0",
     "sass-loader": "^10.0.0",
     "save-dev": "0.0.1-security",
+    "slick-carousel": "^1.8.1",
     "string-template": "^1.0.0",
     "styled-components": "^5.3.3",
     "universal-cookie": "^4.0.4",

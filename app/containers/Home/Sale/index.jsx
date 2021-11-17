@@ -1,35 +1,44 @@
 import { Row, Col, Tooltip } from "antd";
 import "antd/dist/antd.css";
-import React, { memo, useEffect } from "react";
+import React, { memo, useEffect, useState } from "react";
 import styled from "styled-components";
 import classNames from "classnames";
 import { AiOutlineCaretLeft } from "react-icons/ai";
 import _ from "lodash";
 import BackDot from "images/back_dot.png";
-
-let time = null;
+import Promotion from "images/promotion.jpg";
+import { $LocalStorage } from "utils/localStorage";
 
 const Sale = memo(({ className }) => {
-  let countDownDate = new Date("Nov 17 2021 15:37:25").getTime();
-  let days = 0, hours = 0, minutes = 0, seconds = 0
-  const setTime = async () => {
-    let now = new Date().getTime();
-    let distance = countDownDate - now;
-    days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    seconds = Math.floor((distance % (1000 * 60)) / 1000);
-  }
+  const [day, setDay] = useState(0)
+  const [hour, setHour] = useState(0)
+  const [minute, setMinute] = useState(0)
+  const [second, setSecond] = useState(0)
+  let countDownDate = new Date("Nov 30 2021 15:37:25").getTime();
+  $LocalStorage.sls.setObject('countDownTime', countDownDate)
+  //Nếu có localstorage thì không gọi api
+  
   useEffect(() => {
-    clearTimeout(time);
-    time = setTimeout(setTime, 100);
-  }, [setTime])
+    setInterval(function() {
+      let now = new Date().getTime();
+      let distance = $LocalStorage.sls.getObject('countDownTime') - now;
+      let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      setDay(days)
+      setHour(hours)
+      setMinute(minutes)
+      setSecond(seconds)
+    }, 1000)
+    return () => clearInterval(setInterval);
+  }, [])
   return (
     <div
       className={classNames({
         [className]: true,
       })}
-      style={{ background: "var(--body-bg)", position: "relative" }}
+      style={{ background: "var(--body-bg)", position: "relative", paddingBottom: "70px" }}
     >
       <div
         style={{
@@ -40,19 +49,21 @@ const Sale = memo(({ className }) => {
       />
       <div className="banner__sale">
         <div className="container">
-          <Row>
+          <Row align="middle">
             <Col md={10}>
               <Row>
-                <h3 className="upperCase" style={{paddingLeft: "20px"}}>Thời gian còn lại</h3>
+                <h3 className="upperCase" style={{paddingLeft: "18px"}}>Thời gian còn lại</h3>
               </Row>
               <Row style={{maxWidth: "300px"}}>
-                <Col className="banner__sale-time" md={6}><p>{days}</p><a>Ngày</a></Col>
-                <Col className="banner__sale-time" md={6}><p>{hours}</p><a>Giờ</a></Col>
-                <Col className="banner__sale-time" md={6}><p>{minutes}</p><a>Phút</a></Col>
-                <Col className="banner__sale-time" md={6}><p>{seconds}</p><a>Giây</a></Col>
+                <Col className="banner__sale-time" md={6}><p>{day}</p><a>Ngày</a></Col>
+                <Col className="banner__sale-time" md={6}><p>{hour}</p><a>Giờ</a></Col>
+                <Col className="banner__sale-time" md={6}><p>{minute}</p><a>Phút</a></Col>
+                <Col className="banner__sale-time" md={6}><p>{second}</p><a>Giây</a></Col>
               </Row>
             </Col>
-            <Col md={14}>2</Col>
+            <Col md={14} className="promotion-img">
+              <img src={Promotion} data-src={Promotion} sizes="670px" data-sizes="auto" />
+            </Col>
           </Row>
         </div>
       </div>
@@ -83,5 +94,17 @@ p {
 a, a:hover {
   color: var(--header-menu-detail-light);
   cursor: default;
+}
+.promotion-img {
+  min-height: 250px;
+  max-width: calc(100% - 470px);
+  alt="BLACK FRIDAY 2021"
+}
+.promotion-img img {
+  max-width: 100%;
+  opacity: 1;
+  transition: 0.2s;
+  vertical-align: middle;
+  border-style: none;
 }
 `;

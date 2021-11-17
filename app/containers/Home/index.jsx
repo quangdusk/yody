@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import Banner from "./Banner/index"
 import _ from "lodash";
 import Sale from "./Sale";
+import Hot from "./Hot";
 let time;
 const Home = ({ className }) => {
   const [data, setData] = useState([]);
@@ -44,6 +45,7 @@ const Home = ({ className }) => {
     <>
         <Banner />
         <Sale />
+        <Hot />
     </>
   );
 };
