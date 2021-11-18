@@ -1,4 +1,4 @@
-import { Row, Col, Tooltip } from "antd";
+import { Row, Col, Button } from "antd";
 import "antd/dist/antd.css";
 import React, { memo, useEffect, useState } from "react";
 import styled from "styled-components";
@@ -60,9 +60,12 @@ const Sale = memo(({ className }) => {
                 <Col className="banner__sale-time" md={6}><p>{minute}</p><a>Phút</a></Col>
                 <Col className="banner__sale-time" md={6}><p>{second}</p><a>Giây</a></Col>
               </Row>
+              <Row className="banner__sale-button">
+                <Button>Xem thêm</Button>
+              </Row>
             </Col>
             <Col md={14} className="promotion-img">
-              <img src={Promotion} data-src={Promotion} sizes="670px" data-sizes="auto" />
+              <img src={Promotion} loading="lazy" sizes="670px" data-sizes="auto" />
             </Col>
           </Row>
         </div>
@@ -106,5 +109,22 @@ a, a:hover {
   transition: 0.2s;
   vertical-align: middle;
   border-style: none;
+}
+.banner__sale-button {
+  padding: 20px 0px 0px 20px;
+}
+.banner__sale-button button{
+  background: var(--yellow-color);
+  color: var(--body-bg);
+  padding: 10px 30px;
+  font-size: 17px;
+  font-weight: 500;
+  height: 50px;
+  width: 150px;
+}
+.banner__sale-button:after {
+  border-right: 3px solid var(--yellow-color);
+  content: "";
+  padding-left: 2px;
 }
 `;

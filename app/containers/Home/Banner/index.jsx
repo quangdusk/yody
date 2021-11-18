@@ -27,19 +27,19 @@ const Banner = memo(({ className }) => {
         showStatus={false}
       >
         <div className="banner__image">
-          <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/3138/bn/fbfbe175f6de3f8066cf.jpg" />
+          <img loading="lazy" src="https://storage.googleapis.com/cdn.nhanh.vn/store/3138/bn/fbfbe175f6de3f8066cf.jpg" />
         </div>
         <div className="banner__image">
-          <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/3138/bn/z2851160611933_9d276e6437c6b7892f0b8dae10694e76.jpg" />
+          <img loading="lazy" src="https://storage.googleapis.com/cdn.nhanh.vn/store/3138/bn/z2851160611933_9d276e6437c6b7892f0b8dae10694e76.jpg" />
         </div>
         <div className="banner__image">
-          <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/3138/bn/combo_gd_2x.jpg" />
+          <img loading="lazy" src="https://storage.googleapis.com/cdn.nhanh.vn/store/3138/bn/combo_gd_2x.jpg" />
         </div>
         <div className="banner__image">
-          <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/3138/bn/ra_mat_ao_gio_web_2x.jpg" />
+          <img loading="lazy" src="https://storage.googleapis.com/cdn.nhanh.vn/store/3138/bn/ra_mat_ao_gio_web_2x.jpg" />
         </div>
         <div className="banner__image">
-          <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/3138/bn/black1920x650.jpg" />
+          <img loading="lazy" src="https://storage.googleapis.com/cdn.nhanh.vn/store/3138/bn/black1920x650.jpg" />
         </div>
       </Carousel>
       <div className="container" style={{height: "116px"}}>
@@ -47,7 +47,7 @@ const Banner = memo(({ className }) => {
           <Col md={6}>
             <Row>
               <Col md={6}>
-                <img src={FreeShip} />
+                <img src={FreeShip} loading="lazy" />
               </Col>
               <Col md={18}>
                 <p className="home-policy-title">Miễn phí giao hàng</p>
@@ -58,7 +58,7 @@ const Banner = memo(({ className }) => {
           <Col md={6}>
             <Row>
               <Col md={6}>
-                <img src={Wallet} />
+                <img src={Wallet} loading="lazy" />
               </Col>
               <Col md={18}>
                 <p className="home-policy-title">Thanh toán COD</p>
@@ -69,7 +69,7 @@ const Banner = memo(({ className }) => {
           <Col md={6}>
             <Row>
               <Col md={6}>
-                <img src={Vip} />
+                <img src={Vip} loading="lazy" />
               </Col>
               <Col md={18}>
                 <p className="home-policy-title">Khách hàng VIP</p>
@@ -80,7 +80,7 @@ const Banner = memo(({ className }) => {
           <Col md={6}>
             <Row>
               <Col md={6}>
-                <img src={Sew} />
+                <img src={Sew} loading="lazy" />
               </Col>
               <Col md={18}>
                 <p className="home-policy-title">Hỗ trợ bảo hành</p>

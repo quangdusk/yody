@@ -2,9 +2,12 @@
   --body-bg: #ffffff;
   --text-color: #333333;
   --blue-color: #2a2a86;
+  --blue-color-tranparent: #2a2a86a1;
   --yellow-color: #ffa601;
   --header-menu-detail: #232323;
   --header-menu-detail-light: #7a7a7a;
+  --price-color: #ee4d2d;
+  --border-color: #ccc;
 }
 
 @for $i from 0 through 7 {
@@ -102,6 +105,15 @@
   }
   100% {
     transform: scale(1);
+  }
+}
+@keyframes carousel_status {
+  0% {
+    bottom: -50px;
+    overflow: hidden;
+  }
+  100% {
+    bottom: 0px;
   }
 }
 .header__search {

@@ -6,6 +6,8 @@ import Banner from "./Banner/index"
 import _ from "lodash";
 import Sale from "./Sale";
 import Hot from "./Hot";
+import Man from "./Man";
+import Woman from "./Woman";
 let time;
 const Home = ({ className }) => {
   const [data, setData] = useState([]);
@@ -46,6 +48,8 @@ const Home = ({ className }) => {
         <Banner />
         <Sale />
         <Hot />
+        <Man />
+        <Woman />
     </>
   );
 };

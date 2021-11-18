@@ -1,14 +1,15 @@
-import { Row, Col, Tooltip, Tabs } from "antd";
+import { Row, Col, Button, Tabs } from "antd";
 import "antd/dist/antd.css";
 import React, { memo, useEffect, useState } from "react";
 import styled from "styled-components";
 import classNames from "classnames";
+import { AiOutlineCaretLeft } from "react-icons/ai";
 import _ from "lodash";
-import List from "./List";
+import List from "../Hot/List";
 
 const { TabPane } = Tabs;
 
-const Hot = memo(({ className }) => {
+const Man = memo(({ className }) => {
   return (
     <div
       className={classNames({
@@ -17,22 +18,31 @@ const Hot = memo(({ className }) => {
       style={{
         background: "var(--body-bg)",
         position: "relative",
-        paddingTop: "15px",
+        paddingBottom: "70px",
       }}
     >
       <div className="container">
-        <h3 className="upperCase">Top sản phẩm bán chạy nhất trong tuần</h3>
+        <h3>Thời trang nam</h3>
+        <small>
+          Thời trang nam Yody mang lại sự hòa hợp về cá tính, đem lại cảm giác
+          thoải mái từ bên trong và tư tin ở bên ngoài với các sản phẩm thời
+          trang quốc dân như áo polo, áo thun, áo sơ mi, quần âu, quần jean và
+          giày nam.
+        </small>
         <Tabs defaultActiveKey={1} type="card">
-          <TabPane tab="Tất cả" key={1}>
+          <TabPane tab="Áo nam" key={1}>
             <List />
           </TabPane>
-          <TabPane tab="Nam" key={2}>
+          <TabPane tab="Quần nam" key={2}>
             <List />
           </TabPane>
-          <TabPane tab="Nữ" key={3}>
+          <TabPane tab="Đồ mặc nhà nam" key={3}>
             <List />
           </TabPane>
-          <TabPane tab="Trẻ em" key={4}>
+          <TabPane tab="Đồ mặc trong" key={4}>
+            <List />
+          </TabPane>
+          <TabPane tab="Phụ kiện nam" key={5}>
             <List />
           </TabPane>
         </Tabs>
@@ -41,12 +51,18 @@ const Hot = memo(({ className }) => {
   );
 });
 
-export default styled(Hot)`
-  h3 {
+export default styled(Man)`
+  .container h3 {
     text-align: center;
+    text-transform: uppercase;
+    padding-top: 60px;
     font-size: 22px;
     font-weight: 600;
-    padding-bottom: 20px;
+  }
+  .container small {
+      font-size: 13px;
+      color: var(--header-menu-detail-light);
+      font-weight: 400;
   }
   .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn, .ant-tabs-tab:hover. {
     color: var(--blue-color) !important;
@@ -73,5 +89,8 @@ export default styled(Hot)`
       padding-top: 25px;
       padding-right: 12px;
       padding-left: 12px;
+  }
+  .ant-tabs > .ant-tabs-nav .ant-tabs-nav-operations {
+      display: none;
   }
 `;

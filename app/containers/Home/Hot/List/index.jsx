@@ -1,4 +1,4 @@
-import { Tabs } from "antd";
+import { Row, Col } from "antd";
 import "antd/dist/antd.css";
 import React, { memo } from "react";
 import styled from "styled-components";
@@ -7,17 +7,29 @@ import _ from "lodash";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { AiOutlineLeftSquare, AiOutlineRightSquare } from "react-icons/ai";
+import {
+  AiOutlineLeft,
+  AiOutlineRight,
+  AiOutlineEye,
+  AiOutlineShoppingCart,
+} from "react-icons/ai";
+import AOKHOAC1 from "images/AOKHOAC1.jpg";
+import AOKHOAC2 from "images/AOKHOAC2.jpg";
+import AOKHOAC3 from "images/AOKHOAC3.jpg";
+import AOKHOAC4 from "images/AOKHOAC4.jpg";
+import AOKHOAC5 from "images/AOKHOAC5.jpg";
+import AOKHOAC6 from "images/AOKHOAC6.jpg";
 
-const List = memo(({ className }) => {
+const List = memo(({ className, count }) => {
   function SampleNextArrow(props) {
     const { className, style, onClick } = props;
     return (
-      <div
-        className={className}
-        style={{ ...style, display: "block" }}
-        onClick={onClick}
-      >
+      <div className="nextArrow">
+        <AiOutlineRight
+          onClick={onClick}
+          style={{ ...style, display: "block" }}
+          className="nextArrowItem"
+        />
       </div>
     );
   }
@@ -25,19 +37,20 @@ const List = memo(({ className }) => {
   function SamplePrevArrow(props) {
     const { className, style, onClick } = props;
     return (
-      <div
-        className={className}
-        style={{ ...style, display: "block" }}
-        onClick={onClick}
-      >
+      <div className="prevArrow">
+        <AiOutlineLeft
+          onClick={onClick}
+          style={{ ...style, display: "block" }}
+          className="prevArrowItem"
+        />
       </div>
     );
   }
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: count ? count : 4,
     slidesToScroll: 1,
     initialSlide: 0,
     nextArrow: <SampleNextArrow />,
@@ -46,10 +59,10 @@ const List = memo(({ className }) => {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToShow: count ? count - 1 : 3,
+          slidesToScroll: 1,
           infinite: true,
-          dots: true,
+          dots: false,
           nextArrow: <SampleNextArrow />,
           prevArrow: <SamplePrevArrow />,
         },
@@ -57,8 +70,8 @@ const List = memo(({ className }) => {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToShow: count ? count - 2 : 2,
+          slidesToScroll: 1,
           initialSlide: 2,
           nextArrow: <SampleNextArrow />,
           prevArrow: <SamplePrevArrow />,
@@ -95,37 +108,437 @@ const List = memo(({ className }) => {
             </div>
           </div>
           <div className="product__carousel-image">
-            <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/3138/bn/fbfbe175f6de3f8066cf.jpg" />
+            <img
+              loading="lazy"
+              src={AOKHOAC1}
+              alt="Khuyến mãi hot của yody"
+              width={count ? "215px" : "255px"}
+              height={count ? "310px" : "380px"}
+            />
+            <div
+              className="product__carousel-action"
+              style={{ width: count ? "215px" : "255px" }}
+            >
+              <Row
+                justify="space-around"
+                align="middle"
+                style={{ height: "100%" }}
+              >
+                <Col
+                  md={12}
+                  style={{
+                    textAlign: "center",
+                    borderRight: "1px solid var(--body-bg)",
+                  }}
+                >
+                  <span>Xem chi tiết</span>
+                  <AiOutlineEye
+                    style={{ fontSize: "20px", paddingLeft: "1px" }}
+                  />
+                </Col>
+                <Col md={12} style={{ textAlign: "center" }}>
+                  <span>Mua ngay</span>
+                  <AiOutlineShoppingCart
+                    style={{ fontSize: "20px", paddingLeft: "1px" }}
+                  />
+                </Col>
+              </Row>
+            </div>
           </div>
-          <div className="product__carousel-action" />
+
+          <div className="product__carousel-footer">
+            <p>Áo khoác gió nam thể thao phối lưng</p>
+            <Row>
+              <Col
+                className="product__carousel-footer-discount"
+                xs={9}
+                sm={9}
+                lg={9}
+                md={9}
+              >
+                399,000đ
+              </Col>
+              <Col
+                className="product__carousel-footer-price"
+                xs={15}
+                sm={15}
+                lg={15}
+                md={15}
+              >
+                549,000đ
+              </Col>
+            </Row>
+          </div>
         </div>
         <div className="product__carousel">
-          <div className="product__carousel-status" />
-          <div className="product__carousel-image">
-            <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/3138/bn/fbfbe175f6de3f8066cf.jpg" />
+          <div className="product__carousel-status">
+            <div className="ribbon ribbon-top-left">
+              <span>-25%</span>
+            </div>
+            <div className="sample">
+              <div className="sample-ribbon down" style={{ color: "#fd9c2e" }}>
+                <div className="content">Mới</div>
+              </div>
+            </div>
           </div>
-          <div className="product__carousel-action" />
+          <div className="product__carousel-image">
+            <img
+              loading="lazy"
+              src={AOKHOAC2}
+              alt="Khuyến mãi hot của yody"
+              width={count ? "215px" : "255px"}
+              height={count ? "310px" : "380px"}
+            />
+            <div
+              className="product__carousel-action"
+              style={{ width: count ? "215px" : "255px" }}
+            >
+              <Row
+                justify="space-around"
+                align="middle"
+                style={{ height: "100%" }}
+              >
+                <Col
+                  md={12}
+                  style={{
+                    textAlign: "center",
+                    borderRight: "1px solid var(--body-bg)",
+                  }}
+                >
+                  <span>Xem chi tiết</span>
+                  <AiOutlineEye
+                    style={{ fontSize: "20px", paddingLeft: "1px" }}
+                  />
+                </Col>
+                <Col md={12} style={{ textAlign: "center" }}>
+                  <span>Mua ngay</span>
+                  <AiOutlineShoppingCart
+                    style={{ fontSize: "20px", paddingLeft: "1px" }}
+                  />
+                </Col>
+              </Row>
+            </div>
+          </div>
+
+          <div className="product__carousel-footer">
+            <p>Áo khoác gió nam thể thao phối lưng</p>
+            <Row>
+              <Col
+                className="product__carousel-footer-discount"
+                xs={9}
+                sm={9}
+                lg={9}
+                md={9}
+              >
+                399,000đ
+              </Col>
+              <Col
+                className="product__carousel-footer-price"
+                xs={15}
+                sm={15}
+                lg={15}
+                md={15}
+              >
+                549,000đ
+              </Col>
+            </Row>
+          </div>
         </div>
         <div className="product__carousel">
-          <div className="product__carousel-status" />
-          <div className="product__carousel-image">
-            <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/3138/bn/fbfbe175f6de3f8066cf.jpg" />
+          <div className="product__carousel-status">
+            <div className="ribbon ribbon-top-left">
+              <span>-25%</span>
+            </div>
+            <div className="sample">
+              <div className="sample-ribbon down" style={{ color: "#fd9c2e" }}>
+                <div className="content">Mới</div>
+              </div>
+            </div>
           </div>
-          <div className="product__carousel-action" />
+          <div className="product__carousel-image">
+            <img
+              loading="lazy"
+              src={AOKHOAC3}
+              alt="Khuyến mãi hot của yody"
+              width={count ? "215px" : "255px"}
+              height={count ? "310px" : "380px"}
+            />
+            <div
+              className="product__carousel-action"
+              style={{ width: count ? "215px" : "255px" }}
+            >
+              <Row
+                justify="space-around"
+                align="middle"
+                style={{ height: "100%" }}
+              >
+                <Col
+                  md={12}
+                  style={{
+                    textAlign: "center",
+                    borderRight: "1px solid var(--body-bg)",
+                  }}
+                >
+                  <span>Xem chi tiết</span>
+                  <AiOutlineEye
+                    style={{ fontSize: "20px", paddingLeft: "1px" }}
+                  />
+                </Col>
+                <Col md={12} style={{ textAlign: "center" }}>
+                  <span>Mua ngay</span>
+                  <AiOutlineShoppingCart
+                    style={{ fontSize: "20px", paddingLeft: "1px" }}
+                  />
+                </Col>
+              </Row>
+            </div>
+          </div>
+
+          <div className="product__carousel-footer">
+            <p>Áo khoác gió nam thể thao phối lưng</p>
+            <Row>
+              <Col
+                className="product__carousel-footer-discount"
+                xs={9}
+                sm={9}
+                lg={9}
+                md={9}
+              >
+                399,000đ
+              </Col>
+              <Col
+                className="product__carousel-footer-price"
+                xs={15}
+                sm={15}
+                lg={15}
+                md={15}
+              >
+                549,000đ
+              </Col>
+            </Row>
+          </div>
         </div>
         <div className="product__carousel">
-          <div className="product__carousel-status" />
-          <div className="product__carousel-image">
-            <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/3138/bn/fbfbe175f6de3f8066cf.jpg" />
+          <div className="product__carousel-status">
+            <div className="ribbon ribbon-top-left">
+              <span>-25%</span>
+            </div>
+            <div className="sample">
+              <div className="sample-ribbon down" style={{ color: "#fd9c2e" }}>
+                <div className="content">Mới</div>
+              </div>
+            </div>
           </div>
-          <div className="product__carousel-action" />
+          <div className="product__carousel-image">
+            <img
+              loading="lazy"
+              src={AOKHOAC4}
+              alt="Khuyến mãi hot của yody"
+              width={count ? "215px" : "255px"}
+              height={count ? "310px" : "380px"}
+            />
+            <div
+              className="product__carousel-action"
+              style={{ width: count ? "215px" : "255px" }}
+            >
+              <Row
+                justify="space-around"
+                align="middle"
+                style={{ height: "100%" }}
+              >
+                <Col
+                  md={12}
+                  style={{
+                    textAlign: "center",
+                    borderRight: "1px solid var(--body-bg)",
+                  }}
+                >
+                  <span>Xem chi tiết</span>
+                  <AiOutlineEye
+                    style={{ fontSize: "20px", paddingLeft: "1px" }}
+                  />
+                </Col>
+                <Col md={12} style={{ textAlign: "center" }}>
+                  <span>Mua ngay</span>
+                  <AiOutlineShoppingCart
+                    style={{ fontSize: "20px", paddingLeft: "1px" }}
+                  />
+                </Col>
+              </Row>
+            </div>
+          </div>
+
+          <div className="product__carousel-footer">
+            <p>Áo khoác gió nam thể thao phối lưng</p>
+            <Row>
+              <Col
+                className="product__carousel-footer-discount"
+                xs={9}
+                sm={9}
+                lg={9}
+                md={9}
+              >
+                399,000đ
+              </Col>
+              <Col
+                className="product__carousel-footer-price"
+                xs={15}
+                sm={15}
+                lg={15}
+                md={15}
+              >
+                549,000đ
+              </Col>
+            </Row>
+          </div>
         </div>
         <div className="product__carousel">
-          <div className="product__carousel-status" />
-          <div className="product__carousel-image">
-            <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/3138/bn/fbfbe175f6de3f8066cf.jpg" />
+          <div className="product__carousel-status">
+            <div className="ribbon ribbon-top-left">
+              <span>-25%</span>
+            </div>
+            <div className="sample">
+              <div className="sample-ribbon down" style={{ color: "#fd9c2e" }}>
+                <div className="content">Mới</div>
+              </div>
+            </div>
           </div>
-          <div className="product__carousel-action" />
+          <div className="product__carousel-image">
+            <img
+              loading="lazy"
+              src={AOKHOAC5}
+              alt="Khuyến mãi hot của yody"
+              width={count ? "215px" : "255px"}
+              height={count ? "310px" : "380px"}
+            />
+            <div
+              className="product__carousel-action"
+              style={{ width: count ? "215px" : "255px" }}
+            >
+              <Row
+                justify="space-around"
+                align="middle"
+                style={{ height: "100%" }}
+              >
+                <Col
+                  md={12}
+                  style={{
+                    textAlign: "center",
+                    borderRight: "1px solid var(--body-bg)",
+                  }}
+                >
+                  <span>Xem chi tiết</span>
+                  <AiOutlineEye
+                    style={{ fontSize: "20px", paddingLeft: "1px" }}
+                  />
+                </Col>
+                <Col md={12} style={{ textAlign: "center" }}>
+                  <span>Mua ngay</span>
+                  <AiOutlineShoppingCart
+                    style={{ fontSize: "20px", paddingLeft: "1px" }}
+                  />
+                </Col>
+              </Row>
+            </div>
+          </div>
+
+          <div className="product__carousel-footer">
+            <p>Áo khoác gió nam thể thao phối lưng</p>
+            <Row>
+              <Col
+                className="product__carousel-footer-discount"
+                xs={9}
+                sm={9}
+                lg={9}
+                md={9}
+              >
+                399,000đ
+              </Col>
+              <Col
+                className="product__carousel-footer-price"
+                xs={15}
+                sm={15}
+                lg={15}
+                md={15}
+              >
+                549,000đ
+              </Col>
+            </Row>
+          </div>
+        </div>
+        <div className="product__carousel">
+          <div className="product__carousel-status">
+            <div className="ribbon ribbon-top-left">
+              <span>-25%</span>
+            </div>
+            <div className="sample">
+              <div className="sample-ribbon down" style={{ color: "#fd9c2e" }}>
+                <div className="content">Mới</div>
+              </div>
+            </div>
+          </div>
+          <div className="product__carousel-image">
+            <img
+              loading="lazy"
+              src={AOKHOAC6}
+              alt="Khuyến mãi hot của yody"
+              width={count ? "215px" : "255px"}
+              height={count ? "310px" : "380px"}
+            />
+            <div
+              className="product__carousel-action"
+              style={{ width: count ? "215px" : "255px" }}
+            >
+              <Row
+                justify="space-around"
+                align="middle"
+                style={{ height: "100%" }}
+              >
+                <Col
+                  md={12}
+                  style={{
+                    textAlign: "center",
+                    borderRight: "1px solid var(--body-bg)",
+                  }}
+                >
+                  <span>Xem chi tiết</span>
+                  <AiOutlineEye
+                    style={{ fontSize: "20px", paddingLeft: "1px" }}
+                  />
+                </Col>
+                <Col md={12} style={{ textAlign: "center" }}>
+                  <span>Mua ngay</span>
+                  <AiOutlineShoppingCart
+                    style={{ fontSize: "20px", paddingLeft: "1px" }}
+                  />
+                </Col>
+              </Row>
+            </div>
+          </div>
+
+          <div className="product__carousel-footer">
+            <p>Áo khoác gió nam thể thao phối lưng</p>
+            <Row>
+              <Col
+                className="product__carousel-footer-discount"
+                xs={9}
+                sm={9}
+                lg={9}
+                md={9}
+              >
+                399,000đ
+              </Col>
+              <Col
+                className="product__carousel-footer-price"
+                xs={15}
+                sm={15}
+                lg={15}
+                md={15}
+              >
+                549,000đ
+              </Col>
+            </Row>
+          </div>
         </div>
       </Slider>
     </div>
@@ -140,11 +553,11 @@ export default styled(List)`
   }
   .product__carousel-image img {
     background: var(--header-menu-detail-light);
-    width: 255px;
-    height: 380px;
+    cursor: pointer;
   }
   .product__carousel-status {
-    position: relative;
+    position: absolute;
+    z-index: 10;
   }
   .ribbon {
     width: 110px;
@@ -243,5 +656,74 @@ export default styled(List)`
   .slick-next:before {
     margin: auto;
     font-size: 40px;
+  }
+  .prevArrow,
+  .nextArrow {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    z-index: 100;
+    top: 35%;
+    background: #8080807a;
+    display: flex;
+    cursor: pointer;
+  }
+  .nextArrow {
+    right: -16px;
+  }
+  .prevArrow {
+    left: -16px;
+  }
+  .nextArrowItem,
+  .prevArrowItem {
+    color: #ffffff80;
+    font-size: 40px;
+    margin: auto;
+  }
+  .nextArrowItem:hover,
+  .prevArrowItem:hover {
+    color: var(--body-bg);
+  }
+  .product__carousel-footer {
+    font-size: 18px;
+  }
+  .product__carousel-footer p {
+    font-size: 1rem;
+    font-weight: 400;
+    width: 92%;
+    padding-top: 20px;
+    text-transform: capitalize;
+  }
+  .product__carousel-footer-discount {
+    font-weight: 600;
+    color: var(--price-color);
+  }
+  .product__carousel-footer-price {
+    text-decoration: line-through;
+    color: var(--header-menu-detail-light);
+    font-weight: 500;
+  }
+  .product__carousel-image {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .product__carousel-action {
+    position: absolute;
+    bottom: 0;
+    background: var(--blue-color-tranparent);
+    width: 255px;
+    height: 45px;
+    color: var(--body-bg);
+    display: none;
+    animation-name: carousel_status;
+    animation-duration: 0.5s;
+  }
+  .product__carousel-action .ant-row .ant-col span {
+    font-weight: 400;
+  }
+  .product__carousel-image:hover .product__carousel-action {
+    display: block;
+    cursor: poiter;
   }
 `;
