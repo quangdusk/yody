@@ -12,6 +12,7 @@ import {
   Breadcrumb,
   Divider,
   Badge,
+  Tag,
 } from "antd";
 import styled from "styled-components";
 import _ from "lodash";
@@ -25,14 +26,26 @@ import {
   VideoCameraOutlined,
   HomeOutlined,
   LogoutOutlined,
+  EnvironmentFilled,
+  PhoneOutlined,
+  MailOutlined,
+  PhoneFilled,
+  MailFilled,
 } from "@ant-design/icons";
+import {
+  BsFillGeoAltFill,
+  BsFillTelephoneFill,
+  BsFillEnvelopeFill,
+  BsFillLightningFill,
+} from "react-icons/bs";
 import { $Cookies } from "../../../utils/cookies";
 import { Ui } from "../../../utils/Ui";
 import { defineMessages, FormattedMessage } from "react-intl";
 import { REACT_APP_URL_ID } from "utils/constants";
 import Globals from "utils/globals";
-import Yody from "images/yody.png";
+
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import BANNERTOP from "images/bannertop.jpg";
 
 // import AppLocale from "../../../languageProvider";
 
@@ -83,71 +96,57 @@ const TopMenu = memo(
         className={classNames({
           [className]: true,
         })}
-        style={{ padding: 0, background: "#fff" }}
+        style={{ padding: 0, background: "var(--body-dark)" }}
       >
-        <div className="headerTop container">
-          <Row gutter={15} className="clearStyle container">
-            <Col md={18} className="customerMenu">
-              <Row justify="start" align="middle" style={{ height: "100%" }}>
-                <Link to="/">Tra cứu đơn hàng</Link>
-                <Link to="/">Tạp trí thời trang</Link>
-                <Link to="/">Liên hệ</Link>
-                <Link className="toUpperCase" to="/">
-                  Hệ thống cửa hàng toàn quốc
-                </Link>
-                <Link className="career" to="/">
-                  Tuyển dụng
-                </Link>
-              </Row>
-            </Col>
-            <Col md={6}>
-              <Row justify="end" align="middle" style={{ height: "100%" }}>
-                <a href="tel:1800 2086">
-                  Hotline: <b>1800 2086</b> (Miễn phí)
-                </a>
-              </Row>
-            </Col>
+        <div className="headerTop">
+          <Row gutter={15} className="clearStyle">
+            <img
+              src={BANNERTOP}
+              alt="Yody sale black friday"
+              style={{ width: "100%" }}
+            />
           </Row>
         </div>
-        <Divider
-          style={{
-            margin: "unset",
-            marginBottom: "10px",
-          }}
-        />
         <div className="headerTop container headerTopFix">
           <Row
             gutter={15}
             className="clearStyle container"
-            justify="space-around"
+            justify="space-between"
             align="middle"
           >
-            <Col md={4} className="logo">
-              <img data-src={Yody} src={Yody} alt="logo-yody" />
-            </Col>
-            <Col md={14} className="header__search">
-              <div className="header__searchbar">
-                <div className="header__searchbar-main">
-                  <Search placeholder="Áo phao mùa đông 2021" enterButton />
-                </div>
-              </div>
-            </Col>
-            <Col md={6}>
-              <Row justify="end" align="middle">
-                <Col>
-                  {/* <Button className="header-height" style={{ marginRight: "10px", fontSize: "20px" }}> */}
-                  <Badge count={99} style={{ marginRight: "30px" }}>
-                    <AiOutlineShoppingCart
-                      style={{ fontSize: "30px", marginRight: "30px" }}
-                    />
-                  </Badge>
-                  {/* </Button> */}
-                </Col>
-                <Col>
-                  <Button className="header-height">Đăng nhập</Button>
-                </Col>
+            <div className="headertop__info">
+              <Row justify="space-around" align="middle">
+                <BsFillGeoAltFill style={{ paddingRight: "6px" }} />
+                <Link to="/">
+                  Tìm <span>150+ </span>cửa hàng
+                </Link>
               </Row>
-            </Col>
+            </div>
+            <div className="headertop__info">
+              <Link to="/quang">
+                <Row justify="space-around" align="middle">
+                  <BsFillTelephoneFill style={{ paddingRight: "6px" }} />
+                  <span>1800 2086</span>&nbsp;
+                  <Tag style={{borderRadius: "30px", marginLeft: "2px"}} className="upperCase" color="#089e29">FREE</Tag>
+                </Row>
+              </Link>
+            </div>
+            <div className="headertop__info">
+              <Row justify="space-around" align="middle">
+                <BsFillEnvelopeFill style={{ paddingRight: "6px" }} />
+                <Link to="/quang">chamsockhachhang@yody.vn</Link>
+              </Row>
+            </div>
+            <div className="headertop__info upperCase">
+              <BsFillLightningFill style={{ fontSize: "24px" }} />
+              <Link to="/quang">FREESHIP ĐƠN HÀNG &gt; 498K</Link>
+            </div>
+            <div className="headertop__info upperCase">
+              <BsFillLightningFill style={{ fontSize: "24px" }} />
+              <Link to="/quang">
+                MIỄN PHÍ ĐỔI TRẢ HÀNG TẠI ĐIỂM BÁN ĐẾN 15 NGÀY
+              </Link>
+            </div>
           </Row>
         </div>
       </Header>
@@ -160,44 +159,6 @@ TopMenu.propTypes = {
 export default styled(TopMenu)`
   background: #fff;
 
-  .customerMenu {
-    height: 40px;
-    .anticon svg {
-      font-size: 20px;
-    }
-  }
-  .customerHome {
-    .anticon svg {
-      font-size: 16px;
-      margin-top: -8px;
-    }
-  }
-  .ant-btn-icon-only * {
-    font-size: 25px;
-    color: #7f7f7f;
-  }
-  .toUpperCase {
-    padding: 0px 5px 0px 5px;
-    background: var(--blue-color);
-    color: var(--yellow-color);
-    font-weight: 600;
-  }
-  .toUpperCase:hover {
-    background: linear-gradient(
-      90deg,
-      var(--blue-color) 32%,
-      var(--yellow-color) 30%
-    );
-    color: var(--body-bg);
-  }
-  .career {
-    color: var(--body-bg);
-    background: red;
-    padding: 0px 5px;
-    animation-name: scaleUp;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-  }
   .logo img {
     height: 65px;
     width: 102px;
@@ -212,14 +173,17 @@ export default styled(TopMenu)`
   .ant-input-group-addon button span {
     font-size: 20px;
   }
-  .header-height, .header-height: hover {
+  .header-height,.header-height: hover {
     margin-top: 3px;
     background: var(--yellow-color);
     color: var(--blue-color);
     font-weight: 600;
   }
-  .customerMenu .ant-row a {
-    margin-right: 15px;
+  .headertop__info.upperCase a {
+    font-weight: 700;
+    font-size: 14px;
   }
-  
+  .headertop__info:hover a {
+    color: var(--body-bg);
+  }
 `;

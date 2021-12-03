@@ -9,7 +9,7 @@ import ErrorBoundary from "react-error-boundary";
 import ServiceBase from "utils/ServiceBase";
 import { browseGlobalConfig, logOut } from "containers/App/actions";
 import { connect } from "react-redux";
-import { Layout } from "antd";
+import { BackTop, Layout } from "antd";
 import styled from "styled-components";
 import { compose } from "recompose";
 import ErrorMessage from "components/ErrorMessage";
@@ -22,6 +22,7 @@ import { Table } from "antd";
 import { $Cookies } from "utils/cookies";
 import { JWT_TOKEN } from "utils/constants";
 import Globals from "utils/globals";
+import { BsArrowUpShort } from "react-icons/bs";
 
 const { Header, Footer, Content, Sider } = Layout;
 const AuthorizedLayout = ({
@@ -58,6 +59,34 @@ const AuthorizedLayout = ({
     onBrowseGlobalConfigRequest();
   }, [onBrowseGlobalConfigRequest]);
 
+  //check handle scroll
+  const [scroll, setScroll] = useState(1);
+  var previousPosition =
+    window.pageYOffset || document.documentElement.scrollTop;
+
+  window.onscroll = function() {
+    var currentPosition =
+      window.pageYOffset || document.documentElement.scrollTop;
+    if (previousPosition > currentPosition) {
+      setScroll(1);
+      console.log("scrolling up");
+    } else {
+      setScroll(2);
+      console.log("scrolling down");
+    }
+    previousPosition = currentPosition;
+  };
+  const style = {
+    height: 40,
+    width: 40,
+    lineHeight: '40px',
+    borderRadius: 4,
+    backgroundColor: 'var(--text-active)',
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 14,
+  };
+
   return (
     <Layout
       className={classNames({
@@ -72,7 +101,11 @@ const AuthorizedLayout = ({
           onLogOut={onLogOut}
           location={location}
         />
-        <SubTopMenu/>
+        <SubTopMenu
+          className={classNames({
+            subTopMenu: scroll == 1 ? true : false,
+          })}
+        />
         <Content
           style={{
             minHeight: 280,
@@ -80,6 +113,9 @@ const AuthorizedLayout = ({
         >
           {children}
         </Content>
+        <BackTop style={style}>
+          <BsArrowUpShort />
+        </BackTop>
       </Layout>
     </Layout>
   );
@@ -106,7 +142,7 @@ export default styled(
   min-height: 100vh;
   header {
     padding: 0;
-    height: 130px;
+    height: 100%;
     line-height: inherit;
   }
   .site-layout-background {
@@ -115,5 +151,15 @@ export default styled(
   .site-layout {
     font-family: Quicksand, sans-serif;
     font-weight: 600;
+  }
+  .subTopMenu {
+    position: sticky;
+    top: 0;
+    z-index: 99;
+    background: var(--body-bg);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+  .ant-back-top svg {
+    font-size: 32px;
   }
 `;

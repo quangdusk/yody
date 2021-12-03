@@ -9,45 +9,40 @@ import banner_hangngay_1 from "images/banner_hangngay_1.jpg";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-// import Slide from "./Slide";
-import flashsale249 from "images/flashsale249.jpg"
-import yodysale from "images/yodysale.jpg"
+import Slide from "./Slide";
 
-const Sale = memo(({ className }) => {
+const Collection = memo(({ className }) => {
   return (
     <div
       className={classNames({
         [className]: true,
       })}
       style={{
-        background: "var(--body-bg)",
-        position: "relative"
+        background: "var(--body-grey)",
+        position: "relative",
+        paddingBottom: "30px",
       }}
     >
       <div className="container">
-        <h3 style={{ color: "var(--price-color)" }}>Yody Sale</h3>
+        <h3 style={{ color: "var(--price-color)" }}>Bộ sưu tập áo khoác</h3>
         <img
-          src={flashsale249}
+          src={banner_hangngay_1}
           width="100%"
           height="390px"
           alt="Bộ sưu tập áo khoác Yody"
           style={{ width: "100%", paddingBottom: "25px" }}
           loading="lazy"
         />
-        <img
-          src={yodysale}
-          width="100%"
-          height="390px"
-          alt="Bộ sưu tập áo khoác Yody"
-          style={{ width: "100%", paddingBottom: "25px" }}
-          loading="lazy"
-        />
+        <Slide count={6} />
+        <Row className="banner__sale-button" align="middle" justify="center">
+          <Button>Xem thêm</Button>
+        </Row>
       </div>
     </div>
   );
 });
 
-export default styled(Sale)`
+export default styled(Collection)`
   .container h3 {
     text-align: center;
     text-transform: uppercase;

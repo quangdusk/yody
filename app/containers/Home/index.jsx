@@ -8,6 +8,8 @@ import Sale from "./Sale";
 import Hot from "./Hot";
 import Man from "./Man";
 import Woman from "./Woman";
+import Collection from "./Collection";
+import Suggest from "./Suggest";
 let time;
 const Home = ({ className }) => {
   const [data, setData] = useState([]);
@@ -46,10 +48,12 @@ const Home = ({ className }) => {
   return (
     <>
         <Banner />
+        <Collection />
         <Sale />
-        <Hot />
+        <Suggest />
+        {/* <Hot />
         <Man />
-        <Woman />
+        <Woman /> */}
     </>
   );
 };

@@ -25,6 +25,8 @@ const Banner = memo(({ className }) => {
         infiniteLoop={true}
         emulateTouch={true}
         showStatus={false}
+        autoPlay={true}
+        interval={3000}
       >
         <div className="banner__image">
           <img loading="lazy" src="https://storage.googleapis.com/cdn.nhanh.vn/store/3138/bn/fbfbe175f6de3f8066cf.jpg" />
