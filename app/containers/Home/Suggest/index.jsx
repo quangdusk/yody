@@ -17,7 +17,7 @@ const Suggest = memo(({ className }) => {
       })}
       style={{
         background: "var(--body-bg)",
-        position: "relative"
+        position: "relative",
       }}
     >
       <div className="container">
@@ -35,6 +35,9 @@ const Suggest = memo(({ className }) => {
           <TabPane tab="Thời trang trẻ em" key={4}>
             <List />
           </TabPane>
+          <TabPane tab="Polo Yody Sale" key={5}>
+            <List />
+          </TabPane>
         </Tabs>
       </div>
     </div>
@@ -49,21 +52,24 @@ export default styled(Suggest)`
     font-size: 22px;
     font-weight: 600;
     color: var(--price-color);
-    padding-bottom: 15px; 
+    padding-bottom: 15px;
   }
   .container small {
-      font-size: 13px;
-      color: var(--header-menu-detail-light);
-      font-weight: 400;
+    font-size: 13px;
+    color: var(--header-menu-detail-light);
+    font-weight: 400;
   }
-  .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn, .ant-tabs-tab:hover. {
+  .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn,
+  .ant-tabs-tab:hover. {
     color: var(--blue-color) !important;
     font-weight: 700;
   }
-  .ant-tabs-tab-btn,
-  .ant-tabs-tab-btn:hover {
-    color: var(--blue-color) !important;
+  .ant-tabs-tab-btn {
+    color: var(--text-color) !important;
     min-width: 50px;
+  }
+  .ant-tabs-tab:hover .ant-tabs-tab-btn {
+    color: var(--body-bg) !important;
   }
   .ant-tabs-tab-btn {
     text-align: center;
@@ -74,15 +80,22 @@ export default styled(Suggest)`
   .ant-tabs-tab {
     margin-left: 5px !important;
   }
-  .ant-tabs-tab-active, .ant-tabs-tab:hover {
-      background: var(--yellow-color)!important;
+  .ant-tabs-tab-active,
+  .ant-tabs-tab:hover {
+    background: var(--price-color) !important;
+  }
+  .ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: var(--body-bg) !important;
   }
   .ant-tabs-content-holder {
-      padding-top: 25px;
-      padding-right: 12px;
-      padding-left: 12px;
+    padding-top: 25px;
+    padding-right: 12px;
+    padding-left: 12px;
   }
   .ant-tabs > .ant-tabs-nav .ant-tabs-nav-operations {
-      display: none;
+    display: none;
+  }
+  .ant-tabs-tab {
+    color: var(--text-color) !important;
   }
 `;

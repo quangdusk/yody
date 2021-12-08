@@ -69,10 +69,8 @@ const AuthorizedLayout = ({
       window.pageYOffset || document.documentElement.scrollTop;
     if (previousPosition > currentPosition) {
       setScroll(1);
-      console.log("scrolling up");
     } else {
       setScroll(2);
-      console.log("scrolling down");
     }
     previousPosition = currentPosition;
   };
@@ -104,6 +102,7 @@ const AuthorizedLayout = ({
         <SubTopMenu
           className={classNames({
             subTopMenu: scroll == 1 ? true : false,
+            subTopMenuUp: scroll == 1 ? false : true
           })}
         />
         <Content
@@ -155,9 +154,17 @@ export default styled(
   .subTopMenu {
     position: sticky;
     top: 0;
-    z-index: 99;
+    z-index: 999;
     background: var(--body-bg);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    animation: animateTopDown 0.4s;
+  }
+  .subTopMenuUp {
+    position: sticky;
+    background: var(--body-bg);
+    z-index: 999;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    animation: animateTopUp 2s;
   }
   .ant-back-top svg {
     font-size: 32px;

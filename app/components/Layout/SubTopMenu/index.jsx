@@ -816,11 +816,4 @@ export default memo(styled(SubTopMenu)`
   .ant-input-search .ant-input:focus {
     border-color: var(--price-color);
   }
-  .subTopMenu {
-    background: var(--body-bg);
-    box-shadow: 0 6px 12px 0 rgb(0 0 0 / 4%);
-    position: sticky;
-    top: 0px;
-    z-index: 99;
-  }
 `);

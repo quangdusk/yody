@@ -11,6 +11,9 @@
   --body-dark: #000;
   --text-active: #ff6200;
   --body-grey: #f8f8f8;
+  --progress-color: rgb(255, 66, 78);
+  --progress-color-light: rgb(255, 170, 175);
+  
 }
 
 @for $i from 0 through 7 {
@@ -313,5 +316,49 @@ span.header__menu-detail-status {
   }
   &.up > .content {
     clip-path: polygon(0 0, 100% 0, calc(100% - 8px) 50%, 100% 100%, 0 100%);
+  }
+}
+.product__carousel-footer-discount {
+  color: var(--price-color);
+}
+.product__carousel-footer-price {
+  color: var(--header-menu-detail-light);
+}
+@keyframes animateTopDown {
+  from {
+    top: -100px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+@keyframes animateTopUp {
+  from {
+    top: 0;
+  }
+  to {
+    top: -100px;
+  }
+}
+@keyframes animateLeft {
+  from {
+    left: -50px;
+    opacity: 0;
+  }
+  to {
+    left: 10px;
+    opacity: 1;
+  }
+}
+@keyframes animateRight {
+  from {
+    right: -50px;
+    opacity: 0;
+  }
+  to {
+    right: 10px;
+    opacity: 1;
   }
 }

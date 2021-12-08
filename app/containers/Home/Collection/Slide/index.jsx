@@ -21,14 +21,14 @@ import {
   AiOutlineEye,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
-import { BsHeart } from "react-icons/bs";
+import { BsHeart, BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
 
 const Slide = memo(({ className, count }) => {
   function SampleNextArrow(props) {
     const { className, style, onClick } = props;
     return (
       <div className="nextArrow">
-        <AiOutlineRight
+        <BsArrowRightShort
           onClick={onClick}
           style={{ ...style, display: "block" }}
           className="nextArrowItem"
@@ -41,7 +41,7 @@ const Slide = memo(({ className, count }) => {
     const { className, style, onClick } = props;
     return (
       <div className="prevArrow">
-        <AiOutlineLeft
+        <BsArrowLeftShort
           onClick={onClick}
           style={{ ...style, display: "block" }}
           className="prevArrowItem"
@@ -106,11 +106,11 @@ const Slide = memo(({ className, count }) => {
         <div className="product__carousel">
           <div className="product__carousel__container">
             <div className="product__carousel-status">
-              <div class="ribbon up">
-                <div class="content">-10%</div>
+              <div className="ribbon up">
+                <div className="content">-10%</div>
               </div>
-              <div class="ribbon_new up">
-                <div class="content">Mới</div>
+              <div className="ribbon_new up">
+                <div className="content">Mới</div>
               </div>
             </div>
             <div className="product__carousel-image">
@@ -161,11 +161,11 @@ const Slide = memo(({ className, count }) => {
         <div className="product__carousel">
           <div className="product__carousel__container">
             <div className="product__carousel-status">
-              <div class="ribbon_new up">
-                <div class="content">Mới</div>
+              <div className="ribbon_new up">
+                <div className="content">Mới</div>
               </div>
-              <div class="ribbon up">
-                <div class="content">-10%</div>
+              <div className="ribbon up">
+                <div className="content">-10%</div>
               </div>
             </div>
 
@@ -217,11 +217,11 @@ const Slide = memo(({ className, count }) => {
         <div className="product__carousel">
           <div className="product__carousel__container">
             <div className="product__carousel-status">
-              <div class="ribbon_new up">
-                <div class="content">Mới</div>
+              <div className="ribbon_new up">
+                <div className="content">Mới</div>
               </div>
-              <div class="ribbon up">
-                <div class="content">-10%</div>
+              <div className="ribbon up">
+                <div className="content">-10%</div>
               </div>
             </div>
 
@@ -273,11 +273,67 @@ const Slide = memo(({ className, count }) => {
         <div className="product__carousel">
           <div className="product__carousel__container">
             <div className="product__carousel-status">
-              <div class="ribbon_new up">
-                <div class="content">Mới</div>
+              <div className="ribbon_new up">
+                <div className="content">Mới</div>
               </div>
-              <div class="ribbon up">
-                <div class="content">-10%</div>
+              <div className="ribbon up">
+                <div className="content">-10%</div>
+              </div>
+            </div>
+
+            <div className="product__carousel-image">
+              <img
+                loading="lazy"
+                src={AOKHOAC3}
+                alt="Khuyến mãi hot của yody"
+                width={count ? "190px" : "255px"}
+                height={count ? "250px" : "380px"}
+              />
+            </div>
+            <div className="product__carousel-love">
+              <BsHeart />
+            </div>
+            <div className="product__carousel-hot">
+              <img
+                src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                alt="Sản phẩm hot của Yody"
+              />
+            </div>
+            <div className="product__carousel-footer">
+              <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                <p>Áo khoác gió nam thể thao phối lưng</p>
+              </Tooltip>
+              <Row>
+                <Col
+                  className="product__carousel-footer-discount"
+                  xs={9}
+                  sm={9}
+                  lg={9}
+                  md={9}
+                >
+                  399,000đ
+                </Col>
+                <Col
+                  className="product__carousel-footer-price"
+                  xs={15}
+                  sm={15}
+                  lg={15}
+                  md={15}
+                >
+                  549,000đ
+                </Col>
+              </Row>
+            </div>
+          </div>
+        </div>
+        <div className="product__carousel">
+          <div className="product__carousel__container">
+            <div className="product__carousel-status">
+              <div className="ribbon_new up">
+                <div className="content">Mới</div>
+              </div>
+              <div className="ribbon up">
+                <div className="content">-10%</div>
               </div>
             </div>
 
@@ -329,11 +385,11 @@ const Slide = memo(({ className, count }) => {
         <div className="product__carousel">
           <div className="product__carousel__container">
             <div className="product__carousel-status">
-              <div class="ribbon_new up">
-                <div class="content">Mới</div>
+              <div className="ribbon_new up">
+                <div className="content">Mới</div>
               </div>
-              <div class="ribbon up">
-                <div class="content">-10%</div>
+              <div className="ribbon up">
+                <div className="content">-10%</div>
               </div>
             </div>
 
@@ -385,11 +441,11 @@ const Slide = memo(({ className, count }) => {
         <div className="product__carousel">
           <div className="product__carousel__container">
             <div className="product__carousel-status">
-              <div class="ribbon_new up">
-                <div class="content">Mới</div>
+              <div className="ribbon_new up">
+                <div className="content">Mới</div>
               </div>
-              <div class="ribbon up">
-                <div class="content">-10%</div>
+              <div className="ribbon up">
+                <div className="content">-10%</div>
               </div>
             </div>
 
@@ -448,11 +504,9 @@ export default styled(Slide)`
     font-weight: 600;
   }
   .product__carousel-image {
-    cursor: pointer;
-  }
-  .product__carousel-image {
     position: relative;
     overflow: hidden;
+    cursor: pointer;
   }
   .product__carousel-image:hover img {
     transform: scale(1.2);
@@ -473,6 +527,8 @@ export default styled(Slide)`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    padding: 10px 0px 2px 0px;
+    margin-bottom: 0px;
   }
   .product__carousel-love {
     width: 26px;
@@ -499,7 +555,7 @@ export default styled(Slide)`
     width: 30px;
   }
   .product__carousel-footer-price {
-    text-decoratio n: line-through;
+    text-decoration: line-through;
   } 
   .slick-slide:nth-child(1) .product__carousel__container {
     padding-left: 0px!important;
@@ -507,4 +563,34 @@ export default styled(Slide)`
   .slick-slide:nth-child(6) .product__carousel__container {
     padding-right: 0px!important;
   } 
+  .product__carousel-footer:hover p {
+    cursor: pointer;
+    color: var(--price-color);
+  }
+  .prevArrow, .nextArrow {
+    position: absolute;
+    z-index: 10;
+    top: 35%;
+    font-size: 30px;
+    border-radius: 50%;
+    background: var(--progress-color-light);
+    color: var(--progress-color);
+    display: none;
+    cursor: pointer;
+  }
+  .nextArrow {
+    right: 10px;
+  }
+  .prevArrow {
+    left: 10px;
+  }
+  .slick-slider:hover .nextArrow, .slick-slider:hover .prevArrow {
+    display: block;
+  }
+  .slick-slider:hover .nextArrow {
+    animation: animateRight 1s;
+  }
+  .slick-slider:hover .prevArrow {
+    animation: animateLeft 1s;
+  }
 `;
