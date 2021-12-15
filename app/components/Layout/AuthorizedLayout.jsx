@@ -16,7 +16,7 @@ import ErrorMessage from "components/ErrorMessage";
 import TopMenu from "./TopMenu";
 import BottomMenu from "./BottomMenu";
 import SubTopMenu from "./SubTopMenu";
-import SideBar from "./SideBar";
+import Footer from "./Footer";
 import classNames from "classnames";
 import { Table } from "antd";
 import { $Cookies } from "utils/cookies";
@@ -24,7 +24,7 @@ import { JWT_TOKEN } from "utils/constants";
 import Globals from "utils/globals";
 import { BsArrowUpShort } from "react-icons/bs";
 
-const { Header, Footer, Content, Sider } = Layout;
+const { Header, Content, Sider } = Layout;
 const AuthorizedLayout = ({
   className,
   location,
@@ -112,6 +112,7 @@ const AuthorizedLayout = ({
         >
           {children}
         </Content>
+        <Footer />
         <BackTop style={style}>
           <BsArrowUpShort />
         </BackTop>

@@ -20,26 +20,36 @@ const Suggest = memo(({ className }) => {
         position: "relative",
       }}
     >
-      <div className="container">
-        <h3>Đề xuất cho bạn</h3>
-        <Tabs defaultActiveKey={1} type="card">
-          <TabPane tab="Bán chạy nhất" key={1}>
-            <List />
-          </TabPane>
-          <TabPane tab="Thời trang nam" key={2}>
-            <List />
-          </TabPane>
-          <TabPane tab="Thời trang nữ" key={3}>
-            <List />
-          </TabPane>
-          <TabPane tab="Thời trang trẻ em" key={4}>
-            <List />
-          </TabPane>
-          <TabPane tab="Polo Yody Sale" key={5}>
-            <List />
-          </TabPane>
-        </Tabs>
-      </div>
+      <h3
+        style={{
+          textAlign: "center",
+          textTransform: "uppercase",
+          fontWeight: 600,
+          color: "var(--price-color)",
+        }}
+      >
+        Đề xuất cho bạn
+      </h3>
+      <Tabs defaultActiveKey={1} type="card">
+        <TabPane tab="Bán chạy nhất" key={1}>
+          <List />
+        </TabPane>
+        <TabPane tab="Thời trang nam" key={2}>
+          <List />
+        </TabPane>
+        <TabPane tab="Thời trang nữ" key={3}>
+          <List />
+        </TabPane>
+        <TabPane tab="Thời trang trẻ em" key={4}>
+          <List />
+        </TabPane>
+        <TabPane tab="Polo Yody Sale" key={5}>
+          <List />
+        </TabPane>
+      </Tabs>
+      <Row className="banner__sale-button" align="middle" justify="center">
+        <Button>Xem thêm</Button>
+      </Row>
     </div>
   );
 });
@@ -97,5 +107,18 @@ export default styled(Suggest)`
   }
   .ant-tabs-tab {
     color: var(--text-color) !important;
+  }
+  .banner__sale-button button {
+    height: 50px;
+    width: 285px;
+    background: var(--price-color);
+    color: var(--body-bg);
+    border: 1px solid var(--price-color);
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .banner__sale-button button:hover {
+    background: var(--body-bg);
+    color: var(--price-color);
   }
 `;

@@ -176,6 +176,15 @@
 .header__menu a {
   padding: 0px 15px;
 }
+.header__menu-mobile:nth-child(1) {
+  padding: 0px !important;
+}
+.header__menu-mobile {
+  padding: 5px 20px;
+}
+.header__menu-mobile a {
+  font-size: 18px;
+}
 .header__menu.active a span {
   color: var(--text-active);
 }
@@ -358,7 +367,13 @@ span.header__menu-detail-status {
     opacity: 0;
   }
   to {
-    right: 10px;
+    right: 24px;
     opacity: 1;
   }
+}
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: var(--price-color) !important;
+}
+.ant-tabs-ink-bar {
+  background: var(--price-color) !important;
 }

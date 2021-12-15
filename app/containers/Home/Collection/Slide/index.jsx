@@ -1,11 +1,9 @@
-import { Row, Col, Button, Tabs, Tooltip } from "antd";
+import { Row, Col, Tooltip } from "antd";
 import "antd/dist/antd.css";
 import React, { memo, useEffect, useState } from "react";
 import styled from "styled-components";
 import classNames from "classnames";
-import { AiOutlineCaretLeft } from "react-icons/ai";
 import _ from "lodash";
-import banner_hangngay_1 from "images/banner_hangngay_1.jpg";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -15,12 +13,6 @@ import AOKHOAC3 from "images/AOKHOAC3.jpg";
 import AOKHOAC4 from "images/AOKHOAC4.jpg";
 import AOKHOAC5 from "images/AOKHOAC5.jpg";
 import AOKHOAC6 from "images/AOKHOAC6.jpg";
-import {
-  AiOutlineLeft,
-  AiOutlineRight,
-  AiOutlineEye,
-  AiOutlineShoppingCart,
-} from "react-icons/ai";
 import { BsHeart, BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
 
 const Slide = memo(({ className, count }) => {

@@ -1,4 +1,4 @@
-import { Row, Col, Progress, Tooltip } from "antd";
+import { Row, Col, Progress, Tooltip, Button } from "antd";
 import "antd/dist/antd.css";
 import React, { memo, useEffect, useState } from "react";
 import styled from "styled-components";
@@ -18,39 +18,24 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Suggest = memo(({ className }) => {
+  const [image, setImage] = useState({
+    url: undefined,
+    key: undefined
+  });
+  const __handleChangeImage = (image, key) => {
+    setImage((preState) => {
+      let nextState = {...preState}
+      nextState.url = image
+      nextState.key = key
+      return nextState
+    });
+  };
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 1,
-    initialSlide: 0,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: false,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
   };
   return (
     <div
@@ -63,7 +48,7 @@ const Suggest = memo(({ className }) => {
       }}
     >
       <div className="container">
-        <Row>
+        <Row justify="space-between">
           <Col>
             <div className="product__carousel">
               <div className="product__carousel__container">
@@ -78,7 +63,7 @@ const Suggest = memo(({ className }) => {
                 <div className="product__carousel-image">
                   <img
                     loading="lazy"
-                    src={AOKHOAC1}
+                    src={image.key == 1 ? image.url : AOKHOAC1}
                     alt="Khuyến mãi hot của yody"
                     width="190px"
                     height="310px"
@@ -115,35 +100,82 @@ const Suggest = memo(({ className }) => {
                     </Col>
                   </Row>
                 </div>
-                <Row className="product__carousel-option">
-                  <img
-                    loading="lazy"
-                    src={AOKHOAC1}
-                    alt="Khuyến mãi hot của yody"
-                    width="190px"
-                    height="310px"
-                  />
-                  <img
-                    loading="lazy"
-                    src={AOKHOAC2}
-                    alt="Khuyến mãi hot của yody"
-                    width="190px"
-                    height="310px"
-                  />
-                </Row>
-                {/* <Row className="product__carousel-option">
+                <div className="product__carousel-option">
                   <Slider {...settings}>
-                    <div className="product__carousel-option-icon">
+                    <Button type="link">
                       <img
                         loading="lazy"
                         src={AOKHOAC1}
                         alt="Khuyến mãi hot của yody"
-                        width="190px"
-                        height="310px"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 1)}
                       />
-                    </div>
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC2}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC2, 1)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC3}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC3, 1)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC4}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC4, 1)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC5}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC5, 1)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC6}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC6, 1)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 1)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 1)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 1)}
+                      />
+                    </Button>
                   </Slider>
-                </Row> */}
+                </div>
               </div>
             </div>
           </Col>
@@ -158,11 +190,10 @@ const Suggest = memo(({ className }) => {
                     <div className="content">-10%</div>
                   </div>
                 </div>
-
                 <div className="product__carousel-image">
                   <img
                     loading="lazy"
-                    src={AOKHOAC2}
+                    src={image.key == 2 ? image.url : AOKHOAC2}
                     alt="Khuyến mãi hot của yody"
                     width="190px"
                     height="310px"
@@ -199,6 +230,82 @@ const Suggest = memo(({ className }) => {
                     </Col>
                   </Row>
                 </div>
+                <div className="product__carousel-option">
+                  <Slider {...settings}>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 2)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC2}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 2)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC3}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC3, 2)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC4}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC4, 2)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC5}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC5, 2)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC6}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC6, 2)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 2)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 2)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 2)}
+                      />
+                    </Button>
+                  </Slider>
+                </div>
               </div>
             </div>
           </Col>
@@ -213,11 +320,10 @@ const Suggest = memo(({ className }) => {
                     <div className="content">-10%</div>
                   </div>
                 </div>
-
                 <div className="product__carousel-image">
                   <img
                     loading="lazy"
-                    src={AOKHOAC3}
+                    src={image.key == 3 ? image.url : AOKHOAC2}
                     alt="Khuyến mãi hot của yody"
                     width="190px"
                     height="310px"
@@ -254,6 +360,82 @@ const Suggest = memo(({ className }) => {
                     </Col>
                   </Row>
                 </div>
+                <div className="product__carousel-option">
+                  <Slider {...settings}>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 3)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC2}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 3)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC3}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC3, 3)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC4}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC4, 3)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC5}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC5, 3)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC6}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC6, 3)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 3)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 3)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 3)}
+                      />
+                    </Button>
+                  </Slider>
+                </div>
               </div>
             </div>
           </Col>
@@ -268,11 +450,10 @@ const Suggest = memo(({ className }) => {
                     <div className="content">-10%</div>
                   </div>
                 </div>
-
                 <div className="product__carousel-image">
                   <img
                     loading="lazy"
-                    src={AOKHOAC4}
+                    src={image.key == 4 ? image.url : AOKHOAC2}
                     alt="Khuyến mãi hot của yody"
                     width="190px"
                     height="310px"
@@ -309,6 +490,82 @@ const Suggest = memo(({ className }) => {
                     </Col>
                   </Row>
                 </div>
+                <div className="product__carousel-option">
+                  <Slider {...settings}>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 4)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC2}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 4)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC3}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC3, 4)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC4}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC4, 4)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC5}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC5, 4)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC6}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC6, 4)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 4)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 4)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 4)}
+                      />
+                    </Button>
+                  </Slider>
+                </div>
               </div>
             </div>
           </Col>
@@ -323,11 +580,10 @@ const Suggest = memo(({ className }) => {
                     <div className="content">-10%</div>
                   </div>
                 </div>
-
                 <div className="product__carousel-image">
                   <img
                     loading="lazy"
-                    src={AOKHOAC5}
+                    src={image.key == 5 ? image.url : AOKHOAC2}
                     alt="Khuyến mãi hot của yody"
                     width="190px"
                     height="310px"
@@ -364,6 +620,82 @@ const Suggest = memo(({ className }) => {
                     </Col>
                   </Row>
                 </div>
+                <div className="product__carousel-option">
+                  <Slider {...settings}>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 5)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC2}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 5)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC3}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC3, 5)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC4}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC4, 5)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC5}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC5, 5)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC6}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC6, 5)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 5)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 5)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 5)}
+                      />
+                    </Button>
+                  </Slider>
+                </div>
               </div>
             </div>
           </Col>
@@ -378,11 +710,10 @@ const Suggest = memo(({ className }) => {
                     <div className="content">-10%</div>
                   </div>
                 </div>
-
                 <div className="product__carousel-image">
                   <img
                     loading="lazy"
-                    src={AOKHOAC6}
+                    src={image.key == 7 ? image.url : AOKHOAC2}
                     alt="Khuyến mãi hot của yody"
                     width="190px"
                     height="310px"
@@ -419,6 +750,82 @@ const Suggest = memo(({ className }) => {
                     </Col>
                   </Row>
                 </div>
+                <div className="product__carousel-option">
+                  <Slider {...settings}>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 7)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC2}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 7)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC3}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC3, 7)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC4}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC4, 7)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC5}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC5, 7)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC6}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC6, 7)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 7)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 7)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 7)}
+                      />
+                    </Button>
+                  </Slider>
+                </div>
               </div>
             </div>
           </Col>
@@ -433,11 +840,10 @@ const Suggest = memo(({ className }) => {
                     <div className="content">-10%</div>
                   </div>
                 </div>
-
                 <div className="product__carousel-image">
                   <img
                     loading="lazy"
-                    src={AOKHOAC4}
+                    src={image.key == 8 ? image.url : AOKHOAC2}
                     alt="Khuyến mãi hot của yody"
                     width="190px"
                     height="310px"
@@ -473,6 +879,472 @@ const Suggest = memo(({ className }) => {
                       549,000đ
                     </Col>
                   </Row>
+                </div>
+                <div className="product__carousel-option">
+                  <Slider {...settings}>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 8)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC2}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 8)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC3}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC3, 8)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC4}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC4, 8)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC5}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC5, 8)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC6}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC6, 8)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 8)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 8)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 8)}
+                      />
+                    </Button>
+                  </Slider>
+                </div>
+              </div>
+            </div>
+          </Col>
+          <Col>
+            <div className="product__carousel">
+              <div className="product__carousel__container">
+                <div className="product__carousel-status">
+                  <div className="ribbon_new up">
+                    <div className="content">Mới</div>
+                  </div>
+                  <div className="ribbon up">
+                    <div className="content">-10%</div>
+                  </div>
+                </div>
+                <div className="product__carousel-image">
+                  <img
+                    loading="lazy"
+                    src={image.key == 9 ? image.url : AOKHOAC2}
+                    alt="Khuyến mãi hot của yody"
+                    width="190px"
+                    height="310px"
+                  />
+                </div>
+                <div className="product__carousel-love">
+                  <BsHeart />
+                </div>
+                <div className="product__carousel-hot">
+                  <img src={FireIcon} alt="Sản phẩm hot của Yody" />
+                </div>
+                <div className="product__carousel-footer">
+                  <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                    <p>Áo khoác gió nam thể thao phối lưng</p>
+                  </Tooltip>
+                  <Row>
+                    <Col
+                      className="product__carousel-footer-discount"
+                      xs={10}
+                      sm={10}
+                      lg={10}
+                      md={10}
+                    >
+                      399,000đ
+                    </Col>
+                    <Col
+                      className="product__carousel-footer-price"
+                      xs={14}
+                      sm={14}
+                      lg={14}
+                      md={14}
+                    >
+                      549,000đ
+                    </Col>
+                  </Row>
+                </div>
+                <div className="product__carousel-option">
+                  <Slider {...settings}>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 9)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC2}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 9)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC3}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC3, 9)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC4}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC4, 9)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC5}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC5, 9)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC6}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC6, 9)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 9)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 9)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 9)}
+                      />
+                    </Button>
+                  </Slider>
+                </div>
+              </div>
+            </div>
+          </Col>
+          <Col>
+            <div className="product__carousel">
+              <div className="product__carousel__container">
+                <div className="product__carousel-status">
+                  <div className="ribbon_new up">
+                    <div className="content">Mới</div>
+                  </div>
+                  <div className="ribbon up">
+                    <div className="content">-10%</div>
+                  </div>
+                </div>
+                <div className="product__carousel-image">
+                  <img
+                    loading="lazy"
+                    src={image.key == 10 ? image.url : AOKHOAC2}
+                    alt="Khuyến mãi hot của yody"
+                    width="190px"
+                    height="310px"
+                  />
+                </div>
+                <div className="product__carousel-love">
+                  <BsHeart />
+                </div>
+                <div className="product__carousel-hot">
+                  <img src={FireIcon} alt="Sản phẩm hot của Yody" />
+                </div>
+                <div className="product__carousel-footer">
+                  <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                    <p>Áo khoác gió nam thể thao phối lưng</p>
+                  </Tooltip>
+                  <Row>
+                    <Col
+                      className="product__carousel-footer-discount"
+                      xs={10}
+                      sm={10}
+                      lg={10}
+                      md={10}
+                    >
+                      399,000đ
+                    </Col>
+                    <Col
+                      className="product__carousel-footer-price"
+                      xs={14}
+                      sm={14}
+                      lg={14}
+                      md={14}
+                    >
+                      549,000đ
+                    </Col>
+                  </Row>
+                </div>
+                <div className="product__carousel-option">
+                  <Slider {...settings}>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 10)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC2}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 10)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC3}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC3, 10)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC4}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC4, 10)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC5}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC5, 10)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC6}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC6, 10)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 10)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 10)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 10)}
+                      />
+                    </Button>
+                  </Slider>
+                </div>
+              </div>
+            </div>
+          </Col>
+          <Col>
+            <div className="product__carousel">
+              <div className="product__carousel__container">
+                <div className="product__carousel-status">
+                  <div className="ribbon_new up">
+                    <div className="content">Mới</div>
+                  </div>
+                  <div className="ribbon up">
+                    <div className="content">-10%</div>
+                  </div>
+                </div>
+                <div className="product__carousel-image">
+                  <img
+                    loading="lazy"
+                    src={image.key == 11 ? image.url : AOKHOAC2}
+                    alt="Khuyến mãi hot của yody"
+                    width="190px"
+                    height="310px"
+                  />
+                </div>
+                <div className="product__carousel-love">
+                  <BsHeart />
+                </div>
+                <div className="product__carousel-hot">
+                  <img src={FireIcon} alt="Sản phẩm hot của Yody" />
+                </div>
+                <div className="product__carousel-footer">
+                  <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                    <p>Áo khoác gió nam thể thao phối lưng</p>
+                  </Tooltip>
+                  <Row>
+                    <Col
+                      className="product__carousel-footer-discount"
+                      xs={10}
+                      sm={10}
+                      lg={10}
+                      md={10}
+                    >
+                      399,000đ
+                    </Col>
+                    <Col
+                      className="product__carousel-footer-price"
+                      xs={14}
+                      sm={14}
+                      lg={14}
+                      md={14}
+                    >
+                      549,000đ
+                    </Col>
+                  </Row>
+                </div>
+                <div className="product__carousel-option">
+                  <Slider {...settings}>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 11)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC2}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 11)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC3}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC3, 11)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC4}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC4, 11)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC5}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC5, 11)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC6}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC6, 11)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 11)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 11)}
+                      />
+                    </Button>
+                    <Button type="link">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC1}
+                        alt="Khuyến mãi hot của yody"
+                        onClick={() => __handleChangeImage(AOKHOAC1, 11)}
+                      />
+                    </Button>
+                  </Slider>
                 </div>
               </div>
             </div>
@@ -502,6 +1374,7 @@ export default styled(Suggest)`
   .product__carousel {
     max-width: 230px;
     padding-bottom: 30px;
+    overflow: hidden;
   }
   .product__carousel-image {
     position: relative;
@@ -520,9 +1393,6 @@ export default styled(Suggest)`
   .product__carousel-status {
     position: absolute;
     z-index: 10;
-  }
-  .product__carousel__container {
-    padding: 0px 10px;
   }
   .product__carousel-footer p {
     white-space: nowrap;
@@ -566,6 +1436,9 @@ export default styled(Suggest)`
   .product__carousel-footer span {
     font-size: 12px;
     color: var(--body-bg);
+  }
+  .product__carousel-option {
+    margin-left: -15px;
   }
   .product__carousel-option img {
     width: 30px;

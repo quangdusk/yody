@@ -961,7 +961,7 @@ export default styled(FlashSale)`
     width: 100%;
     left: 0;
     text-align: center;
-    margin-top: 12px;
+    margin-top: 11px;
   }
   .product__carousel-footer span {
     font-size: 12px;

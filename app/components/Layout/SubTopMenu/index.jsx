@@ -1,8 +1,19 @@
 /* eslint-disable no-underscore-dangle */
 import PropTypes from "prop-types";
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import styled from "styled-components";
-import { Breadcrumb, Col, Popover, Row, Input, Badge } from "antd";
+import {
+  Select,
+  Col,
+  Popover,
+  Row,
+  Input,
+  Badge,
+  Drawer,
+  Space,
+  Button,
+  Tabs,
+} from "antd";
 import { Link } from "react-router-dom";
 import { defineMessages, FormattedMessage } from "react-intl";
 import * as style from "components/Variables";
@@ -22,8 +33,11 @@ import Collect2 from "images/collect2.jpg";
 import Collect3 from "images/collect3.jpg";
 import Collect4 from "images/collect4.jpg";
 import Endow from "images/endow.jpg";
+import { RightOutlined, SearchOutlined } from "@ant-design/icons";
+import { AiOutlineBars } from "react-icons/ai";
 
 const { Search } = Input;
+const { TabPane } = Tabs;
 function SubTopMenu({ className, pathName }) {
   const _messages = defineMessages({
     moduleName: {
@@ -652,131 +666,466 @@ function SubTopMenu({ className, pathName }) {
     );
   };
 
+  var isMobile = {
+    Android: function() {
+      return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+      return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+      return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+      return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function() {
+      return (
+        isMobile.Android() ||
+        isMobile.BlackBerry() ||
+        isMobile.iOS() ||
+        isMobile.Opera() ||
+        isMobile.Windows()
+      );
+    },
+  };
+
+  const [isShow, setIsShow] = useState(false);
+  const [isShowChild, setIsShowChild] = useState({
+    visible: false,
+    key: undefined,
+  });
+
+  const __handleShowMenu = () => {
+    setIsShow(true);
+  };
+  const __handleShowMenuChild = () => {
+    setIsShowChild((preState) => {
+      let nextState = { ...preState };
+      nextState.visible = true;
+      return nextState;
+    });
+  };
+  const onClose = () => {
+    setIsShow(false);
+  };
+  const onCloseChild = () => {
+    setIsShowChild((preState) => {
+      let nextState = { ...preState };
+      nextState.visible = false;
+      return nextState;
+    });
+  };
+
   return (
     <div
       className={classNames({
         [className]: true,
       })}
     >
-      <Row
-        className="container"
-        justify="start"
-        align="middle"
-        style={{ paddingLeft: "10px", height: "51px", paddingRight: "0px" }}
-      >
-        <Col md={2}>
-          <Link to="/">
-            <img src={Yody} alt="YODY - LOOK GOOD, FEEL GOOD" height="36px" />
-          </Link>
-        </Col>
-        <Col md={14} style={{ height: "100%" }}>
+      <Drawer
+        title={
           <Row justify="start" align="middle">
-            <div className="header__menu active">
-              <Link to="/">
-                <span>Mua sắm</span>
-              </Link>
+            <Tabs defaultActiveKey="1">
+              <TabPane tab="Mua sắm" key="1">
+                <Row align="center" justify="space-between">
+                  <span>Mua theo giá cả</span>
+                  <RightOutlined onClick={() => __handleShowMenuChild()} />
+                  <Drawer
+                    title="Mua theo giá cả"
+                    width={320}
+                    closable={false}
+                    onClose={onCloseChild}
+                    visible={isShowChild.visible}
+                  >
+                    Mua theo giá cả
+                  </Drawer>
+                </Row>
+                <Row align="center" justify="space-between">
+                  <span>YODY Collection</span>
+                  <RightOutlined onClick={() => __handleShowMenuChild()} />
+                  <Drawer
+                    title="YODY Collection"
+                    width={320}
+                    closable={false}
+                    onClose={onCloseChild}
+                    visible={isShowChild.visible}
+                    closable={true}
+                  >
+                    YODY Collection
+                  </Drawer>
+                </Row>
+                <Row align="center" justify="space-between">
+                  <span>Khuyến mãi</span>
+                  <RightOutlined onClick={() => __handleShowMenuChild()} />
+                  <Drawer
+                    title="Khuyến mãi"
+                    width={320}
+                    closable={false}
+                    onClose={onCloseChild}
+                    visible={isShowChild.visible}
+                    closable={true}
+                  >
+                    Khuyến mãi
+                  </Drawer>
+                </Row>
+              </TabPane>
+              <TabPane tab="Nam" key="3">
+                <Row justify="space-between" align="middle" style={{paddingBottom: "10px"}}>
+                  <span>
+                    <img
+                      src="https://bizweb.dktcdn.net/100/438/408/collections/ao.jpg?v=1636387349187"
+                      width="58px"
+                      height="58px"
+                      style={{ borderRadius: "50%" }}
+                      loading="lazy"
+                      alt=""
+                    />{" "}
+                    Áo
+                  </span>
+                  <RightOutlined onClick={() => __handleShowMenuChild()} />
+                  <Drawer
+                    title="Mua theo giá cả"
+                    width={320}
+                    closable={false}
+                    onClose={onCloseChild}
+                    visible={isShowChild.visible}
+                  >
+                    Mua theo giá cả
+                  </Drawer>
+                </Row>
+                <Row align="middle" justify="space-between" style={{paddingBottom: "10px"}}>
+                  <span>
+                    <img
+                      src="https://bizweb.dktcdn.net/100/438/408/collections/ao.jpg?v=1636387349187"
+                      width="58px"
+                      height="58px"
+                      style={{ borderRadius: "50%" }}
+                      loading="lazy"
+                      alt=""
+                    />{" "}
+                    Quần
+                  </span>
+                  <RightOutlined onClick={() => __handleShowMenuChild()} />
+                  <Drawer
+                    title="YODY Collection"
+                    width={320}
+                    closable={false}
+                    onClose={onCloseChild}
+                    visible={isShowChild.visible}
+                    closable={true}
+                  >
+                    Đồ mặc nhà
+                  </Drawer>
+                </Row>
+                <Row align="middle" justify="space-between" style={{paddingBottom: "10px"}}>
+                  <span>
+                    <img
+                      src="https://bizweb.dktcdn.net/100/438/408/collections/ao.jpg?v=1636387349187"
+                      width="58px"
+                      height="58px"
+                      style={{ borderRadius: "50%" }}
+                      loading="lazy"
+                      alt=""
+                    />{" "}
+                    Đồ mặc nhà
+                  </span>
+                  <RightOutlined onClick={() => __handleShowMenuChild()} />
+                  <Drawer
+                    title="Khuyến mãi"
+                    width={320}
+                    closable={false}
+                    onClose={onCloseChild}
+                    visible={isShowChild.visible}
+                    closable={true}
+                  >
+                    Khuyến mãi
+                  </Drawer>
+                </Row>
+                <Row align="middle" justify="space-between" style={{paddingBottom: "10px"}}>
+                  <span>
+                    <img
+                      src="https://bizweb.dktcdn.net/100/438/408/collections/ao.jpg?v=1636387349187"
+                      width="58px"
+                      height="58px"
+                      style={{ borderRadius: "50%" }}
+                      loading="lazy"
+                      alt=""
+                    />{" "}
+                    Đồ mặc trong
+                  </span>
+                  <RightOutlined onClick={() => __handleShowMenuChild()} />
+                  <Drawer
+                    title="Khuyến mãi"
+                    width={320}
+                    closable={false}
+                    onClose={onCloseChild}
+                    visible={isShowChild.visible}
+                    closable={true}
+                  >
+                    Khuyến mãi
+                  </Drawer>
+                </Row>
+                <Row align="middle" justify="space-between" style={{paddingBottom: "10px"}}>
+                  <span>
+                    <img
+                      src="https://bizweb.dktcdn.net/100/438/408/collections/ao.jpg?v=1636387349187"
+                      width="58px"
+                      height="58px"
+                      style={{ borderRadius: "50%" }}
+                      loading="lazy"
+                      alt=""
+                    />{" "}
+                    Phụ kiện
+                  </span>
+                  <RightOutlined onClick={() => __handleShowMenuChild()} />
+                  <Drawer
+                    title="Khuyến mãi"
+                    width={320}
+                    closable={false}
+                    onClose={onCloseChild}
+                    visible={isShowChild.visible}
+                    closable={true}
+                  >
+                    Khuyến mãi
+                  </Drawer>
+                </Row>
+              </TabPane>
+              <TabPane tab="Nữ" key="4">
+                Content of Tab Pane 3
+              </TabPane>
+              <TabPane tab="Trẻ em" key="5">
+                Content of Tab Pane 3
+              </TabPane>
+              <TabPane tab="Bộ sưu tập" key="6">
+                Content of Tab Pane 3
+              </TabPane>
+              <TabPane tab="Ưu đãi" key="7">
+                Content of Tab Pane 3
+              </TabPane>
+            </Tabs>
+          </Row>
+        }
+        placement="left"
+        width="80%"
+        onClose={onClose}
+        visible={isShow}
+        closable={false}
+      />
+      {isMobile.any() ? (
+        <Row
+          className="container"
+          justify="start"
+          align="middle"
+          style={{ paddingLeft: "10px", height: "100%", paddingRight: "0px" }}
+        >
+          <Col sm={4} xs={4} style={{ paddingTop: "8px" }}>
+            <Link to="/">
+              <img src={Yody} alt="YODY - LOOK GOOD, FEEL GOOD" height="36px" />
+            </Link>
+          </Col>
+          <Col sm={15} xs={15} style={{ paddingTop: "8px" }}>
+            <div className="header__searchbar">
+              <div className="header__searchbar-main header__searchbar-main-mobile">
+                <Select
+                  placeholder={
+                    <React.Fragment>
+                      <SearchOutlined className="header__search__icon" />
+                      &nbsp; Search...
+                    </React.Fragment>
+                  }
+                  suffixIcon={false}
+                >
+                  <Option value={1}>Item 1</Option>
+                  <Option value={2}>Item 2</Option>
+                </Select>
+              </div>
             </div>
-            <div className="header__menu">
-              <Popover
-                placement="bottomRight"
-                title={false}
-                content={menuMan}
-                trigger="hover"
-                style={{ width: "80%" }}
-              >
+          </Col>
+          <Col sm={4} xs={4} style={{ paddingTop: "8px" }}>
+            <Row
+              type="flex"
+              justify="space-around"
+              style={{ marginRight: "-10px" }}
+            >
+              <Badge count={99}>
+                <BsHandbag style={{ fontSize: "26px" }} />
+              </Badge>
+              <AiOutlineBars
+                style={{ fontSize: "30px" }}
+                onClick={__handleShowMenu}
+              />
+            </Row>
+          </Col>
+          <Col
+            md={24}
+            xs={24}
+            style={{ height: "32px", overflow: "overlay" }}
+            className="hidden__scrollbar"
+          >
+            <Row justify="start" align="middle" style={{ width: "550px" }}>
+              <div className="header__menu-mobile active">
+                <Link to="/">
+                  <span>Mua sắm</span>
+                </Link>
+              </div>
+              <div className="header__menu-mobile">
+                <Link to="/">
+                  <span>Sale upto 30%</span>
+                </Link>
+              </div>
+              <div className="header__menu-mobile">
                 <Link to="/">
                   <span>Nam</span>
                 </Link>
-              </Popover>
-            </div>
-            <div className="header__menu">
-              <Popover
-                placement="bottomRight"
-                title={false}
-                content={menuWomen}
-                trigger="hover"
-              >
+              </div>
+              <div className="header__menu-mobile">
                 <Link to="/">
                   <span>Nữ</span>
                 </Link>
-              </Popover>
-            </div>
-            <div className="header__menu">
-              <Popover
-                placement="bottomRight"
-                title={false}
-                content={menuChildren}
-                trigger="hover"
-              >
+              </div>
+              <div className="header__menu-mobile">
                 <Link to="/">
                   <span>Trẻ em</span>
                 </Link>
-              </Popover>
-            </div>
-            <div className="header__menu">
-              <Popover
-                placement="bottomRight"
-                title={false}
-                content={menuCollection}
-                trigger="hover"
-              >
+              </div>
+              <div className="header__menu-mobile">
                 <Link to="/">
                   <span>Bộ sưu tập</span>
                 </Link>
-              </Popover>
-            </div>
-            <div className="header__menu">
-              <Popover
-                placement="bottomRight"
-                title={false}
-                content={menuLove}
-                trigger="hover"
-              >
-                <Link to="/">
-                  <span>Yody love</span>
-                </Link>
-              </Popover>
-            </div>
-            <div className="header__menu">
-              <Popover
-                placement="bottomRight"
-                title={false}
-                content={menuEndow}
-                trigger="hover"
-              >
+              </div>
+              <div className="header__menu-mobile">
                 <Link to="/">
                   <span>Ưu đãi</span>
                 </Link>
-              </Popover>
+              </div>
+            </Row>
+          </Col>
+        </Row>
+      ) : (
+        <Row
+          className="container"
+          justify="start"
+          align="middle"
+          style={{ paddingLeft: "10px", height: "51px", paddingRight: "0px" }}
+        >
+          <Col md={2}>
+            <Link to="/">
+              <img src={Yody} alt="YODY - LOOK GOOD, FEEL GOOD" height="36px" />
+            </Link>
+          </Col>
+          <Col md={14} style={{ height: "100%" }}>
+            <Row justify="start" align="middle">
+              <div className="header__menu active">
+                <Link to="/">
+                  <span>Mua sắm</span>
+                </Link>
+              </div>
+              <div className="header__menu">
+                <Popover
+                  placement="bottomRight"
+                  title={false}
+                  content={menuMan}
+                  trigger="hover"
+                  style={{ width: "80%" }}
+                >
+                  <Link to="/">
+                    <span>Nam</span>
+                  </Link>
+                </Popover>
+              </div>
+              <div className="header__menu">
+                <Popover
+                  placement="bottomRight"
+                  title={false}
+                  content={menuWomen}
+                  trigger="hover"
+                >
+                  <Link to="/">
+                    <span>Nữ</span>
+                  </Link>
+                </Popover>
+              </div>
+              <div className="header__menu">
+                <Popover
+                  placement="bottomRight"
+                  title={false}
+                  content={menuChildren}
+                  trigger="hover"
+                >
+                  <Link to="/">
+                    <span>Trẻ em</span>
+                  </Link>
+                </Popover>
+              </div>
+              <div className="header__menu">
+                <Popover
+                  placement="bottomRight"
+                  title={false}
+                  content={menuCollection}
+                  trigger="hover"
+                >
+                  <Link to="/">
+                    <span>Bộ sưu tập</span>
+                  </Link>
+                </Popover>
+              </div>
+              <div className="header__menu">
+                <Popover
+                  placement="bottomRight"
+                  title={false}
+                  content={menuLove}
+                  trigger="hover"
+                >
+                  <Link to="/">
+                    <span>Yody love</span>
+                  </Link>
+                </Popover>
+              </div>
+              <div className="header__menu">
+                <Popover
+                  placement="bottomRight"
+                  title={false}
+                  content={menuEndow}
+                  trigger="hover"
+                >
+                  <Link to="/">
+                    <span>Ưu đãi</span>
+                  </Link>
+                </Popover>
+              </div>
+              <div className="header__menu">
+                <Link to="/">
+                  <span>Đồng phục</span>
+                </Link>
+              </div>
+            </Row>
+          </Col>
+          <Col md={5}>
+            <div className="header__searchbar">
+              <div className="header__searchbar-main">
+                <Search placeholder="Áo phao mùa đông 2021" enterButton />
+              </div>
             </div>
-            <div className="header__menu">
-              <Link to="/">
-                <span>Đồng phục</span>
-              </Link>
-            </div>
-          </Row>
-        </Col>
-        <Col md={5}>
-          <div className="header__searchbar">
-            <div className="header__searchbar-main">
-              <Search placeholder="Áo phao mùa đông 2021" enterButton />
-            </div>
-          </div>
-        </Col>
-        <Col md={3} style={{ paddingLeft: "24px" }}>
-          <Row
-            type="flex"
-            justify="space-around"
-            style={{ marginRight: "-20px" }}
-          >
-            <BsPerson style={{ fontSize: "30px" }} />
-            <BsHeart style={{ fontSize: "26px", marginTop: "3px" }} />
-            <Badge count={99} style={{ marginRight: "30px" }}>
-              <BsHandbag style={{ fontSize: "26px", marginRight: "30px" }} />
-            </Badge>
-          </Row>
-        </Col>
-      </Row>
+          </Col>
+          <Col md={3} style={{ paddingLeft: "24px" }}>
+            <Row
+              type="flex"
+              justify="space-around"
+              style={{ marginRight: "-20px" }}
+            >
+              <BsPerson style={{ fontSize: "30px" }} />
+              <BsHeart style={{ fontSize: "26px", marginTop: "3px" }} />
+              <Badge count={99} style={{ marginRight: "30px" }}>
+                <BsHandbag style={{ fontSize: "26px", marginRight: "30px" }} />
+              </Badge>
+            </Row>
+          </Col>
+        </Row>
+      )}
     </div>
   );
 }
@@ -815,5 +1164,27 @@ export default memo(styled(SubTopMenu)`
   .ant-input-search .ant-input:hover,
   .ant-input-search .ant-input:focus {
     border-color: var(--price-color);
+  }
+  .header__search__icon svg {
+    font-size: 16px;
+    margin-top: -4px;
+  }
+  .header__searchbar-main-mobile .ant-select-selector {
+    border-radius: 10px;
+  }
+  .hidden__scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .ant-drawer-header {
+    padding-top: 0px !important;
+  }
+  .header__menu-mobile.active:after {
+    display: block;
+    content: " ";
+    border-bottom: 3px solid var(--price-color);
+    margin-bottom: -6px;
+  }
+  .header__menu-mobile.active a {
+    color: var(--price-color) !important;
   }
 `);

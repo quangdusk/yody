@@ -20,19 +20,6 @@ import PropTypes from "prop-types";
 import * as style from "components/Variables";
 import classNames from "classnames";
 import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-  HomeOutlined,
-  LogoutOutlined,
-  EnvironmentFilled,
-  PhoneOutlined,
-  MailOutlined,
-  PhoneFilled,
-  MailFilled,
-} from "@ant-design/icons";
-import {
   BsFillGeoAltFill,
   BsFillTelephoneFill,
   BsFillEnvelopeFill,
@@ -43,10 +30,7 @@ import { Ui } from "../../../utils/Ui";
 import { defineMessages, FormattedMessage } from "react-intl";
 import { REACT_APP_URL_ID } from "utils/constants";
 import Globals from "utils/globals";
-
-import { AiOutlineShoppingCart } from "react-icons/ai";
 import BANNERTOP from "images/bannertop.jpg";
-
 // import AppLocale from "../../../languageProvider";
 
 const { Header, Sider, Content } = Layout;
@@ -91,6 +75,32 @@ const TopMenu = memo(
     const handleCancel = () => {
       setVisible(false);
     };
+    var isMobile = {
+      Android: function() {
+        return navigator.userAgent.match(/Android/i);
+      },
+      BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i);
+      },
+      iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+      },
+      Opera: function() {
+        return navigator.userAgent.match(/Opera Mini/i);
+      },
+      Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i);
+      },
+      any: function() {
+        return (
+          isMobile.Android() ||
+          isMobile.BlackBerry() ||
+          isMobile.iOS() ||
+          isMobile.Opera() ||
+          isMobile.Windows()
+        );
+      },
+    };
     return (
       <Header
         className={classNames({
@@ -98,15 +108,19 @@ const TopMenu = memo(
         })}
         style={{ padding: 0, background: "var(--body-dark)" }}
       >
-        <div className="headerTop">
-          <Row gutter={15} className="clearStyle">
-            <img
-              src={BANNERTOP}
-              alt="Yody sale black friday"
-              style={{ width: "100%" }}
-            />
-          </Row>
-        </div>
+        {isMobile.any() ? (
+          ""
+        ) : (
+          <div className="headerTop">
+            <Row gutter={15} className="clearStyle">
+              <img
+                src={BANNERTOP}
+                alt="Yody sale black friday"
+                style={{ width: "100%" }}
+              />
+            </Row>
+          </div>
+        )}
         <div className="headerTop container headerTopFix">
           <Row
             gutter={15}
@@ -114,39 +128,76 @@ const TopMenu = memo(
             justify="space-between"
             align="middle"
           >
-            <div className="headertop__info">
-              <Row justify="space-around" align="middle">
-                <BsFillGeoAltFill style={{ paddingRight: "6px" }} />
-                <Link to="/">
-                  Tìm <span>150+ </span>cửa hàng
-                </Link>
-              </Row>
-            </div>
-            <div className="headertop__info">
-              <Link to="/quang">
+            {isMobile.any() ? (
+              ""
+            ) : (
+              <div className="headertop__info">
                 <Row justify="space-around" align="middle">
-                  <BsFillTelephoneFill style={{ paddingRight: "6px" }} />
-                  <span>1800 2086</span>&nbsp;
-                  <Tag style={{borderRadius: "30px", marginLeft: "2px"}} className="upperCase" color="#089e29">FREE</Tag>
+                  <BsFillGeoAltFill style={{ paddingRight: "6px" }} />
+                  <Link to="/">
+                    Tìm <span>150+ </span>cửa hàng
+                  </Link>
                 </Row>
-              </Link>
-            </div>
-            <div className="headertop__info">
-              <Row justify="space-around" align="middle">
-                <BsFillEnvelopeFill style={{ paddingRight: "6px" }} />
-                <Link to="/quang">chamsockhachhang@yody.vn</Link>
-              </Row>
-            </div>
-            <div className="headertop__info upperCase">
-              <BsFillLightningFill style={{ fontSize: "24px" }} />
-              <Link to="/quang">FREESHIP ĐƠN HÀNG &gt; 498K</Link>
-            </div>
-            <div className="headertop__info upperCase">
-              <BsFillLightningFill style={{ fontSize: "24px" }} />
-              <Link to="/quang">
-                MIỄN PHÍ ĐỔI TRẢ HÀNG TẠI ĐIỂM BÁN ĐẾN 15 NGÀY
-              </Link>
-            </div>
+              </div>
+            )}
+            {isMobile.any() ? (
+              ""
+            ) : (
+              <div className="headertop__info">
+                <Link to="/quang">
+                  <Row justify="space-around" align="middle">
+                    <BsFillTelephoneFill style={{ paddingRight: "6px" }} />
+                    <span>1800 2086</span>&nbsp;
+                    <Tag
+                      style={{ borderRadius: "30px", marginLeft: "2px" }}
+                      className="upperCase"
+                      color="#089e29"
+                    >
+                      FREE
+                    </Tag>
+                  </Row>
+                </Link>
+              </div>
+            )}
+            {isMobile.any() ? (
+              ""
+            ) : (
+              <div className="headertop__info">
+                <Row justify="space-around" align="middle">
+                  <BsFillEnvelopeFill style={{ paddingRight: "6px" }} />
+                  <Link to="/quang">chamsockhachhang@yody.vn</Link>
+                </Row>
+              </div>
+            )}
+            {isMobile.any() ? (
+              <>
+                <div className="headertop__info upperCase">
+                  <BsFillLightningFill style={{ fontSize: "24px" }} />
+                  <Link to="/quang" style={{ fontSize: "8px" }}>
+                    FREESHIP ĐƠN HÀNG &gt; 498K
+                  </Link>
+                </div>
+                <div className="headertop__info upperCase">
+                  <BsFillLightningFill style={{ fontSize: "24px" }} />
+                  <Link to="/quang" style={{ fontSize: "8px" }}>
+                    MIỄN PHÍ ĐỔI TRẢ HÀNG TẠI ĐIỂM BÁN ĐẾN 15 NGÀY
+                  </Link>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="headertop__info upperCase">
+                  <BsFillLightningFill style={{ fontSize: "24px" }} />
+                  <Link to="/quang">FREESHIP ĐƠN HÀNG &gt; 498K</Link>
+                </div>
+                <div className="headertop__info upperCase">
+                  <BsFillLightningFill style={{ fontSize: "24px" }} />
+                  <Link to="/quang">
+                    MIỄN PHÍ ĐỔI TRẢ HÀNG TẠI ĐIỂM BÁN ĐẾN 15 NGÀY
+                  </Link>
+                </div>
+              </>
+            )}
           </Row>
         </div>
       </Header>

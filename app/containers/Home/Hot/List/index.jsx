@@ -19,6 +19,7 @@ import AOKHOAC3 from "images/AOKHOAC3.jpg";
 import AOKHOAC4 from "images/AOKHOAC4.jpg";
 import AOKHOAC5 from "images/AOKHOAC5.jpg";
 import AOKHOAC6 from "images/AOKHOAC6.jpg";
+import { Button } from "antd/lib/radio";
 
 const List = memo(({ className, count }) => {
   function SampleNextArrow(props) {
@@ -95,452 +96,39 @@ const List = memo(({ className, count }) => {
         [className]: true,
       })}
     >
-      <Slider {...settings}>
-        <div className="product__carousel">
-          <div className="product__carousel-status">
-            <div className="ribbon ribbon-top-left">
-              <span>-25%</span>
-            </div>
-            <div className="sample">
-              <div className="sample-ribbon down" style={{ color: "#fd9c2e" }}>
-                <div className="content">Mới</div>
-              </div>
-            </div>
-          </div>
-          <div className="product__carousel-image">
-            <img
-              loading="lazy"
-              src={AOKHOAC1}
-              alt="Khuyến mãi hot của yody"
-              width={count ? "215px" : "255px"}
-              height={count ? "310px" : "380px"}
-            />
-            <div
-              className="product__carousel-action"
-              style={{ width: count ? "215px" : "255px" }}
-            >
-              <Row
-                justify="space-around"
-                align="middle"
-                style={{ height: "100%" }}
-              >
-                <Col
-                  md={12}
-                  style={{
-                    textAlign: "center",
-                    borderRight: "1px solid var(--body-bg)",
-                  }}
-                >
-                  <span>Xem chi tiết</span>
-                  <AiOutlineEye
-                    style={{ fontSize: "20px", paddingLeft: "1px" }}
-                  />
-                </Col>
-                <Col md={12} style={{ textAlign: "center" }}>
-                  <span>Mua ngay</span>
-                  <AiOutlineShoppingCart
-                    style={{ fontSize: "20px", paddingLeft: "1px" }}
-                  />
-                </Col>
-              </Row>
-            </div>
-          </div>
-
-          <div className="product__carousel-footer">
-            <p>Áo khoác gió nam thể thao phối lưng</p>
-            <Row>
-              <Col
-                className="product__carousel-footer-discount"
-                xs={9}
-                sm={9}
-                lg={9}
-                md={9}
-              >
-                399,000đ
-              </Col>
-              <Col
-                className="product__carousel-footer-price"
-                xs={15}
-                sm={15}
-                lg={15}
-                md={15}
-              >
-                549,000đ
-              </Col>
-            </Row>
-          </div>
-        </div>
-        <div className="product__carousel">
-          <div className="product__carousel-status">
-            <div className="ribbon ribbon-top-left">
-              <span>-25%</span>
-            </div>
-            <div className="sample">
-              <div className="sample-ribbon down" style={{ color: "#fd9c2e" }}>
-                <div className="content">Mới</div>
-              </div>
-            </div>
-          </div>
-          <div className="product__carousel-image">
-            <img
-              loading="lazy"
-              src={AOKHOAC2}
-              alt="Khuyến mãi hot của yody"
-              width={count ? "215px" : "255px"}
-              height={count ? "310px" : "380px"}
-            />
-            <div
-              className="product__carousel-action"
-              style={{ width: count ? "215px" : "255px" }}
-            >
-              <Row
-                justify="space-around"
-                align="middle"
-                style={{ height: "100%" }}
-              >
-                <Col
-                  md={12}
-                  style={{
-                    textAlign: "center",
-                    borderRight: "1px solid var(--body-bg)",
-                  }}
-                >
-                  <span>Xem chi tiết</span>
-                  <AiOutlineEye
-                    style={{ fontSize: "20px", paddingLeft: "1px" }}
-                  />
-                </Col>
-                <Col md={12} style={{ textAlign: "center" }}>
-                  <span>Mua ngay</span>
-                  <AiOutlineShoppingCart
-                    style={{ fontSize: "20px", paddingLeft: "1px" }}
-                  />
-                </Col>
-              </Row>
-            </div>
-          </div>
-
-          <div className="product__carousel-footer">
-            <p>Áo khoác gió nam thể thao phối lưng</p>
-            <Row>
-              <Col
-                className="product__carousel-footer-discount"
-                xs={9}
-                sm={9}
-                lg={9}
-                md={9}
-              >
-                399,000đ
-              </Col>
-              <Col
-                className="product__carousel-footer-price"
-                xs={15}
-                sm={15}
-                lg={15}
-                md={15}
-              >
-                549,000đ
-              </Col>
-            </Row>
-          </div>
-        </div>
-        <div className="product__carousel">
-          <div className="product__carousel-status">
-            <div className="ribbon ribbon-top-left">
-              <span>-25%</span>
-            </div>
-            <div className="sample">
-              <div className="sample-ribbon down" style={{ color: "#fd9c2e" }}>
-                <div className="content">Mới</div>
-              </div>
-            </div>
-          </div>
-          <div className="product__carousel-image">
-            <img
-              loading="lazy"
-              src={AOKHOAC3}
-              alt="Khuyến mãi hot của yody"
-              width={count ? "215px" : "255px"}
-              height={count ? "310px" : "380px"}
-            />
-            <div
-              className="product__carousel-action"
-              style={{ width: count ? "215px" : "255px" }}
-            >
-              <Row
-                justify="space-around"
-                align="middle"
-                style={{ height: "100%" }}
-              >
-                <Col
-                  md={12}
-                  style={{
-                    textAlign: "center",
-                    borderRight: "1px solid var(--body-bg)",
-                  }}
-                >
-                  <span>Xem chi tiết</span>
-                  <AiOutlineEye
-                    style={{ fontSize: "20px", paddingLeft: "1px" }}
-                  />
-                </Col>
-                <Col md={12} style={{ textAlign: "center" }}>
-                  <span>Mua ngay</span>
-                  <AiOutlineShoppingCart
-                    style={{ fontSize: "20px", paddingLeft: "1px" }}
-                  />
-                </Col>
-              </Row>
-            </div>
-          </div>
-
-          <div className="product__carousel-footer">
-            <p>Áo khoác gió nam thể thao phối lưng</p>
-            <Row>
-              <Col
-                className="product__carousel-footer-discount"
-                xs={9}
-                sm={9}
-                lg={9}
-                md={9}
-              >
-                399,000đ
-              </Col>
-              <Col
-                className="product__carousel-footer-price"
-                xs={15}
-                sm={15}
-                lg={15}
-                md={15}
-              >
-                549,000đ
-              </Col>
-            </Row>
-          </div>
-        </div>
-        <div className="product__carousel">
-          <div className="product__carousel-status">
-            <div className="ribbon ribbon-top-left">
-              <span>-25%</span>
-            </div>
-            <div className="sample">
-              <div className="sample-ribbon down" style={{ color: "#fd9c2e" }}>
-                <div className="content">Mới</div>
-              </div>
-            </div>
-          </div>
-          <div className="product__carousel-image">
-            <img
-              loading="lazy"
-              src={AOKHOAC4}
-              alt="Khuyến mãi hot của yody"
-              width={count ? "215px" : "255px"}
-              height={count ? "310px" : "380px"}
-            />
-            <div
-              className="product__carousel-action"
-              style={{ width: count ? "215px" : "255px" }}
-            >
-              <Row
-                justify="space-around"
-                align="middle"
-                style={{ height: "100%" }}
-              >
-                <Col
-                  md={12}
-                  style={{
-                    textAlign: "center",
-                    borderRight: "1px solid var(--body-bg)",
-                  }}
-                >
-                  <span>Xem chi tiết</span>
-                  <AiOutlineEye
-                    style={{ fontSize: "20px", paddingLeft: "1px" }}
-                  />
-                </Col>
-                <Col md={12} style={{ textAlign: "center" }}>
-                  <span>Mua ngay</span>
-                  <AiOutlineShoppingCart
-                    style={{ fontSize: "20px", paddingLeft: "1px" }}
-                  />
-                </Col>
-              </Row>
-            </div>
-          </div>
-
-          <div className="product__carousel-footer">
-            <p>Áo khoác gió nam thể thao phối lưng</p>
-            <Row>
-              <Col
-                className="product__carousel-footer-discount"
-                xs={9}
-                sm={9}
-                lg={9}
-                md={9}
-              >
-                399,000đ
-              </Col>
-              <Col
-                className="product__carousel-footer-price"
-                xs={15}
-                sm={15}
-                lg={15}
-                md={15}
-              >
-                549,000đ
-              </Col>
-            </Row>
-          </div>
-        </div>
-        <div className="product__carousel">
-          <div className="product__carousel-status">
-            <div className="ribbon ribbon-top-left">
-              <span>-25%</span>
-            </div>
-            <div className="sample">
-              <div className="sample-ribbon down" style={{ color: "#fd9c2e" }}>
-                <div className="content">Mới</div>
-              </div>
-            </div>
-          </div>
-          <div className="product__carousel-image">
-            <img
-              loading="lazy"
-              src={AOKHOAC5}
-              alt="Khuyến mãi hot của yody"
-              width={count ? "215px" : "255px"}
-              height={count ? "310px" : "380px"}
-            />
-            <div
-              className="product__carousel-action"
-              style={{ width: count ? "215px" : "255px" }}
-            >
-              <Row
-                justify="space-around"
-                align="middle"
-                style={{ height: "100%" }}
-              >
-                <Col
-                  md={12}
-                  style={{
-                    textAlign: "center",
-                    borderRight: "1px solid var(--body-bg)",
-                  }}
-                >
-                  <span>Xem chi tiết</span>
-                  <AiOutlineEye
-                    style={{ fontSize: "20px", paddingLeft: "1px" }}
-                  />
-                </Col>
-                <Col md={12} style={{ textAlign: "center" }}>
-                  <span>Mua ngay</span>
-                  <AiOutlineShoppingCart
-                    style={{ fontSize: "20px", paddingLeft: "1px" }}
-                  />
-                </Col>
-              </Row>
-            </div>
-          </div>
-
-          <div className="product__carousel-footer">
-            <p>Áo khoác gió nam thể thao phối lưng</p>
-            <Row>
-              <Col
-                className="product__carousel-footer-discount"
-                xs={9}
-                sm={9}
-                lg={9}
-                md={9}
-              >
-                399,000đ
-              </Col>
-              <Col
-                className="product__carousel-footer-price"
-                xs={15}
-                sm={15}
-                lg={15}
-                md={15}
-              >
-                549,000đ
-              </Col>
-            </Row>
-          </div>
-        </div>
-        <div className="product__carousel">
-          <div className="product__carousel-status">
-            <div className="ribbon ribbon-top-left">
-              <span>-25%</span>
-            </div>
-            <div className="sample">
-              <div className="sample-ribbon down" style={{ color: "#fd9c2e" }}>
-                <div className="content">Mới</div>
-              </div>
-            </div>
-          </div>
-          <div className="product__carousel-image">
-            <img
-              loading="lazy"
-              src={AOKHOAC6}
-              alt="Khuyến mãi hot của yody"
-              width={count ? "215px" : "255px"}
-              height={count ? "310px" : "380px"}
-            />
-            <div
-              className="product__carousel-action"
-              style={{ width: count ? "215px" : "255px" }}
-            >
-              <Row
-                justify="space-around"
-                align="middle"
-                style={{ height: "100%" }}
-              >
-                <Col
-                  md={12}
-                  style={{
-                    textAlign: "center",
-                    borderRight: "1px solid var(--body-bg)",
-                  }}
-                >
-                  <span>Xem chi tiết</span>
-                  <AiOutlineEye
-                    style={{ fontSize: "20px", paddingLeft: "1px" }}
-                  />
-                </Col>
-                <Col md={12} style={{ textAlign: "center" }}>
-                  <span>Mua ngay</span>
-                  <AiOutlineShoppingCart
-                    style={{ fontSize: "20px", paddingLeft: "1px" }}
-                  />
-                </Col>
-              </Row>
-            </div>
-          </div>
-
-          <div className="product__carousel-footer">
-            <p>Áo khoác gió nam thể thao phối lưng</p>
-            <Row>
-              <Col
-                className="product__carousel-footer-discount"
-                xs={9}
-                sm={9}
-                lg={9}
-                md={9}
-              >
-                399,000đ
-              </Col>
-              <Col
-                className="product__carousel-footer-price"
-                xs={15}
-                sm={15}
-                lg={15}
-                md={15}
-              >
-                549,000đ
-              </Col>
-            </Row>
-          </div>
-        </div>
-      </Slider>
+      <Row>
+        <Col md={20}>
+          <Slider {...settings}>
+            <Button type="link">
+              <img src={AOKHOAC1} alt="" />
+            </Button>
+            <Button type="link">
+            <img src={AOKHOAC1} alt="" />
+            </Button>
+            <Button type="link">
+              <img src={AOKHOAC1} alt="" />
+            </Button>
+            <Button type="link">
+              <img src={AOKHOAC1} alt="" />
+            </Button>
+            <Button type="link">
+              <img src={AOKHOAC1} alt="" />
+            </Button>
+            <Button type="link">
+              <img src={AOKHOAC1} alt="" />
+            </Button>
+            <Button type="link">
+              <img src={AOKHOAC1} alt="" />
+            </Button>
+            <Button type="link">
+            <img src={AOKHOAC1} alt="" />
+            </Button>
+            <Button type="link">
+            <img src={AOKHOAC1} alt="" />
+            </Button>
+          </Slider>
+        </Col>
+      </Row>
     </div>
   );
 });
@@ -725,5 +313,10 @@ export default styled(List)`
   .product__carousel-image:hover .product__carousel-action {
     display: block;
     cursor: poiter;
+  }
+  img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
   }
 `;
