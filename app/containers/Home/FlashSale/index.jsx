@@ -3,13 +3,10 @@ import "antd/dist/antd.css";
 import React, { memo, useEffect, useState } from "react";
 import styled from "styled-components";
 import classNames from "classnames";
-import { AiOutlineCaretLeft } from "react-icons/ai";
 import _ from "lodash";
-import BackDot from "images/back_dot.png";
-import Promotion from "images/promotion.jpg";
 import { $LocalStorage } from "utils/localStorage";
 import BGSALE from "images/bg_flash.jpg";
-import { BsFillLightningFill } from "react-icons/bs";
+import { BsFillLightningFill, BsArrowRight } from "react-icons/bs";
 import FlashBanner from "images/flash_banner.png";
 import AOKHOAC1 from "images/AOKHOAC1.jpg";
 import AOKHOAC2 from "images/AOKHOAC2.jpg";
@@ -17,8 +14,11 @@ import AOKHOAC3 from "images/AOKHOAC3.jpg";
 import AOKHOAC4 from "images/AOKHOAC4.jpg";
 import AOKHOAC5 from "images/AOKHOAC5.jpg";
 import AOKHOAC6 from "images/AOKHOAC6.jpg";
-import { BsHeart } from "react-icons/bs";
+import { BsHeart, BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
 import FireIcon from "images/free_ship.png";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const FlashSale = memo(({ className }) => {
   const [day, setDay] = useState(0);
@@ -46,6 +46,80 @@ const FlashSale = memo(({ className }) => {
     }, 1000);
     return () => clearInterval(setInterval);
   }, []);
+
+  var isMobile = {
+    Android: function() {
+      return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+      return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+      return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+      return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function() {
+      return (
+        isMobile.Android() ||
+        isMobile.BlackBerry() ||
+        isMobile.iOS() ||
+        isMobile.Opera() ||
+        isMobile.Windows()
+      );
+    },
+  };
+
+  function SampleNextArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div className="nextArrow">
+        <BsArrowRightShort
+          onClick={onClick}
+          style={{ ...style, display: "block" }}
+          className="nextArrowItem"
+        />
+      </div>
+    );
+  }
+
+  function SamplePrevArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div className="prevArrow">
+        <BsArrowLeftShort
+          onClick={onClick}
+          style={{ ...style, display: "block" }}
+          className="prevArrowItem"
+        />
+      </div>
+    );
+  }
+
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+  };
+
+  const settingMobiles = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+  };
+
   return (
     <div
       className={classNames({
@@ -54,43 +128,43 @@ const FlashSale = memo(({ className }) => {
       style={{
         background: "var(--body-bg)",
         position: "relative",
-        paddingBottom: "40px",
+        paddingBottom: `${isMobile} ? 0px : 40px`,
       }}
     >
-      <div className="banner__sale">
-        <div className="container">
-          <h3>Flash Sale</h3>
-          <Row>
-            <Col md={6} style={{ paddingRight: "10px" }}>
-              <div
-                className="banner__sale-left"
-                style={{ background: `url(${BGSALE})` }}
+      {isMobile.any() ? (
+        <div className="container" style={{ paddingLeft: "15px" }}>
+          <div className="banner__sale" style={{ padding: "20px 0px" }}>
+            <Row justify="space-between" align="middle">
+              <h2
+                style={{
+                  fontSize: "16px",
+                  color: "var(--price-color)",
+                  fontWeight: 600,
+                }}
               >
-                <h2>FLASH SALE</h2>
-                <BsFillLightningFill />
-                <p>Kết thúc sau</p>
-                <div className="banner__sale-countdown">
-                  <Row justify="center">
-                    <span>{hour}</span>
-                    <span>:</span>
-                    <span>{minute}</span>
-                    <span>:</span>
-                    <span>{second}</span>
-                  </Row>
-                </div>
-                <img src={FlashBanner} alt="Yody flash sale" />
+                FLASH SALE
+              </h2>
+              <Col>
                 <Row
-                  className="banner__sale-button"
-                  align="middle"
                   justify="center"
+                  align="middle"
+                  className="countdown__mobile"
                 >
-                  <Button>Xem tất cả</Button>
+                  Kết thúc sau &nbsp;
+                  <span>{hour}</span>
+                  <span>:</span>
+                  <span>{minute}</span>
+                  <span>:</span>
+                  <span>{second}</span>
+                  <BsArrowRight
+                    style={{ margin: "auto", marginLeft: "15px" }}
+                  />
                 </Row>
-              </div>
-            </Col>
-            <Col md={18}>
-              <Row>
-                <div className="product__carousel">
+              </Col>
+            </Row>
+            <Row>
+              <Slider {...settingMobiles}>
+                <div className="product__carousel-mobile">
                   <div className="product__carousel__container">
                     <div className="product__carousel-status">
                       <div className="ribbon_new up">
@@ -127,7 +201,7 @@ const FlashSale = memo(({ className }) => {
                       <Row>
                         <Col
                           className="product__carousel-footer-discount"
-                          xs={10}
+                          xs={24}
                           sm={10}
                           lg={10}
                           md={10}
@@ -136,7 +210,7 @@ const FlashSale = memo(({ className }) => {
                         </Col>
                         <Col
                           className="product__carousel-footer-price"
-                          xs={14}
+                          xs={24}
                           sm={14}
                           lg={14}
                           md={14}
@@ -157,142 +231,7 @@ const FlashSale = memo(({ className }) => {
                     </div>
                   </div>
                 </div>
-
-                <div className="product__carousel">
-                  <div className="product__carousel__container">
-                    <div className="product__carousel-status">
-                      <div className="ribbon_new up">
-                        <div className="content">Mới</div>
-                      </div>
-                      <div className="ribbon up">
-                        <div className="content">-10%</div>
-                      </div>
-                    </div>
-
-                    <div className="product__carousel-image">
-                      <img
-                        loading="lazy"
-                        src={AOKHOAC1}
-                        alt="Khuyến mãi hot của yody"
-                        width="190px"
-                        height="250px"
-                      />
-                    </div>
-                    <div className="product__carousel-love">
-                      <BsHeart />
-                    </div>
-                    <div className="product__carousel-hot">
-                      <img
-                        src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
-                        alt="Sản phẩm hot của Yody"
-                      />
-                    </div>
-                    <div className="product__carousel-footer">
-                      <Tooltip title="Áo khoác gió nam thể thao phối lưng">
-                        <p>Áo khoác gió nam thể thao phối lưng</p>
-                      </Tooltip>
-                      <Row>
-                        <Col
-                          className="product__carousel-footer-discount"
-                          xs={10}
-                          sm={10}
-                          lg={10}
-                          md={10}
-                        >
-                          399,000đ
-                        </Col>
-                        <Col
-                          className="product__carousel-footer-price"
-                          xs={14}
-                          sm={14}
-                          lg={14}
-                          md={14}
-                        >
-                          549,000đ
-                        </Col>
-                      </Row>
-                      <Row className="product__carousel-footer-progress">
-                        <div className="fire_icon">
-                          <img
-                            src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
-                            alt="Sản phẩm hot"
-                            width="25px"
-                          />
-                        </div>
-                        <Progress percent={90} format={() => "Sắp bán hết"} />
-                      </Row>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="product__carousel">
-                  <div className="product__carousel__container">
-                    <div className="product__carousel-status">
-                      <div className="ribbon_new up">
-                        <div className="content">Mới</div>
-                      </div>
-                      <div className="ribbon up">
-                        <div className="content">-10%</div>
-                      </div>
-                    </div>
-
-                    <div className="product__carousel-image">
-                      <img
-                        loading="lazy"
-                        src={AOKHOAC2}
-                        alt="Khuyến mãi hot của yody"
-                        width="190px"
-                        height="250px"
-                      />
-                    </div>
-                    <div className="product__carousel-love">
-                      <BsHeart />
-                    </div>
-                    <div className="product__carousel-hot">
-                      <img
-                        src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
-                        alt="Sản phẩm hot của Yody"
-                      />
-                    </div>
-                    <div className="product__carousel-footer">
-                      <Tooltip title="Áo khoác gió nam thể thao phối lưng">
-                        <p>Áo khoác gió nam thể thao phối lưng</p>
-                      </Tooltip>
-                      <Row>
-                        <Col
-                          className="product__carousel-footer-discount"
-                          xs={10}
-                          sm={10}
-                          lg={10}
-                          md={10}
-                        >
-                          399,000đ
-                        </Col>
-                        <Col
-                          className="product__carousel-footer-price"
-                          xs={14}
-                          sm={14}
-                          lg={14}
-                          md={14}
-                        >
-                          549,000đ
-                        </Col>
-                      </Row>
-                      <Row className="product__carousel-footer-progress">
-                        <div className="fire_icon">
-                          <img
-                            src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
-                            alt="Sản phẩm hot"
-                            width="25px"
-                          />
-                        </div>
-                        <Progress percent={30} format={() => "Đang diễn ra"} />
-                      </Row>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="product__carousel">
+                <div className="product__carousel-mobile">
                   <div className="product__carousel__container">
                     <div className="product__carousel-status">
                       <div className="ribbon_new up">
@@ -317,7 +256,8 @@ const FlashSale = memo(({ className }) => {
                     </div>
                     <div className="product__carousel-hot">
                       <img
-                        src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                        src={FireIcon}
+                        // src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
                         alt="Sản phẩm hot của Yody"
                       />
                     </div>
@@ -328,7 +268,7 @@ const FlashSale = memo(({ className }) => {
                       <Row>
                         <Col
                           className="product__carousel-footer-discount"
-                          xs={10}
+                          xs={24}
                           sm={10}
                           lg={10}
                           md={10}
@@ -337,7 +277,7 @@ const FlashSale = memo(({ className }) => {
                         </Col>
                         <Col
                           className="product__carousel-footer-price"
-                          xs={14}
+                          xs={24}
                           sm={14}
                           lg={14}
                           md={14}
@@ -358,75 +298,7 @@ const FlashSale = memo(({ className }) => {
                     </div>
                   </div>
                 </div>
-
-                <div className="product__carousel">
-                  <div className="product__carousel__container">
-                    <div className="product__carousel-status">
-                      <div className="ribbon_new up">
-                        <div className="content">Mới</div>
-                      </div>
-                      <div className="ribbon up">
-                        <div className="content">-10%</div>
-                      </div>
-                    </div>
-
-                    <div className="product__carousel-image">
-                      <img
-                        loading="lazy"
-                        src={AOKHOAC3}
-                        alt="Khuyến mãi hot của yody"
-                        width="190px"
-                        height="250px"
-                      />
-                    </div>
-                    <div className="product__carousel-love">
-                      <BsHeart />
-                    </div>
-                    <div className="product__carousel-hot">
-                      <img
-                        src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
-                        alt="Sản phẩm hot của Yody"
-                      />
-                    </div>
-                    <div className="product__carousel-footer">
-                      <Tooltip title="Áo khoác gió nam thể thao phối lưng">
-                        <p>Áo khoác gió nam thể thao phối lưng</p>
-                      </Tooltip>
-                      <Row>
-                        <Col
-                          className="product__carousel-footer-discount"
-                          xs={10}
-                          sm={10}
-                          lg={10}
-                          md={10}
-                        >
-                          399,000đ
-                        </Col>
-                        <Col
-                          className="product__carousel-footer-price"
-                          xs={14}
-                          sm={14}
-                          lg={14}
-                          md={14}
-                        >
-                          549,000đ
-                        </Col>
-                      </Row>
-                      <Row className="product__carousel-footer-progress">
-                        <div className="fire_icon">
-                          <img
-                            src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
-                            alt="Sản phẩm hot"
-                            width="25px"
-                          />
-                        </div>
-                        <Progress percent={30} format={() => "Đang diễn ra"} />
-                      </Row>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="product__carousel">
+                <div className="product__carousel-mobile">
                   <div className="product__carousel__container">
                     <div className="product__carousel-status">
                       <div className="ribbon_new up">
@@ -451,7 +323,8 @@ const FlashSale = memo(({ className }) => {
                     </div>
                     <div className="product__carousel-hot">
                       <img
-                        src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                        src={FireIcon}
+                        // src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
                         alt="Sản phẩm hot của Yody"
                       />
                     </div>
@@ -462,7 +335,7 @@ const FlashSale = memo(({ className }) => {
                       <Row>
                         <Col
                           className="product__carousel-footer-discount"
-                          xs={10}
+                          xs={24}
                           sm={10}
                           lg={10}
                           md={10}
@@ -471,7 +344,7 @@ const FlashSale = memo(({ className }) => {
                         </Col>
                         <Col
                           className="product__carousel-footer-price"
-                          xs={14}
+                          xs={24}
                           sm={14}
                           lg={14}
                           md={14}
@@ -492,142 +365,7 @@ const FlashSale = memo(({ className }) => {
                     </div>
                   </div>
                 </div>
-
-                <div className="product__carousel">
-                  <div className="product__carousel__container">
-                    <div className="product__carousel-status">
-                      <div className="ribbon_new up">
-                        <div className="content">Mới</div>
-                      </div>
-                      <div className="ribbon up">
-                        <div className="content">-10%</div>
-                      </div>
-                    </div>
-
-                    <div className="product__carousel-image">
-                      <img
-                        loading="lazy"
-                        src={AOKHOAC5}
-                        alt="Khuyến mãi hot của yody"
-                        width="190px"
-                        height="250px"
-                      />
-                    </div>
-                    <div className="product__carousel-love">
-                      <BsHeart />
-                    </div>
-                    <div className="product__carousel-hot">
-                      <img
-                        src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
-                        alt="Sản phẩm hot của Yody"
-                      />
-                    </div>
-                    <div className="product__carousel-footer">
-                      <Tooltip title="Áo khoác gió nam thể thao phối lưng">
-                        <p>Áo khoác gió nam thể thao phối lưng</p>
-                      </Tooltip>
-                      <Row>
-                        <Col
-                          className="product__carousel-footer-discount"
-                          xs={10}
-                          sm={10}
-                          lg={10}
-                          md={10}
-                        >
-                          399,000đ
-                        </Col>
-                        <Col
-                          className="product__carousel-footer-price"
-                          xs={14}
-                          sm={14}
-                          lg={14}
-                          md={14}
-                        >
-                          549,000đ
-                        </Col>
-                      </Row>
-                      <Row className="product__carousel-footer-progress">
-                        <div className="fire_icon">
-                          <img
-                            src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
-                            alt="Sản phẩm hot"
-                            width="25px"
-                          />
-                        </div>
-                        <Progress percent={30} format={() => "Đang diễn ra"} />
-                      </Row>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="product__carousel">
-                  <div className="product__carousel__container">
-                    <div className="product__carousel-status">
-                      <div className="ribbon_new up">
-                        <div className="content">Mới</div>
-                      </div>
-                      <div className="ribbon up">
-                        <div className="content">-10%</div>
-                      </div>
-                    </div>
-
-                    <div className="product__carousel-image">
-                      <img
-                        loading="lazy"
-                        src={AOKHOAC6}
-                        alt="Khuyến mãi hot của yody"
-                        width="190px"
-                        height="250px"
-                      />
-                    </div>
-                    <div className="product__carousel-love">
-                      <BsHeart />
-                    </div>
-                    <div className="product__carousel-hot">
-                      <img
-                        src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
-                        alt="Sản phẩm hot của Yody"
-                      />
-                    </div>
-                    <div className="product__carousel-footer">
-                      <Tooltip title="Áo khoác gió nam thể thao phối lưng">
-                        <p>Áo khoác gió nam thể thao phối lưng</p>
-                      </Tooltip>
-                      <Row>
-                        <Col
-                          className="product__carousel-footer-discount"
-                          xs={10}
-                          sm={10}
-                          lg={10}
-                          md={10}
-                        >
-                          399,000đ
-                        </Col>
-                        <Col
-                          className="product__carousel-footer-price"
-                          xs={14}
-                          sm={14}
-                          lg={14}
-                          md={14}
-                        >
-                          549,000đ
-                        </Col>
-                      </Row>
-                      <Row className="product__carousel-footer-progress">
-                        <div className="fire_icon">
-                          <img
-                            src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
-                            alt="Sản phẩm hot"
-                            width="25px"
-                          />
-                        </div>
-                        <Progress percent={30} format={() => "Đang diễn ra"} />
-                      </Row>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="product__carousel">
+                <div className="product__carousel-mobile">
                   <div className="product__carousel__container">
                     <div className="product__carousel-status">
                       <div className="ribbon_new up">
@@ -652,7 +390,8 @@ const FlashSale = memo(({ className }) => {
                     </div>
                     <div className="product__carousel-hot">
                       <img
-                        src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                        src={FireIcon}
+                        // src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
                         alt="Sản phẩm hot của Yody"
                       />
                     </div>
@@ -663,7 +402,7 @@ const FlashSale = memo(({ className }) => {
                       <Row>
                         <Col
                           className="product__carousel-footer-discount"
-                          xs={10}
+                          xs={24}
                           sm={10}
                           lg={10}
                           md={10}
@@ -672,7 +411,7 @@ const FlashSale = memo(({ className }) => {
                         </Col>
                         <Col
                           className="product__carousel-footer-price"
-                          xs={14}
+                          xs={24}
                           sm={14}
                           lg={14}
                           md={14}
@@ -693,7 +432,7 @@ const FlashSale = memo(({ className }) => {
                     </div>
                   </div>
                 </div>
-                <div className="product__carousel">
+                <div className="product__carousel-mobile">
                   <div className="product__carousel__container">
                     <div className="product__carousel-status">
                       <div className="ribbon_new up">
@@ -718,7 +457,8 @@ const FlashSale = memo(({ className }) => {
                     </div>
                     <div className="product__carousel-hot">
                       <img
-                        src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                        src={FireIcon}
+                        // src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
                         alt="Sản phẩm hot của Yody"
                       />
                     </div>
@@ -729,7 +469,7 @@ const FlashSale = memo(({ className }) => {
                       <Row>
                         <Col
                           className="product__carousel-footer-discount"
-                          xs={10}
+                          xs={24}
                           sm={10}
                           lg={10}
                           md={10}
@@ -738,7 +478,7 @@ const FlashSale = memo(({ className }) => {
                         </Col>
                         <Col
                           className="product__carousel-footer-price"
-                          xs={14}
+                          xs={24}
                           sm={14}
                           lg={14}
                           md={14}
@@ -759,30 +499,1915 @@ const FlashSale = memo(({ className }) => {
                     </div>
                   </div>
                 </div>
-              </Row>
-            </Col>
-          </Row>
-          {/* <Row align="middle">
-            <Col md={10}>
-              <Row>
-                <h3 className="upperCase" style={{paddingLeft: "18px"}}>Thời gian còn lại</h3>
-              </Row>
-              <Row style={{maxWidth: "300px"}}>
-                <Col className="banner__sale-time" md={6}><p>{day}</p><a>Ngày</a></Col>
-                <Col className="banner__sale-time" md={6}><p>{hour}</p><a>Giờ</a></Col>
-                <Col className="banner__sale-time" md={6}><p>{minute}</p><a>Phút</a></Col>
-                <Col className="banner__sale-time" md={6}><p>{second}</p><a>Giây</a></Col>
-              </Row>
-              <Row className="banner__sale-button">
-                <Button>Xem thêm</Button>
-              </Row>
-            </Col>
-            <Col md={14} className="promotion-img">
-              <img src={Promotion} loading="lazy" sizes="670px" data-sizes="auto" />
-            </Col>
-          </Row> */}
+                <div className="product__carousel-mobile">
+                  <div className="product__carousel__container">
+                    <div className="product__carousel-status">
+                      <div className="ribbon_new up">
+                        <div className="content">Mới</div>
+                      </div>
+                      <div className="ribbon up">
+                        <div className="content">-10%</div>
+                      </div>
+                    </div>
+
+                    <div className="product__carousel-image">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC4}
+                        alt="Khuyến mãi hot của yody"
+                        width="190px"
+                        height="250px"
+                      />
+                    </div>
+                    <div className="product__carousel-love">
+                      <BsHeart />
+                    </div>
+                    <div className="product__carousel-hot">
+                      <img
+                        src={FireIcon}
+                        // src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                        alt="Sản phẩm hot của Yody"
+                      />
+                    </div>
+                    <div className="product__carousel-footer">
+                      <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                        <p>Áo khoác gió nam thể thao phối lưng</p>
+                      </Tooltip>
+                      <Row>
+                        <Col
+                          className="product__carousel-footer-discount"
+                          xs={24}
+                          sm={10}
+                          lg={10}
+                          md={10}
+                        >
+                          399,000đ
+                        </Col>
+                        <Col
+                          className="product__carousel-footer-price"
+                          xs={24}
+                          sm={14}
+                          lg={14}
+                          md={14}
+                        >
+                          549,000đ
+                        </Col>
+                      </Row>
+                      <Row className="product__carousel-footer-progress">
+                        <div className="fire_icon">
+                          <img
+                            src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                            alt="Sản phẩm hot"
+                            width="25px"
+                          />
+                        </div>
+                        <Progress percent={30} format={() => "Đang diễn ra"} />
+                      </Row>
+                    </div>
+                  </div>
+                </div>
+              </Slider>
+              <Slider {...settingMobiles}>
+                <div className="product__carousel-mobile">
+                  <div className="product__carousel__container">
+                    <div className="product__carousel-status">
+                      <div className="ribbon_new up">
+                        <div className="content">Mới</div>
+                      </div>
+                      <div className="ribbon up">
+                        <div className="content">-10%</div>
+                      </div>
+                    </div>
+
+                    <div className="product__carousel-image">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC4}
+                        alt="Khuyến mãi hot của yody"
+                        width="190px"
+                        height="250px"
+                      />
+                    </div>
+                    <div className="product__carousel-love">
+                      <BsHeart />
+                    </div>
+                    <div className="product__carousel-hot">
+                      <img
+                        src={FireIcon}
+                        // src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                        alt="Sản phẩm hot của Yody"
+                      />
+                    </div>
+                    <div className="product__carousel-footer">
+                      <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                        <p>Áo khoác gió nam thể thao phối lưng</p>
+                      </Tooltip>
+                      <Row>
+                        <Col
+                          className="product__carousel-footer-discount"
+                          xs={24}
+                          sm={10}
+                          lg={10}
+                          md={10}
+                        >
+                          399,000đ
+                        </Col>
+                        <Col
+                          className="product__carousel-footer-price"
+                          xs={24}
+                          sm={14}
+                          lg={14}
+                          md={14}
+                        >
+                          549,000đ
+                        </Col>
+                      </Row>
+                      <Row className="product__carousel-footer-progress">
+                        <div className="fire_icon">
+                          <img
+                            src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                            alt="Sản phẩm hot"
+                            width="25px"
+                          />
+                        </div>
+                        <Progress percent={30} format={() => "Đang diễn ra"} />
+                      </Row>
+                    </div>
+                  </div>
+                </div>
+                <div className="product__carousel-mobile">
+                  <div className="product__carousel__container">
+                    <div className="product__carousel-status">
+                      <div className="ribbon_new up">
+                        <div className="content">Mới</div>
+                      </div>
+                      <div className="ribbon up">
+                        <div className="content">-10%</div>
+                      </div>
+                    </div>
+
+                    <div className="product__carousel-image">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC4}
+                        alt="Khuyến mãi hot của yody"
+                        width="190px"
+                        height="250px"
+                      />
+                    </div>
+                    <div className="product__carousel-love">
+                      <BsHeart />
+                    </div>
+                    <div className="product__carousel-hot">
+                      <img
+                        src={FireIcon}
+                        // src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                        alt="Sản phẩm hot của Yody"
+                      />
+                    </div>
+                    <div className="product__carousel-footer">
+                      <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                        <p>Áo khoác gió nam thể thao phối lưng</p>
+                      </Tooltip>
+                      <Row>
+                        <Col
+                          className="product__carousel-footer-discount"
+                          xs={24}
+                          sm={10}
+                          lg={10}
+                          md={10}
+                        >
+                          399,000đ
+                        </Col>
+                        <Col
+                          className="product__carousel-footer-price"
+                          xs={24}
+                          sm={14}
+                          lg={14}
+                          md={14}
+                        >
+                          549,000đ
+                        </Col>
+                      </Row>
+                      <Row className="product__carousel-footer-progress">
+                        <div className="fire_icon">
+                          <img
+                            src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                            alt="Sản phẩm hot"
+                            width="25px"
+                          />
+                        </div>
+                        <Progress percent={30} format={() => "Đang diễn ra"} />
+                      </Row>
+                    </div>
+                  </div>
+                </div>
+                <div className="product__carousel-mobile">
+                  <div className="product__carousel__container">
+                    <div className="product__carousel-status">
+                      <div className="ribbon_new up">
+                        <div className="content">Mới</div>
+                      </div>
+                      <div className="ribbon up">
+                        <div className="content">-10%</div>
+                      </div>
+                    </div>
+
+                    <div className="product__carousel-image">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC4}
+                        alt="Khuyến mãi hot của yody"
+                        width="190px"
+                        height="250px"
+                      />
+                    </div>
+                    <div className="product__carousel-love">
+                      <BsHeart />
+                    </div>
+                    <div className="product__carousel-hot">
+                      <img
+                        src={FireIcon}
+                        // src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                        alt="Sản phẩm hot của Yody"
+                      />
+                    </div>
+                    <div className="product__carousel-footer">
+                      <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                        <p>Áo khoác gió nam thể thao phối lưng</p>
+                      </Tooltip>
+                      <Row>
+                        <Col
+                          className="product__carousel-footer-discount"
+                          xs={24}
+                          sm={10}
+                          lg={10}
+                          md={10}
+                        >
+                          399,000đ
+                        </Col>
+                        <Col
+                          className="product__carousel-footer-price"
+                          xs={24}
+                          sm={14}
+                          lg={14}
+                          md={14}
+                        >
+                          549,000đ
+                        </Col>
+                      </Row>
+                      <Row className="product__carousel-footer-progress">
+                        <div className="fire_icon">
+                          <img
+                            src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                            alt="Sản phẩm hot"
+                            width="25px"
+                          />
+                        </div>
+                        <Progress percent={30} format={() => "Đang diễn ra"} />
+                      </Row>
+                    </div>
+                  </div>
+                </div>
+                <div className="product__carousel-mobile">
+                  <div className="product__carousel__container">
+                    <div className="product__carousel-status">
+                      <div className="ribbon_new up">
+                        <div className="content">Mới</div>
+                      </div>
+                      <div className="ribbon up">
+                        <div className="content">-10%</div>
+                      </div>
+                    </div>
+
+                    <div className="product__carousel-image">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC4}
+                        alt="Khuyến mãi hot của yody"
+                        width="190px"
+                        height="250px"
+                      />
+                    </div>
+                    <div className="product__carousel-love">
+                      <BsHeart />
+                    </div>
+                    <div className="product__carousel-hot">
+                      <img
+                        src={FireIcon}
+                        // src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                        alt="Sản phẩm hot của Yody"
+                      />
+                    </div>
+                    <div className="product__carousel-footer">
+                      <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                        <p>Áo khoác gió nam thể thao phối lưng</p>
+                      </Tooltip>
+                      <Row>
+                        <Col
+                          className="product__carousel-footer-discount"
+                          xs={24}
+                          sm={10}
+                          lg={10}
+                          md={10}
+                        >
+                          399,000đ
+                        </Col>
+                        <Col
+                          className="product__carousel-footer-price"
+                          xs={24}
+                          sm={14}
+                          lg={14}
+                          md={14}
+                        >
+                          549,000đ
+                        </Col>
+                      </Row>
+                      <Row className="product__carousel-footer-progress">
+                        <div className="fire_icon">
+                          <img
+                            src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                            alt="Sản phẩm hot"
+                            width="25px"
+                          />
+                        </div>
+                        <Progress percent={30} format={() => "Đang diễn ra"} />
+                      </Row>
+                    </div>
+                  </div>
+                </div>
+                <div className="product__carousel-mobile">
+                  <div className="product__carousel__container">
+                    <div className="product__carousel-status">
+                      <div className="ribbon_new up">
+                        <div className="content">Mới</div>
+                      </div>
+                      <div className="ribbon up">
+                        <div className="content">-10%</div>
+                      </div>
+                    </div>
+
+                    <div className="product__carousel-image">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC4}
+                        alt="Khuyến mãi hot của yody"
+                        width="190px"
+                        height="250px"
+                      />
+                    </div>
+                    <div className="product__carousel-love">
+                      <BsHeart />
+                    </div>
+                    <div className="product__carousel-hot">
+                      <img
+                        src={FireIcon}
+                        // src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                        alt="Sản phẩm hot của Yody"
+                      />
+                    </div>
+                    <div className="product__carousel-footer">
+                      <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                        <p>Áo khoác gió nam thể thao phối lưng</p>
+                      </Tooltip>
+                      <Row>
+                        <Col
+                          className="product__carousel-footer-discount"
+                          xs={24}
+                          sm={10}
+                          lg={10}
+                          md={10}
+                        >
+                          399,000đ
+                        </Col>
+                        <Col
+                          className="product__carousel-footer-price"
+                          xs={24}
+                          sm={14}
+                          lg={14}
+                          md={14}
+                        >
+                          549,000đ
+                        </Col>
+                      </Row>
+                      <Row className="product__carousel-footer-progress">
+                        <div className="fire_icon">
+                          <img
+                            src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                            alt="Sản phẩm hot"
+                            width="25px"
+                          />
+                        </div>
+                        <Progress percent={30} format={() => "Đang diễn ra"} />
+                      </Row>
+                    </div>
+                  </div>
+                </div>
+                <div className="product__carousel-mobile">
+                  <div className="product__carousel__container">
+                    <div className="product__carousel-status">
+                      <div className="ribbon_new up">
+                        <div className="content">Mới</div>
+                      </div>
+                      <div className="ribbon up">
+                        <div className="content">-10%</div>
+                      </div>
+                    </div>
+
+                    <div className="product__carousel-image">
+                      <img
+                        loading="lazy"
+                        src={AOKHOAC4}
+                        alt="Khuyến mãi hot của yody"
+                        width="190px"
+                        height="250px"
+                      />
+                    </div>
+                    <div className="product__carousel-love">
+                      <BsHeart />
+                    </div>
+                    <div className="product__carousel-hot">
+                      <img
+                        src={FireIcon}
+                        // src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                        alt="Sản phẩm hot của Yody"
+                      />
+                    </div>
+                    <div className="product__carousel-footer">
+                      <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                        <p>Áo khoác gió nam thể thao phối lưng</p>
+                      </Tooltip>
+                      <Row>
+                        <Col
+                          className="product__carousel-footer-discount"
+                          xs={24}
+                          sm={10}
+                          lg={10}
+                          md={10}
+                        >
+                          399,000đ
+                        </Col>
+                        <Col
+                          className="product__carousel-footer-price"
+                          xs={24}
+                          sm={14}
+                          lg={14}
+                          md={14}
+                        >
+                          549,000đ
+                        </Col>
+                      </Row>
+                      <Row className="product__carousel-footer-progress">
+                        <div className="fire_icon">
+                          <img
+                            src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                            alt="Sản phẩm hot"
+                            width="25px"
+                          />
+                        </div>
+                        <Progress percent={30} format={() => "Đang diễn ra"} />
+                      </Row>
+                    </div>
+                  </div>
+                </div>
+              </Slider>
+            </Row>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="banner__sale">
+          <div className="container">
+            <h3>Flash Sale</h3>
+            <Row>
+              <Col md={6} sm={0} style={{ paddingRight: "10px" }}>
+                <div
+                  className="banner__sale-left"
+                  style={{ background: `url(${BGSALE})` }}
+                >
+                  <h2>FLASH SALE</h2>
+                  <BsFillLightningFill />
+                  <p>Kết thúc sau</p>
+                  <div className="banner__sale-countdown">
+                    <Row justify="center">
+                      <span>{hour}</span>
+                      <span>:</span>
+                      <span>{minute}</span>
+                      <span>:</span>
+                      <span>{second}</span>
+                    </Row>
+                  </div>
+                  <img src={FlashBanner} alt="Yody flash sale" />
+                  <Row
+                    className="banner__sale-button"
+                    align="middle"
+                    justify="center"
+                  >
+                    <Button>Xem tất cả</Button>
+                  </Row>
+                </div>
+              </Col>
+              <Col md={18} sm={24}>
+                <Slider {...settings}>
+                  <div className="product__carousel">
+                    <div className="product__carousel__container">
+                      <div className="product__carousel-status">
+                        <div className="ribbon_new up">
+                          <div className="content">Mới</div>
+                        </div>
+                        <div className="ribbon up">
+                          <div className="content">-10%</div>
+                        </div>
+                      </div>
+
+                      <div className="product__carousel-image">
+                        <img
+                          loading="lazy"
+                          src={AOKHOAC4}
+                          alt="Khuyến mãi hot của yody"
+                          width="190px"
+                          height="250px"
+                        />
+                      </div>
+                      <div className="product__carousel-love">
+                        <BsHeart />
+                      </div>
+                      <div className="product__carousel-hot">
+                        <img
+                          src={FireIcon}
+                          // src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                          alt="Sản phẩm hot của Yody"
+                        />
+                      </div>
+                      <div className="product__carousel-footer">
+                        <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                          <p>Áo khoác gió nam thể thao phối lưng</p>
+                        </Tooltip>
+                        <Row>
+                          <Col
+                            className="product__carousel-footer-discount"
+                            xs={10}
+                            sm={10}
+                            lg={10}
+                            md={10}
+                          >
+                            399,000đ
+                          </Col>
+                          <Col
+                            className="product__carousel-footer-price"
+                            xs={14}
+                            sm={14}
+                            lg={14}
+                            md={14}
+                          >
+                            549,000đ
+                          </Col>
+                        </Row>
+                        <Row className="product__carousel-footer-progress">
+                          <div className="fire_icon">
+                            <img
+                              src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                              alt="Sản phẩm hot"
+                              width="25px"
+                            />
+                          </div>
+                          <Progress
+                            percent={30}
+                            format={() => "Đang diễn ra"}
+                          />
+                        </Row>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="product__carousel">
+                    <div className="product__carousel__container">
+                      <div className="product__carousel-status">
+                        <div className="ribbon_new up">
+                          <div className="content">Mới</div>
+                        </div>
+                        <div className="ribbon up">
+                          <div className="content">-10%</div>
+                        </div>
+                      </div>
+
+                      <div className="product__carousel-image">
+                        <img
+                          loading="lazy"
+                          src={AOKHOAC1}
+                          alt="Khuyến mãi hot của yody"
+                          width="190px"
+                          height="250px"
+                        />
+                      </div>
+                      <div className="product__carousel-love">
+                        <BsHeart />
+                      </div>
+                      <div className="product__carousel-hot">
+                        <img
+                          src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                          alt="Sản phẩm hot của Yody"
+                        />
+                      </div>
+                      <div className="product__carousel-footer">
+                        <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                          <p>Áo khoác gió nam thể thao phối lưng</p>
+                        </Tooltip>
+                        <Row>
+                          <Col
+                            className="product__carousel-footer-discount"
+                            xs={10}
+                            sm={10}
+                            lg={10}
+                            md={10}
+                          >
+                            399,000đ
+                          </Col>
+                          <Col
+                            className="product__carousel-footer-price"
+                            xs={14}
+                            sm={14}
+                            lg={14}
+                            md={14}
+                          >
+                            549,000đ
+                          </Col>
+                        </Row>
+                        <Row className="product__carousel-footer-progress">
+                          <div className="fire_icon">
+                            <img
+                              src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                              alt="Sản phẩm hot"
+                              width="25px"
+                            />
+                          </div>
+                          <Progress percent={90} format={() => "Sắp bán hết"} />
+                        </Row>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="product__carousel">
+                    <div className="product__carousel__container">
+                      <div className="product__carousel-status">
+                        <div className="ribbon_new up">
+                          <div className="content">Mới</div>
+                        </div>
+                        <div className="ribbon up">
+                          <div className="content">-10%</div>
+                        </div>
+                      </div>
+
+                      <div className="product__carousel-image">
+                        <img
+                          loading="lazy"
+                          src={AOKHOAC2}
+                          alt="Khuyến mãi hot của yody"
+                          width="190px"
+                          height="250px"
+                        />
+                      </div>
+                      <div className="product__carousel-love">
+                        <BsHeart />
+                      </div>
+                      <div className="product__carousel-hot">
+                        <img
+                          src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                          alt="Sản phẩm hot của Yody"
+                        />
+                      </div>
+                      <div className="product__carousel-footer">
+                        <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                          <p>Áo khoác gió nam thể thao phối lưng</p>
+                        </Tooltip>
+                        <Row>
+                          <Col
+                            className="product__carousel-footer-discount"
+                            xs={10}
+                            sm={10}
+                            lg={10}
+                            md={10}
+                          >
+                            399,000đ
+                          </Col>
+                          <Col
+                            className="product__carousel-footer-price"
+                            xs={14}
+                            sm={14}
+                            lg={14}
+                            md={14}
+                          >
+                            549,000đ
+                          </Col>
+                        </Row>
+                        <Row className="product__carousel-footer-progress">
+                          <div className="fire_icon">
+                            <img
+                              src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                              alt="Sản phẩm hot"
+                              width="25px"
+                            />
+                          </div>
+                          <Progress
+                            percent={30}
+                            format={() => "Đang diễn ra"}
+                          />
+                        </Row>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="product__carousel">
+                    <div className="product__carousel__container">
+                      <div className="product__carousel-status">
+                        <div className="ribbon_new up">
+                          <div className="content">Mới</div>
+                        </div>
+                        <div className="ribbon up">
+                          <div className="content">-10%</div>
+                        </div>
+                      </div>
+
+                      <div className="product__carousel-image">
+                        <img
+                          loading="lazy"
+                          src={AOKHOAC4}
+                          alt="Khuyến mãi hot của yody"
+                          width="190px"
+                          height="250px"
+                        />
+                      </div>
+                      <div className="product__carousel-love">
+                        <BsHeart />
+                      </div>
+                      <div className="product__carousel-hot">
+                        <img
+                          src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                          alt="Sản phẩm hot của Yody"
+                        />
+                      </div>
+                      <div className="product__carousel-footer">
+                        <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                          <p>Áo khoác gió nam thể thao phối lưng</p>
+                        </Tooltip>
+                        <Row>
+                          <Col
+                            className="product__carousel-footer-discount"
+                            xs={10}
+                            sm={10}
+                            lg={10}
+                            md={10}
+                          >
+                            399,000đ
+                          </Col>
+                          <Col
+                            className="product__carousel-footer-price"
+                            xs={14}
+                            sm={14}
+                            lg={14}
+                            md={14}
+                          >
+                            549,000đ
+                          </Col>
+                        </Row>
+                        <Row className="product__carousel-footer-progress">
+                          <div className="fire_icon">
+                            <img
+                              src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                              alt="Sản phẩm hot"
+                              width="25px"
+                            />
+                          </div>
+                          <Progress
+                            percent={30}
+                            format={() => "Đang diễn ra"}
+                          />
+                        </Row>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="product__carousel">
+                    <div className="product__carousel__container">
+                      <div className="product__carousel-status">
+                        <div className="ribbon_new up">
+                          <div className="content">Mới</div>
+                        </div>
+                        <div className="ribbon up">
+                          <div className="content">-10%</div>
+                        </div>
+                      </div>
+
+                      <div className="product__carousel-image">
+                        <img
+                          loading="lazy"
+                          src={AOKHOAC3}
+                          alt="Khuyến mãi hot của yody"
+                          width="190px"
+                          height="250px"
+                        />
+                      </div>
+                      <div className="product__carousel-love">
+                        <BsHeart />
+                      </div>
+                      <div className="product__carousel-hot">
+                        <img
+                          src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                          alt="Sản phẩm hot của Yody"
+                        />
+                      </div>
+                      <div className="product__carousel-footer">
+                        <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                          <p>Áo khoác gió nam thể thao phối lưng</p>
+                        </Tooltip>
+                        <Row>
+                          <Col
+                            className="product__carousel-footer-discount"
+                            xs={10}
+                            sm={10}
+                            lg={10}
+                            md={10}
+                          >
+                            399,000đ
+                          </Col>
+                          <Col
+                            className="product__carousel-footer-price"
+                            xs={14}
+                            sm={14}
+                            lg={14}
+                            md={14}
+                          >
+                            549,000đ
+                          </Col>
+                        </Row>
+                        <Row className="product__carousel-footer-progress">
+                          <div className="fire_icon">
+                            <img
+                              src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                              alt="Sản phẩm hot"
+                              width="25px"
+                            />
+                          </div>
+                          <Progress
+                            percent={30}
+                            format={() => "Đang diễn ra"}
+                          />
+                        </Row>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="product__carousel">
+                    <div className="product__carousel__container">
+                      <div className="product__carousel-status">
+                        <div className="ribbon_new up">
+                          <div className="content">Mới</div>
+                        </div>
+                        <div className="ribbon up">
+                          <div className="content">-10%</div>
+                        </div>
+                      </div>
+
+                      <div className="product__carousel-image">
+                        <img
+                          loading="lazy"
+                          src={AOKHOAC4}
+                          alt="Khuyến mãi hot của yody"
+                          width="190px"
+                          height="250px"
+                        />
+                      </div>
+                      <div className="product__carousel-love">
+                        <BsHeart />
+                      </div>
+                      <div className="product__carousel-hot">
+                        <img
+                          src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                          alt="Sản phẩm hot của Yody"
+                        />
+                      </div>
+                      <div className="product__carousel-footer">
+                        <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                          <p>Áo khoác gió nam thể thao phối lưng</p>
+                        </Tooltip>
+                        <Row>
+                          <Col
+                            className="product__carousel-footer-discount"
+                            xs={10}
+                            sm={10}
+                            lg={10}
+                            md={10}
+                          >
+                            399,000đ
+                          </Col>
+                          <Col
+                            className="product__carousel-footer-price"
+                            xs={14}
+                            sm={14}
+                            lg={14}
+                            md={14}
+                          >
+                            549,000đ
+                          </Col>
+                        </Row>
+                        <Row className="product__carousel-footer-progress">
+                          <div className="fire_icon">
+                            <img
+                              src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                              alt="Sản phẩm hot"
+                              width="25px"
+                            />
+                          </div>
+                          <Progress
+                            percent={30}
+                            format={() => "Đang diễn ra"}
+                          />
+                        </Row>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="product__carousel">
+                    <div className="product__carousel__container">
+                      <div className="product__carousel-status">
+                        <div className="ribbon_new up">
+                          <div className="content">Mới</div>
+                        </div>
+                        <div className="ribbon up">
+                          <div className="content">-10%</div>
+                        </div>
+                      </div>
+
+                      <div className="product__carousel-image">
+                        <img
+                          loading="lazy"
+                          src={AOKHOAC5}
+                          alt="Khuyến mãi hot của yody"
+                          width="190px"
+                          height="250px"
+                        />
+                      </div>
+                      <div className="product__carousel-love">
+                        <BsHeart />
+                      </div>
+                      <div className="product__carousel-hot">
+                        <img
+                          src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                          alt="Sản phẩm hot của Yody"
+                        />
+                      </div>
+                      <div className="product__carousel-footer">
+                        <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                          <p>Áo khoác gió nam thể thao phối lưng</p>
+                        </Tooltip>
+                        <Row>
+                          <Col
+                            className="product__carousel-footer-discount"
+                            xs={10}
+                            sm={10}
+                            lg={10}
+                            md={10}
+                          >
+                            399,000đ
+                          </Col>
+                          <Col
+                            className="product__carousel-footer-price"
+                            xs={14}
+                            sm={14}
+                            lg={14}
+                            md={14}
+                          >
+                            549,000đ
+                          </Col>
+                        </Row>
+                        <Row className="product__carousel-footer-progress">
+                          <div className="fire_icon">
+                            <img
+                              src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                              alt="Sản phẩm hot"
+                              width="25px"
+                            />
+                          </div>
+                          <Progress
+                            percent={30}
+                            format={() => "Đang diễn ra"}
+                          />
+                        </Row>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="product__carousel">
+                    <div className="product__carousel__container">
+                      <div className="product__carousel-status">
+                        <div className="ribbon_new up">
+                          <div className="content">Mới</div>
+                        </div>
+                        <div className="ribbon up">
+                          <div className="content">-10%</div>
+                        </div>
+                      </div>
+
+                      <div className="product__carousel-image">
+                        <img
+                          loading="lazy"
+                          src={AOKHOAC6}
+                          alt="Khuyến mãi hot của yody"
+                          width="190px"
+                          height="250px"
+                        />
+                      </div>
+                      <div className="product__carousel-love">
+                        <BsHeart />
+                      </div>
+                      <div className="product__carousel-hot">
+                        <img
+                          src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                          alt="Sản phẩm hot của Yody"
+                        />
+                      </div>
+                      <div className="product__carousel-footer">
+                        <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                          <p>Áo khoác gió nam thể thao phối lưng</p>
+                        </Tooltip>
+                        <Row>
+                          <Col
+                            className="product__carousel-footer-discount"
+                            xs={10}
+                            sm={10}
+                            lg={10}
+                            md={10}
+                          >
+                            399,000đ
+                          </Col>
+                          <Col
+                            className="product__carousel-footer-price"
+                            xs={14}
+                            sm={14}
+                            lg={14}
+                            md={14}
+                          >
+                            549,000đ
+                          </Col>
+                        </Row>
+                        <Row className="product__carousel-footer-progress">
+                          <div className="fire_icon">
+                            <img
+                              src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                              alt="Sản phẩm hot"
+                              width="25px"
+                            />
+                          </div>
+                          <Progress
+                            percent={30}
+                            format={() => "Đang diễn ra"}
+                          />
+                        </Row>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="product__carousel">
+                    <div className="product__carousel__container">
+                      <div className="product__carousel-status">
+                        <div className="ribbon_new up">
+                          <div className="content">Mới</div>
+                        </div>
+                        <div className="ribbon up">
+                          <div className="content">-10%</div>
+                        </div>
+                      </div>
+
+                      <div className="product__carousel-image">
+                        <img
+                          loading="lazy"
+                          src={AOKHOAC4}
+                          alt="Khuyến mãi hot của yody"
+                          width="190px"
+                          height="250px"
+                        />
+                      </div>
+                      <div className="product__carousel-love">
+                        <BsHeart />
+                      </div>
+                      <div className="product__carousel-hot">
+                        <img
+                          src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                          alt="Sản phẩm hot của Yody"
+                        />
+                      </div>
+                      <div className="product__carousel-footer">
+                        <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                          <p>Áo khoác gió nam thể thao phối lưng</p>
+                        </Tooltip>
+                        <Row>
+                          <Col
+                            className="product__carousel-footer-discount"
+                            xs={10}
+                            sm={10}
+                            lg={10}
+                            md={10}
+                          >
+                            399,000đ
+                          </Col>
+                          <Col
+                            className="product__carousel-footer-price"
+                            xs={14}
+                            sm={14}
+                            lg={14}
+                            md={14}
+                          >
+                            549,000đ
+                          </Col>
+                        </Row>
+                        <Row className="product__carousel-footer-progress">
+                          <div className="fire_icon">
+                            <img
+                              src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                              alt="Sản phẩm hot"
+                              width="25px"
+                            />
+                          </div>
+                          <Progress
+                            percent={30}
+                            format={() => "Đang diễn ra"}
+                          />
+                        </Row>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="product__carousel">
+                    <div className="product__carousel__container">
+                      <div className="product__carousel-status">
+                        <div className="ribbon_new up">
+                          <div className="content">Mới</div>
+                        </div>
+                        <div className="ribbon up">
+                          <div className="content">-10%</div>
+                        </div>
+                      </div>
+
+                      <div className="product__carousel-image">
+                        <img
+                          loading="lazy"
+                          src={AOKHOAC4}
+                          alt="Khuyến mãi hot của yody"
+                          width="190px"
+                          height="250px"
+                        />
+                      </div>
+                      <div className="product__carousel-love">
+                        <BsHeart />
+                      </div>
+                      <div className="product__carousel-hot">
+                        <img
+                          src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                          alt="Sản phẩm hot của Yody"
+                        />
+                      </div>
+                      <div className="product__carousel-footer">
+                        <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                          <p>Áo khoác gió nam thể thao phối lưng</p>
+                        </Tooltip>
+                        <Row>
+                          <Col
+                            className="product__carousel-footer-discount"
+                            xs={10}
+                            sm={10}
+                            lg={10}
+                            md={10}
+                          >
+                            399,000đ
+                          </Col>
+                          <Col
+                            className="product__carousel-footer-price"
+                            xs={14}
+                            sm={14}
+                            lg={14}
+                            md={14}
+                          >
+                            549,000đ
+                          </Col>
+                        </Row>
+                        <Row className="product__carousel-footer-progress">
+                          <div className="fire_icon">
+                            <img
+                              src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                              alt="Sản phẩm hot"
+                              width="25px"
+                            />
+                          </div>
+                          <Progress
+                            percent={30}
+                            format={() => "Đang diễn ra"}
+                          />
+                        </Row>
+                      </div>
+                    </div>
+                  </div>
+                </Slider>
+                <Slider {...settings}>
+                  <div className="product__carousel">
+                    <div className="product__carousel__container">
+                      <div className="product__carousel-status">
+                        <div className="ribbon_new up">
+                          <div className="content">Mới</div>
+                        </div>
+                        <div className="ribbon up">
+                          <div className="content">-10%</div>
+                        </div>
+                      </div>
+
+                      <div className="product__carousel-image">
+                        <img
+                          loading="lazy"
+                          src={AOKHOAC4}
+                          alt="Khuyến mãi hot của yody"
+                          width="190px"
+                          height="250px"
+                        />
+                      </div>
+                      <div className="product__carousel-love">
+                        <BsHeart />
+                      </div>
+                      <div className="product__carousel-hot">
+                        <img
+                          src={FireIcon}
+                          // src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                          alt="Sản phẩm hot của Yody"
+                        />
+                      </div>
+                      <div className="product__carousel-footer">
+                        <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                          <p>Áo khoác gió nam thể thao phối lưng</p>
+                        </Tooltip>
+                        <Row>
+                          <Col
+                            className="product__carousel-footer-discount"
+                            xs={10}
+                            sm={10}
+                            lg={10}
+                            md={10}
+                          >
+                            399,000đ
+                          </Col>
+                          <Col
+                            className="product__carousel-footer-price"
+                            xs={14}
+                            sm={14}
+                            lg={14}
+                            md={14}
+                          >
+                            549,000đ
+                          </Col>
+                        </Row>
+                        <Row className="product__carousel-footer-progress">
+                          <div className="fire_icon">
+                            <img
+                              src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                              alt="Sản phẩm hot"
+                              width="25px"
+                            />
+                          </div>
+                          <Progress
+                            percent={30}
+                            format={() => "Đang diễn ra"}
+                          />
+                        </Row>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="product__carousel">
+                    <div className="product__carousel__container">
+                      <div className="product__carousel-status">
+                        <div className="ribbon_new up">
+                          <div className="content">Mới</div>
+                        </div>
+                        <div className="ribbon up">
+                          <div className="content">-10%</div>
+                        </div>
+                      </div>
+
+                      <div className="product__carousel-image">
+                        <img
+                          loading="lazy"
+                          src={AOKHOAC1}
+                          alt="Khuyến mãi hot của yody"
+                          width="190px"
+                          height="250px"
+                        />
+                      </div>
+                      <div className="product__carousel-love">
+                        <BsHeart />
+                      </div>
+                      <div className="product__carousel-hot">
+                        <img
+                          src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                          alt="Sản phẩm hot của Yody"
+                        />
+                      </div>
+                      <div className="product__carousel-footer">
+                        <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                          <p>Áo khoác gió nam thể thao phối lưng</p>
+                        </Tooltip>
+                        <Row>
+                          <Col
+                            className="product__carousel-footer-discount"
+                            xs={10}
+                            sm={10}
+                            lg={10}
+                            md={10}
+                          >
+                            399,000đ
+                          </Col>
+                          <Col
+                            className="product__carousel-footer-price"
+                            xs={14}
+                            sm={14}
+                            lg={14}
+                            md={14}
+                          >
+                            549,000đ
+                          </Col>
+                        </Row>
+                        <Row className="product__carousel-footer-progress">
+                          <div className="fire_icon">
+                            <img
+                              src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                              alt="Sản phẩm hot"
+                              width="25px"
+                            />
+                          </div>
+                          <Progress percent={90} format={() => "Sắp bán hết"} />
+                        </Row>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="product__carousel">
+                    <div className="product__carousel__container">
+                      <div className="product__carousel-status">
+                        <div className="ribbon_new up">
+                          <div className="content">Mới</div>
+                        </div>
+                        <div className="ribbon up">
+                          <div className="content">-10%</div>
+                        </div>
+                      </div>
+
+                      <div className="product__carousel-image">
+                        <img
+                          loading="lazy"
+                          src={AOKHOAC2}
+                          alt="Khuyến mãi hot của yody"
+                          width="190px"
+                          height="250px"
+                        />
+                      </div>
+                      <div className="product__carousel-love">
+                        <BsHeart />
+                      </div>
+                      <div className="product__carousel-hot">
+                        <img
+                          src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                          alt="Sản phẩm hot của Yody"
+                        />
+                      </div>
+                      <div className="product__carousel-footer">
+                        <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                          <p>Áo khoác gió nam thể thao phối lưng</p>
+                        </Tooltip>
+                        <Row>
+                          <Col
+                            className="product__carousel-footer-discount"
+                            xs={10}
+                            sm={10}
+                            lg={10}
+                            md={10}
+                          >
+                            399,000đ
+                          </Col>
+                          <Col
+                            className="product__carousel-footer-price"
+                            xs={14}
+                            sm={14}
+                            lg={14}
+                            md={14}
+                          >
+                            549,000đ
+                          </Col>
+                        </Row>
+                        <Row className="product__carousel-footer-progress">
+                          <div className="fire_icon">
+                            <img
+                              src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                              alt="Sản phẩm hot"
+                              width="25px"
+                            />
+                          </div>
+                          <Progress
+                            percent={30}
+                            format={() => "Đang diễn ra"}
+                          />
+                        </Row>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="product__carousel">
+                    <div className="product__carousel__container">
+                      <div className="product__carousel-status">
+                        <div className="ribbon_new up">
+                          <div className="content">Mới</div>
+                        </div>
+                        <div className="ribbon up">
+                          <div className="content">-10%</div>
+                        </div>
+                      </div>
+
+                      <div className="product__carousel-image">
+                        <img
+                          loading="lazy"
+                          src={AOKHOAC4}
+                          alt="Khuyến mãi hot của yody"
+                          width="190px"
+                          height="250px"
+                        />
+                      </div>
+                      <div className="product__carousel-love">
+                        <BsHeart />
+                      </div>
+                      <div className="product__carousel-hot">
+                        <img
+                          src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                          alt="Sản phẩm hot của Yody"
+                        />
+                      </div>
+                      <div className="product__carousel-footer">
+                        <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                          <p>Áo khoác gió nam thể thao phối lưng</p>
+                        </Tooltip>
+                        <Row>
+                          <Col
+                            className="product__carousel-footer-discount"
+                            xs={10}
+                            sm={10}
+                            lg={10}
+                            md={10}
+                          >
+                            399,000đ
+                          </Col>
+                          <Col
+                            className="product__carousel-footer-price"
+                            xs={14}
+                            sm={14}
+                            lg={14}
+                            md={14}
+                          >
+                            549,000đ
+                          </Col>
+                        </Row>
+                        <Row className="product__carousel-footer-progress">
+                          <div className="fire_icon">
+                            <img
+                              src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                              alt="Sản phẩm hot"
+                              width="25px"
+                            />
+                          </div>
+                          <Progress
+                            percent={30}
+                            format={() => "Đang diễn ra"}
+                          />
+                        </Row>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="product__carousel">
+                    <div className="product__carousel__container">
+                      <div className="product__carousel-status">
+                        <div className="ribbon_new up">
+                          <div className="content">Mới</div>
+                        </div>
+                        <div className="ribbon up">
+                          <div className="content">-10%</div>
+                        </div>
+                      </div>
+
+                      <div className="product__carousel-image">
+                        <img
+                          loading="lazy"
+                          src={AOKHOAC3}
+                          alt="Khuyến mãi hot của yody"
+                          width="190px"
+                          height="250px"
+                        />
+                      </div>
+                      <div className="product__carousel-love">
+                        <BsHeart />
+                      </div>
+                      <div className="product__carousel-hot">
+                        <img
+                          src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                          alt="Sản phẩm hot của Yody"
+                        />
+                      </div>
+                      <div className="product__carousel-footer">
+                        <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                          <p>Áo khoác gió nam thể thao phối lưng</p>
+                        </Tooltip>
+                        <Row>
+                          <Col
+                            className="product__carousel-footer-discount"
+                            xs={10}
+                            sm={10}
+                            lg={10}
+                            md={10}
+                          >
+                            399,000đ
+                          </Col>
+                          <Col
+                            className="product__carousel-footer-price"
+                            xs={14}
+                            sm={14}
+                            lg={14}
+                            md={14}
+                          >
+                            549,000đ
+                          </Col>
+                        </Row>
+                        <Row className="product__carousel-footer-progress">
+                          <div className="fire_icon">
+                            <img
+                              src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                              alt="Sản phẩm hot"
+                              width="25px"
+                            />
+                          </div>
+                          <Progress
+                            percent={30}
+                            format={() => "Đang diễn ra"}
+                          />
+                        </Row>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="product__carousel">
+                    <div className="product__carousel__container">
+                      <div className="product__carousel-status">
+                        <div className="ribbon_new up">
+                          <div className="content">Mới</div>
+                        </div>
+                        <div className="ribbon up">
+                          <div className="content">-10%</div>
+                        </div>
+                      </div>
+
+                      <div className="product__carousel-image">
+                        <img
+                          loading="lazy"
+                          src={AOKHOAC4}
+                          alt="Khuyến mãi hot của yody"
+                          width="190px"
+                          height="250px"
+                        />
+                      </div>
+                      <div className="product__carousel-love">
+                        <BsHeart />
+                      </div>
+                      <div className="product__carousel-hot">
+                        <img
+                          src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                          alt="Sản phẩm hot của Yody"
+                        />
+                      </div>
+                      <div className="product__carousel-footer">
+                        <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                          <p>Áo khoác gió nam thể thao phối lưng</p>
+                        </Tooltip>
+                        <Row>
+                          <Col
+                            className="product__carousel-footer-discount"
+                            xs={10}
+                            sm={10}
+                            lg={10}
+                            md={10}
+                          >
+                            399,000đ
+                          </Col>
+                          <Col
+                            className="product__carousel-footer-price"
+                            xs={14}
+                            sm={14}
+                            lg={14}
+                            md={14}
+                          >
+                            549,000đ
+                          </Col>
+                        </Row>
+                        <Row className="product__carousel-footer-progress">
+                          <div className="fire_icon">
+                            <img
+                              src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                              alt="Sản phẩm hot"
+                              width="25px"
+                            />
+                          </div>
+                          <Progress
+                            percent={30}
+                            format={() => "Đang diễn ra"}
+                          />
+                        </Row>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="product__carousel">
+                    <div className="product__carousel__container">
+                      <div className="product__carousel-status">
+                        <div className="ribbon_new up">
+                          <div className="content">Mới</div>
+                        </div>
+                        <div className="ribbon up">
+                          <div className="content">-10%</div>
+                        </div>
+                      </div>
+
+                      <div className="product__carousel-image">
+                        <img
+                          loading="lazy"
+                          src={AOKHOAC5}
+                          alt="Khuyến mãi hot của yody"
+                          width="190px"
+                          height="250px"
+                        />
+                      </div>
+                      <div className="product__carousel-love">
+                        <BsHeart />
+                      </div>
+                      <div className="product__carousel-hot">
+                        <img
+                          src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                          alt="Sản phẩm hot của Yody"
+                        />
+                      </div>
+                      <div className="product__carousel-footer">
+                        <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                          <p>Áo khoác gió nam thể thao phối lưng</p>
+                        </Tooltip>
+                        <Row>
+                          <Col
+                            className="product__carousel-footer-discount"
+                            xs={10}
+                            sm={10}
+                            lg={10}
+                            md={10}
+                          >
+                            399,000đ
+                          </Col>
+                          <Col
+                            className="product__carousel-footer-price"
+                            xs={14}
+                            sm={14}
+                            lg={14}
+                            md={14}
+                          >
+                            549,000đ
+                          </Col>
+                        </Row>
+                        <Row className="product__carousel-footer-progress">
+                          <div className="fire_icon">
+                            <img
+                              src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                              alt="Sản phẩm hot"
+                              width="25px"
+                            />
+                          </div>
+                          <Progress
+                            percent={30}
+                            format={() => "Đang diễn ra"}
+                          />
+                        </Row>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="product__carousel">
+                    <div className="product__carousel__container">
+                      <div className="product__carousel-status">
+                        <div className="ribbon_new up">
+                          <div className="content">Mới</div>
+                        </div>
+                        <div className="ribbon up">
+                          <div className="content">-10%</div>
+                        </div>
+                      </div>
+
+                      <div className="product__carousel-image">
+                        <img
+                          loading="lazy"
+                          src={AOKHOAC6}
+                          alt="Khuyến mãi hot của yody"
+                          width="190px"
+                          height="250px"
+                        />
+                      </div>
+                      <div className="product__carousel-love">
+                        <BsHeart />
+                      </div>
+                      <div className="product__carousel-hot">
+                        <img
+                          src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                          alt="Sản phẩm hot của Yody"
+                        />
+                      </div>
+                      <div className="product__carousel-footer">
+                        <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                          <p>Áo khoác gió nam thể thao phối lưng</p>
+                        </Tooltip>
+                        <Row>
+                          <Col
+                            className="product__carousel-footer-discount"
+                            xs={10}
+                            sm={10}
+                            lg={10}
+                            md={10}
+                          >
+                            399,000đ
+                          </Col>
+                          <Col
+                            className="product__carousel-footer-price"
+                            xs={14}
+                            sm={14}
+                            lg={14}
+                            md={14}
+                          >
+                            549,000đ
+                          </Col>
+                        </Row>
+                        <Row className="product__carousel-footer-progress">
+                          <div className="fire_icon">
+                            <img
+                              src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                              alt="Sản phẩm hot"
+                              width="25px"
+                            />
+                          </div>
+                          <Progress
+                            percent={30}
+                            format={() => "Đang diễn ra"}
+                          />
+                        </Row>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="product__carousel">
+                    <div className="product__carousel__container">
+                      <div className="product__carousel-status">
+                        <div className="ribbon_new up">
+                          <div className="content">Mới</div>
+                        </div>
+                        <div className="ribbon up">
+                          <div className="content">-10%</div>
+                        </div>
+                      </div>
+
+                      <div className="product__carousel-image">
+                        <img
+                          loading="lazy"
+                          src={AOKHOAC4}
+                          alt="Khuyến mãi hot của yody"
+                          width="190px"
+                          height="250px"
+                        />
+                      </div>
+                      <div className="product__carousel-love">
+                        <BsHeart />
+                      </div>
+                      <div className="product__carousel-hot">
+                        <img
+                          src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                          alt="Sản phẩm hot của Yody"
+                        />
+                      </div>
+                      <div className="product__carousel-footer">
+                        <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                          <p>Áo khoác gió nam thể thao phối lưng</p>
+                        </Tooltip>
+                        <Row>
+                          <Col
+                            className="product__carousel-footer-discount"
+                            xs={10}
+                            sm={10}
+                            lg={10}
+                            md={10}
+                          >
+                            399,000đ
+                          </Col>
+                          <Col
+                            className="product__carousel-footer-price"
+                            xs={14}
+                            sm={14}
+                            lg={14}
+                            md={14}
+                          >
+                            549,000đ
+                          </Col>
+                        </Row>
+                        <Row className="product__carousel-footer-progress">
+                          <div className="fire_icon">
+                            <img
+                              src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                              alt="Sản phẩm hot"
+                              width="25px"
+                            />
+                          </div>
+                          <Progress
+                            percent={30}
+                            format={() => "Đang diễn ra"}
+                          />
+                        </Row>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="product__carousel">
+                    <div className="product__carousel__container">
+                      <div className="product__carousel-status">
+                        <div className="ribbon_new up">
+                          <div className="content">Mới</div>
+                        </div>
+                        <div className="ribbon up">
+                          <div className="content">-10%</div>
+                        </div>
+                      </div>
+
+                      <div className="product__carousel-image">
+                        <img
+                          loading="lazy"
+                          src={AOKHOAC4}
+                          alt="Khuyến mãi hot của yody"
+                          width="190px"
+                          height="250px"
+                        />
+                      </div>
+                      <div className="product__carousel-love">
+                        <BsHeart />
+                      </div>
+                      <div className="product__carousel-hot">
+                        <img
+                          src="https://bizweb.dktcdn.net/100/438/408/themes/843441/assets/hotico.svg?1638341344437"
+                          alt="Sản phẩm hot của Yody"
+                        />
+                      </div>
+                      <div className="product__carousel-footer">
+                        <Tooltip title="Áo khoác gió nam thể thao phối lưng">
+                          <p>Áo khoác gió nam thể thao phối lưng</p>
+                        </Tooltip>
+                        <Row>
+                          <Col
+                            className="product__carousel-footer-discount"
+                            xs={10}
+                            sm={10}
+                            lg={10}
+                            md={10}
+                          >
+                            399,000đ
+                          </Col>
+                          <Col
+                            className="product__carousel-footer-price"
+                            xs={14}
+                            sm={14}
+                            lg={14}
+                            md={14}
+                          >
+                            549,000đ
+                          </Col>
+                        </Row>
+                        <Row className="product__carousel-footer-progress">
+                          <div className="fire_icon">
+                            <img
+                              src="https://frontend.tikicdn.com/_desktop-next/static/img/fire_icon.svg"
+                              alt="Sản phẩm hot"
+                              width="25px"
+                            />
+                          </div>
+                          <Progress
+                            percent={30}
+                            format={() => "Đang diễn ra"}
+                          />
+                        </Row>
+                      </div>
+                    </div>
+                  </div>
+                </Slider>
+              </Col>
+            </Row>
+          </div>
+        </div>
+      )}
     </div>
   );
 });
@@ -900,7 +2525,7 @@ export default styled(FlashSale)`
     position: absolute;
     z-index: 10;
   }
-  .product__carousel__container {
+  .product__carousel .product__carousel__container {
     padding: 0px 10px;
   }
   .product__carousel-footer p {
@@ -910,6 +2535,17 @@ export default styled(FlashSale)`
     padding: 10px 0px 2px 0px;
     margin-bottom: 0px;
     font-size: 15px;
+  }
+  .product__carousel-mobile .product__carousel-footer p {
+    font-size: 12px;
+    padding: 5px 0px 2px 0px;
+  }
+  .product__carousel-mobile .product__carousel-footer-price {
+    font-size: 12px;
+    line-height: 12px;
+  }
+  .product__carousel-mobile .product__carousel-footer span {
+    font-size: 10px;
   }
   .product__carousel-love {
     width: 26px;
@@ -980,4 +2616,49 @@ export default styled(FlashSale)`
   .product__carousel-footer-progress .fire_icon img {
     margin-left: 5px;
   }
+  .ant-row.ant-row-center.countdown__mobile span:nth-child(2n + 1) {
+    border: 1px solid #000;
+    min-width: 26px;
+    text-align: center;
+    background: var(--blue-color);
+    color: var(--body-bg);
+  }
+  .ant-row.ant-row-center.countdown__mobile span:nth-child(2n) {
+    min-width: 10px;
+    text-align: center;
+  }
+  .prevArrow,
+  .nextArrow {
+    position: absolute;
+    z-index: 10;
+    top: 35%;
+    font-size: 30px;
+    border-radius: 50%;
+    background: var(--progress-color-light);
+    color: var(--progress-color);
+    display: none;
+    cursor: pointer;
+  }
+  .nextArrow {
+    right: 24px;
+  }
+  .prevArrow {
+    left: 14px;
+  }
+  .slick-slider {
+    padding: 0px 6px;
+    width: 100%;
+  }
+  .slick-slider:hover .nextArrow,
+  .slick-slider:hover .prevArrow {
+    display: block;
+  }
+  .product__carousel-mobile {
+    max-width: 108px;
+    padding-bottom: 30px;
+  }
+  .product__carousel-mobile .product__carousel-image {
+    height: 145px;
+  }
+  .product__carousel-mobile;
 `;
