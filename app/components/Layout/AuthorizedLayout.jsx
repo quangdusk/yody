@@ -49,7 +49,7 @@ const AuthorizedLayout = ({
       });
       // khi token hết hạn sẽ logout
       if (resultEntry.hasErrors) {
-        Globals.clear();
+        // Globals.clear();
       } else {
         onBrowseGlobalConfig(resultEntry);
       }
@@ -104,6 +104,8 @@ const AuthorizedLayout = ({
             subTopMenu: scroll == 1 ? true : false,
             subTopMenuUp: scroll == 1 ? false : true
           })}
+          isAuthenticated={isAuthenticated}
+          profile={profile}
         />
         <Content
           style={{

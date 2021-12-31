@@ -13,11 +13,13 @@ import {
   Space,
   Button,
   Tabs,
+  Tooltip,
+  Avatar,
 } from "antd";
 import { Link } from "react-router-dom";
 import { defineMessages, FormattedMessage } from "react-intl";
 import * as style from "components/Variables";
-import { AiOutlineLine, AiOutlineShoppingCart } from "react-icons/ai";
+import { AiOutlineLine, AiOutlineShoppingCart, AiOutlineTwitter } from "react-icons/ai";
 import classNames from "classnames";
 import Yody from "images/yody.png";
 const prefix = "app.routing.";
@@ -33,12 +35,12 @@ import Collect2 from "images/collect2.jpg";
 import Collect3 from "images/collect3.jpg";
 import Collect4 from "images/collect4.jpg";
 import Endow from "images/endow.jpg";
-import { RightOutlined, SearchOutlined } from "@ant-design/icons";
+import { RightOutlined, SearchOutlined, UserOutlined } from "@ant-design/icons";
 import { AiOutlineBars } from "react-icons/ai";
 
 const { Search } = Input;
 const { TabPane } = Tabs;
-function SubTopMenu({ className, pathName }) {
+function SubTopMenu({ className, pathName, isAuthenticated, profile }) {
   const _messages = defineMessages({
     moduleName: {
       id: `${prefix}${pathName}`,
@@ -720,6 +722,22 @@ function SubTopMenu({ className, pathName }) {
     });
   };
 
+  const menuUser = () => {
+    return (
+      <>
+        <Link to="/login">
+          <span style={{ color: "var(--body-bg)" }}>Đăng nhập</span>
+        </Link>
+        <br />
+        <Link to="/register">
+          <span style={{ color: "var(--body-bg)" }}>Đăng ký</span>
+        </Link>
+      </>
+    );
+  };
+
+  console.log("1234", isAuthenticated);
+
   return (
     <div
       className={classNames({
@@ -774,7 +792,11 @@ function SubTopMenu({ className, pathName }) {
                 </Row>
               </TabPane>
               <TabPane tab="Nam" key="3">
-                <Row justify="space-between" align="middle" style={{paddingBottom: "10px"}}>
+                <Row
+                  justify="space-between"
+                  align="middle"
+                  style={{ paddingBottom: "10px" }}
+                >
                   <span>
                     <img
                       src="https://bizweb.dktcdn.net/100/438/408/collections/ao.jpg?v=1636387349187"
@@ -797,7 +819,11 @@ function SubTopMenu({ className, pathName }) {
                     Mua theo giá cả
                   </Drawer>
                 </Row>
-                <Row align="middle" justify="space-between" style={{paddingBottom: "10px"}}>
+                <Row
+                  align="middle"
+                  justify="space-between"
+                  style={{ paddingBottom: "10px" }}
+                >
                   <span>
                     <img
                       src="https://bizweb.dktcdn.net/100/438/408/collections/ao.jpg?v=1636387349187"
@@ -821,7 +847,11 @@ function SubTopMenu({ className, pathName }) {
                     Đồ mặc nhà
                   </Drawer>
                 </Row>
-                <Row align="middle" justify="space-between" style={{paddingBottom: "10px"}}>
+                <Row
+                  align="middle"
+                  justify="space-between"
+                  style={{ paddingBottom: "10px" }}
+                >
                   <span>
                     <img
                       src="https://bizweb.dktcdn.net/100/438/408/collections/ao.jpg?v=1636387349187"
@@ -845,7 +875,11 @@ function SubTopMenu({ className, pathName }) {
                     Khuyến mãi
                   </Drawer>
                 </Row>
-                <Row align="middle" justify="space-between" style={{paddingBottom: "10px"}}>
+                <Row
+                  align="middle"
+                  justify="space-between"
+                  style={{ paddingBottom: "10px" }}
+                >
                   <span>
                     <img
                       src="https://bizweb.dktcdn.net/100/438/408/collections/ao.jpg?v=1636387349187"
@@ -869,7 +903,11 @@ function SubTopMenu({ className, pathName }) {
                     Khuyến mãi
                   </Drawer>
                 </Row>
-                <Row align="middle" justify="space-between" style={{paddingBottom: "10px"}}>
+                <Row
+                  align="middle"
+                  justify="space-between"
+                  style={{ paddingBottom: "10px" }}
+                >
                   <span>
                     <img
                       src="https://bizweb.dktcdn.net/100/438/408/collections/ao.jpg?v=1636387349187"
@@ -1111,13 +1149,36 @@ function SubTopMenu({ className, pathName }) {
               </div>
             </div>
           </Col>
+
           <Col md={3} style={{ paddingLeft: "24px" }}>
             <Row
               type="flex"
               justify="space-around"
               style={{ marginRight: "-20px" }}
             >
-              <BsPerson style={{ fontSize: "30px" }} />
+              {isAuthenticated ? (
+                profile.images ? (
+                  <Avatar
+                    src="https://joeschmoe.io/api/v1/random"
+                    style={{ cursor: "pointer" }}
+                  />
+                ) : (
+                  <Avatar
+                    icon={<AiOutlineTwitter />}
+                    style={{ cursor: "pointer" }}
+                  />
+                )
+              ) : (
+                <Tooltip
+                  title={menuUser}
+                  color="var(--price-color)"
+                  key="var(--price-color)"
+                  placement="bottomRight"
+                >
+                  <BsPerson style={{ fontSize: "30px", cursor: "pointer" }} />
+                </Tooltip>
+              )}
+
               <BsHeart style={{ fontSize: "26px", marginTop: "3px" }} />
               <Badge count={99} style={{ marginRight: "30px" }}>
                 <BsHandbag style={{ fontSize: "26px", marginRight: "30px" }} />

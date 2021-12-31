@@ -6,7 +6,8 @@ import { useHistory, Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function AccountItem({ isAuthenticated, profile, onLogOut }) {
+function AccountItem({ isAuthenticated, onLogOut }) {
+  console.log('isAuthenticated', isAuthenticated)
   const history = useHistory();
 
   const _forwardTo = useCallback(
@@ -22,7 +23,7 @@ function AccountItem({ isAuthenticated, profile, onLogOut }) {
   const menu = (
     <Menu>
       <Menu.Item>
-        <div onClick={() => _forwardTo('/profile')}>Thông tin khách hàng</div>
+        <div onClick={() => _forwardTo('/isAuthenticated')}>Thông tin khách hàng</div>
       </Menu.Item>
       <Menu.Item>
         <div onClick={_handleLogOut}>Đăng xuất</div>
@@ -34,7 +35,7 @@ function AccountItem({ isAuthenticated, profile, onLogOut }) {
       {isAuthenticated ? (
         <Dropdown className="itemName" overlay={menu} placement="bottomCenter">
           <span>
-            {_.get(profile, 'fullName')} <FontAwesomeIcon icon="angle-down" />
+            {_.get(isAuthenticated, 'fullName')} <FontAwesomeIcon icon="angle-down" />
           </span>
         </Dropdown>
       ) : (
@@ -49,7 +50,7 @@ function AccountItem({ isAuthenticated, profile, onLogOut }) {
 AccountItem.propTypes = {
   isAuthenticated: PropTypes.any,
   onLogOut: PropTypes.func,
-  profile: PropTypes.any,
+  isAuthenticated: PropTypes.any,
 };
 
 export default memo(AccountItem);
