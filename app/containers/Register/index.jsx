@@ -40,6 +40,7 @@ import { GrFacebookOption, GrGoogle } from "react-icons/gr";
 import { APP_NAME } from "utils/constants";
 import BG_LOGIN from "images/bg_login.jpg";
 import moment from "moment";
+import { Redirect } from "react-router-dom";
 const _Cookies = window.Cookies;
 const { Title } = Typography;
 const formLayout = {
@@ -56,7 +57,7 @@ const SignIn = ({ className, isAuthenticated, setAuthenticated }) => {
   }
   const [isFetching, setIsFetching] = useState(false);
   const _handleRegister = useCallback(
-      async (values) => {
+    async (values) => {
       let params = {
         type: "CUSTORMER",
         address: _.get(values, "user.address"),
@@ -65,22 +66,21 @@ const SignIn = ({ className, isAuthenticated, setAuthenticated }) => {
         name: _.get(values, "user.name"),
         password: _.get(values, "user.password"),
         phone: _.get(values, "user.phone"),
-        sex: _.get(values, "user.sex") == "Nữ" ? 2 : 1 ,
+        sex: _.get(values, "user.sex") == "Nữ" ? 2 : 1,
         //nam 1, nữ 2
       };
       setIsFetching(true);
       const result = await ServiceBase.requestJson({
         method: "POST",
         url: "/register",
-        data: params
+        data: params,
       });
 
       if (result.hasErrors) {
         setIsFetching(false);
-        Ui.showError(result.errors)
+        Ui.showErrors(result.errors);
       } else {
         let profile = _.get(result, "value", {});
-        console.log('profile', profile)
         profile = {
           ...profile,
           name: _.get(profile, "user.name", ""),
@@ -126,6 +126,10 @@ const SignIn = ({ className, isAuthenticated, setAuthenticated }) => {
   /* eslint-enable no-template-curly-in-string */
 
   const plainOptions = ["Nam", "Nữ"];
+
+  if (isAuthenticated) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <div
@@ -175,7 +179,14 @@ const SignIn = ({ className, isAuthenticated, setAuthenticated }) => {
                 </Form.Item>
                 <Form.Item
                   name={["user", "password"]}
-                  rules={[{ type: "string", min: 8, required: true }]}
+                  rules={[
+                    {
+                      type: "string",
+                      min: 8,
+                      required: true,
+                      message: "Mật khẩu phải có ít nhất 8 ký tự",
+                    },
+                  ]}
                 >
                   <Input.Password placeholder="Mật khẩu" />
                 </Form.Item>

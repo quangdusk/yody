@@ -28,6 +28,8 @@ import {
 import { GrFacebookOption, GrGoogle } from "react-icons/gr";
 import { APP_NAME } from "utils/constants";
 import BG_LOGIN from "images/bg_login.jpg";
+import ReactFacebookLogin from "react-facebook-login";
+import GoogleLogin from "react-google-login";
 const _Cookies = window.Cookies;
 const { Title } = Typography;
 const formLayout = {
@@ -58,8 +60,8 @@ const SignIn = ({ className, isAuthenticated, setAuthenticated }) => {
       });
 
       if (result.hasErrors) {
+        Ui.showErrors(result.errors);
         setIsFetching(false);
-        Ui.showError(result.errors);
       } else {
         Ui.showSuccess({ message: "Đăng nhập thành công!" });
         let profile = _.get(result, "value.user", {});
@@ -68,7 +70,7 @@ const SignIn = ({ className, isAuthenticated, setAuthenticated }) => {
           name: _.get(profile, "value.name", ""),
           id: _.get(profile, "value.id", ""),
           type: _.get(profile, "value.type", ""),
-          token: _.get(result, "value.token", {})
+          token: _.get(result, "value.token", {}),
         };
         delete profile.type;
         Globals.setSession({
@@ -91,6 +93,57 @@ const SignIn = ({ className, isAuthenticated, setAuthenticated }) => {
     [setAuthenticated]
   );
 
+  const responseGoogle = async (response) => {
+    console.log("response", response);
+    let params = {
+      address: null,
+      email: _.get(response.profileObj, "email"),
+      birthday: null,
+      name:
+        _.get(response.profileObj, "familyName") +
+        _.get(response.profileObj, "givenName"),
+      images: _.get(response.profileObj, "imageUrl"),
+      name: _.get(response.profileObj, "name"),
+      password: null,
+      phone: null,
+      sex: null,
+      type: "CUSTORMER",
+    };
+    let url = "/register";
+    let result = await ServiceBase.requestJson({
+      url: url,
+      method: "POST",
+      data: params,
+    });
+    Ui.showSuccess({ message: "Đăng nhập hệ thống thành công." });
+    let profile = _.get(result, "value")[0];
+
+    profile = {
+      // ...profile,
+      parentName: _.get(profile, "name", ""),
+      adm_name: _.get(profile, "name", ""),
+      uuId: _.get(profile, "uuId", ""),
+      parentId: _.get(profile, "id", ""),
+      rolesName: _.get(profile, "email", ""),
+    };
+    delete profile.role;
+    Globals.setSession({
+      public: {
+        erpReport: JSON.stringify(profile),
+      },
+
+      private: {
+        token: _.get(response, "accessToken"),
+        refresh_token: _.get(response, "accessToken"),
+      },
+    });
+
+    setAuthenticated({
+      isAuthenticated: true,
+      profile,
+    });
+  };
+
   if (isAuthenticated) {
     return <Redirect to="/" />;
   }
@@ -105,11 +158,51 @@ const SignIn = ({ className, isAuthenticated, setAuthenticated }) => {
     types: {
       email: "Email không đúng định dạng!",
       number: "${label} is not a valid number!",
-      password: "Mật khẩu phải có ít nhất 6 ký tự",
     },
     number: {
       range: "${label} must be between ${min} and ${max}",
     },
+  };
+
+  //Xử lý đăng nhập bằng facebook
+  const responseFacebook = async (response) => {
+    console.log("response", response);
+    let params = {
+      uuId: _.get(response, "id"),
+      image: _.get(response.picture.data.url, "url"),
+      name: _.get(response, "name"),
+    };
+    let url = "/usersocial/create";
+    let result = await ServiceBase.requestJson({
+      url: url,
+      method: "POST",
+      data: params,
+    });
+    Ui.showSuccess({ message: "Đăng nhập hệ thống thành công." });
+    let profile = _.get(result, "value")[0];
+    profile = {
+      // ...profile,
+      parentName: _.get(profile, "name", ""),
+      adm_name: _.get(profile, "name", ""),
+      uuId: _.get(profile, "uuId", ""),
+      parentId: _.get(profile, "id", ""),
+    };
+    delete profile.role;
+    Globals.setSession({
+      public: {
+        erpReport: JSON.stringify(profile),
+      },
+
+      private: {
+        token: _.get(response, "accessToken"),
+        refresh_token: _.get(response, "accessToken"),
+      },
+    });
+
+    setAuthenticated({
+      isAuthenticated: true,
+      profile,
+    });
   };
 
   return (
@@ -123,20 +216,20 @@ const SignIn = ({ className, isAuthenticated, setAuthenticated }) => {
       }}
     >
       <div className="box__container">
-        <div class="bird-container bird-container--one">
-          <div class="bird bird--one" />
+        <div className="bird-container bird-container--one">
+          <div className="bird bird--one" />
         </div>
 
-        <div class="bird-container bird-container--two">
-          <div class="bird bird--two" />
+        <div className="bird-container bird-container--two">
+          <div className="bird bird--two" />
         </div>
 
-        <div class="bird-container bird-container--three">
-          <div class="bird bird--three" />
+        <div className="bird-container bird-container--three">
+          <div className="bird bird--three" />
         </div>
 
-        <div class="bird-container bird-container--four">
-          <div class="bird bird--four" />
+        <div className="bird-container bird-container--four">
+          <div className="bird bird--four" />
         </div>
         <div className="box__container-content">
           <div className="box__container-form">
@@ -154,7 +247,14 @@ const SignIn = ({ className, isAuthenticated, setAuthenticated }) => {
                 </Form.Item>
                 <Form.Item
                   name={["user", "password"]}
-                  rules={[{ type: "string", min: 6, required: true }]}
+                  rules={[
+                    {
+                      type: "string",
+                      min: 8,
+                      required: true,
+                      message: "Mật khẩu phải có ít nhất 8 ký tự",
+                    },
+                  ]}
                 >
                   <Input.Password placeholder="Mật khẩu" />
                 </Form.Item>
@@ -179,8 +279,28 @@ const SignIn = ({ className, isAuthenticated, setAuthenticated }) => {
               align="middle"
               className="box__container-footer"
             >
-              <Button icon={<GrFacebookOption />}>Facebook</Button>
-              <Button icon={<GrGoogle />}>Google</Button>
+              <ReactFacebookLogin
+                appId="688248148848397"
+                autoLoad={false}
+                fields="name,email,picture"
+                // onClick={componentClicked}
+                callback={responseFacebook}
+                className="style-button"
+                // cssClass="my-facebook-button-class"
+                icon="fa-facebook"
+                textButton="Login with Facebook"
+                version="3.1"
+              />
+              <GoogleLogin
+                clientId="29925849028-2juggc9mk3aqnlc4pd1c6jv299541315.apps.googleusercontent.com"
+                buttonText="Login with Google"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                className="style-button"
+                cookiePolicy={"single_host_origin"}
+              />
+              {/* <Button icon={<GrFacebookOption />}>Facebook</Button>
+              <Button onClick={responseGoogle} icon={<GrGoogle />}>Google</Button> */}
             </Row>
           </div>
         </div>
@@ -280,7 +400,14 @@ export default compose(
     background: #007aff;
   }
   .box__container-footer button:nth-child(2) {
-    background: #e14b33;
+    // background: #e14b33;
+    height: 45px;
+    border-radius: 4px;
+    box-shadow: rgb(0 0 0 / 24%) 0px 2px 2px 0px,
+      rgb(0 0 0 / 24%) 0px 0px 1px 0px;
+    margin-right: 10px;
+    font-size: 14px;
+    text-transform: capitalize;
   }
   .box__container-footer button svg {
     margin: 0 10px 0 0;
@@ -304,5 +431,9 @@ export default compose(
   }
   .ant-form-item-control-input {
     margin-bottom: 10px;
+  }
+  button.style-button div {
+    margin-right: 0px !important;
+    padding-right: 0px !important;
   }
 `);

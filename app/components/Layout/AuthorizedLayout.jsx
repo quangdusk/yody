@@ -106,6 +106,7 @@ const AuthorizedLayout = ({
           })}
           isAuthenticated={isAuthenticated}
           profile={profile}
+          onLogOut={onLogOut}
         />
         <Content
           style={{

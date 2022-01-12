@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import PropTypes from "prop-types";
-import React, { memo, useState } from "react";
+import React, { memo, useCallback, useState } from "react";
 import styled from "styled-components";
 import {
   Select,
@@ -15,15 +15,20 @@ import {
   Tabs,
   Tooltip,
   Avatar,
+  Divider,
 } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { defineMessages, FormattedMessage } from "react-intl";
 import * as style from "components/Variables";
-import { AiOutlineLine, AiOutlineShoppingCart, AiOutlineTwitter } from "react-icons/ai";
+import {
+  AiOutlineLine,
+  AiOutlineShoppingCart,
+  AiOutlineTwitter,
+} from "react-icons/ai";
 import classNames from "classnames";
 import Yody from "images/yody.png";
 const prefix = "app.routing.";
-import { BsPerson, BsHeart, BsHandbag } from "react-icons/bs";
+import { BsPerson, BsHeart, BsHandbag, BsBoxArrowRight } from "react-icons/bs";
 import Nam1 from "images/nam1.jpg";
 import Nam2 from "images/nam2.jpg";
 import Nu1 from "images/nu1.jpg";
@@ -40,7 +45,13 @@ import { AiOutlineBars } from "react-icons/ai";
 
 const { Search } = Input;
 const { TabPane } = Tabs;
-function SubTopMenu({ className, pathName, isAuthenticated, profile }) {
+function SubTopMenu({
+  className,
+  pathName,
+  isAuthenticated,
+  profile,
+  onLogOut,
+}) {
   const _messages = defineMessages({
     moduleName: {
       id: `${prefix}${pathName}`,
@@ -722,21 +733,80 @@ function SubTopMenu({ className, pathName, isAuthenticated, profile }) {
     });
   };
 
+  const history = useHistory();
+  const _forwardTo = useCallback(
+    (to) => {
+      history.push(to);
+    },
+    [history]
+  );
+  const __handleLogOut = useCallback(() => {
+    _forwardTo("/");
+    onLogOut();
+  }, [_forwardTo, onLogOut]);
+
   const menuUser = () => {
     return (
       <>
         <Link to="/login">
-          <span style={{ color: "var(--body-bg)" }}>Đăng nhập</span>
+          <span style={{ color: "var(--text-color)" }}>Đăng nhập</span>
         </Link>
         <br />
         <Link to="/register">
-          <span style={{ color: "var(--body-bg)" }}>Đăng ký</span>
+          <span style={{ color: "var(--text-color)" }}>Đăng ký</span>
         </Link>
       </>
     );
   };
-
-  console.log("1234", isAuthenticated);
+  const menuUserInfo = () => {
+    return (
+      <>
+        <span style={{ color: "var(--price-color)" }}>
+          {profile.email ? profile?.email : profile?.phone}
+        </span>
+        <Divider
+          style={{
+            margin: "5px 0px",
+            borderTop: "1px solid var(--border-color)",
+          }}
+        />
+        <Link to="/">
+          <span style={{ color: "var(--text-color)" }}>Tài khoản của tôi</span>
+        </Link>
+        <br />
+        <Link to="/">
+          <span style={{ color: "var(--text-color)" }}>Đổi mật khẩu</span>
+        </Link>
+        <br />
+        <Link to="/">
+          <span style={{ color: "var(--text-color)" }}>Đã xem gần đây</span>
+        </Link>
+        <br />
+        <Link to="/">
+          <span style={{ color: "var(--text-color)" }}>Sản phẩm yêu thích</span>
+        </Link>
+        <br />
+        <Divider
+          style={{
+            margin: "5px 0px",
+            borderTop: "1px solid var(--border-color)",
+          }}
+        />
+        <Link to="/">
+          <BsBoxArrowRight
+            style={{
+              color: "var(--text-color)",
+              paddingRight: "5px",
+              fontSize: "24px",
+            }}
+          />
+          <span onClick={__handleLogOut} style={{ color: "var(--text-color)" }}>
+            Đăng xuất
+          </span>
+        </Link>
+      </>
+    );
+  };
 
   return (
     <div
@@ -1158,30 +1228,55 @@ function SubTopMenu({ className, pathName, isAuthenticated, profile }) {
             >
               {isAuthenticated ? (
                 profile.images ? (
-                  <Avatar
-                    src="https://joeschmoe.io/api/v1/random"
-                    style={{ cursor: "pointer" }}
-                  />
+                  <Tooltip
+                    title={menuUserInfo}
+                    color="var(--body-bg)"
+                    key="var(--price-color)"
+                    placement="bottomRight"
+                  >
+                    <Avatar
+                      src="https://joeschmoe.io/api/v1/random"
+                      style={{ cursor: "pointer" }}
+                    />
+                  </Tooltip>
                 ) : (
-                  <Avatar
-                    icon={<AiOutlineTwitter />}
-                    style={{ cursor: "pointer" }}
-                  />
+                  <Tooltip
+                    title={menuUserInfo}
+                    color="var(--body-bg)"
+                    key="var(--price-color)"
+                    placement="bottomRight"
+                  >
+                    <Avatar
+                      icon={<AiOutlineTwitter />}
+                      style={{ cursor: "pointer" }}
+                    />
+                  </Tooltip>
                 )
               ) : (
                 <Tooltip
                   title={menuUser}
-                  color="var(--price-color)"
+                  color="var(--body-bg)"
                   key="var(--price-color)"
                   placement="bottomRight"
                 >
-                  <BsPerson style={{ fontSize: "30px", cursor: "pointer" }} />
+                  <BsPerson style={{ fontSize: "32px", cursor: "pointer" }} />
                 </Tooltip>
               )}
-
-              <BsHeart style={{ fontSize: "26px", marginTop: "3px" }} />
+              <Tooltip
+                title="Sản phẩm yêu thích"
+                placement="topRight"
+                color="var(--price-color)"
+              >
+                <BsHeart
+                  className="header__top-heart"
+                  style={{ fontSize: "28px", marginTop: "3px" }}
+                />
+              </Tooltip>
               <Badge count={99} style={{ marginRight: "30px" }}>
-                <BsHandbag style={{ fontSize: "26px", marginRight: "30px" }} />
+                <BsHandbag
+                  className="header__top-handbag"
+                  style={{ fontSize: "28px", marginRight: "30px" }}
+                />
               </Badge>
             </Row>
           </Col>
@@ -1194,6 +1289,7 @@ function SubTopMenu({ className, pathName, isAuthenticated, profile }) {
 SubTopMenu.propTypes = {
   className: PropTypes.any,
   pathName: PropTypes.any,
+  onLogOut: PropTypes.func,
 };
 
 export default memo(styled(SubTopMenu)`
@@ -1247,5 +1343,9 @@ export default memo(styled(SubTopMenu)`
   }
   .header__menu-mobile.active a {
     color: var(--price-color) !important;
+  }
+  .header__top-heart,
+  .header__top-handbag {
+    cursor: pointer;
   }
 `);

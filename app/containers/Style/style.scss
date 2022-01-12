@@ -513,3 +513,8 @@ span.header__menu-detail-status {
     transform: translateY(0vh) translateX(110vw) scale(0.45);
   }
 }
+.ant-tooltip-inner a:hover span,
+.ant-tooltip-inner a:hover svg {
+  color: var(--price-color) !important;
+}
+
