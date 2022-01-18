@@ -11,9 +11,14 @@ import styled from "styled-components";
 import { Layout } from "antd";
 import { connect } from "react-redux";
 import { compose } from "recompose";
+import MenuLayout from "./Menu";
 
-const Public = ({children}) => {
-  return <div id="abc" >{children}</div>;
+const Public = ({ children }) => {
+  return (
+    <div id="abc">
+      <MenuLayout /> {children}
+    </div>
+  );
 };
 
 export default Public;

@@ -28,19 +28,19 @@ const AppRoute = ({
 }) => {
   let isLoginPath = Path === "/signin";
   let isMap = Path === "/vt/:id";
-  if (!Globals.isAuthenticated && !isLoginPath && !isMap) {
-    return (
-      <Redirect
-        to={{
-          pathname: "/signin",
-          state: { from: rest.location },
-        }}
-      />
-    );
-  }
-  if (Globals.isAuthenticated && isLoginPath && !isMap) {
-    return <Redirect to="/" />;
-  }
+  // if (!Globals.isAuthenticated && !isLoginPath && !isMap) {
+  //   return (
+  //     <Redirect
+  //       to={{
+  //         pathname: "/signin",
+  //         state: { from: rest.location },
+  //       }}
+  //     />
+  //   );
+  // }
+  // if (Globals.isAuthenticated && isLoginPath && !isMap) {
+  //   return <Redirect to="/" />;
+  // }
   return (
     <Route
       {...rest}

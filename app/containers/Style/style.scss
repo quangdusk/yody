@@ -1,4 +1,6 @@
-
+body {
+  background: #d3d4df;
+}
 
 @for $i from 0 through 7 {
   .mb_#{$i*5} {

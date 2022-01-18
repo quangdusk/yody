@@ -3,9 +3,8 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import SignIn from "containers/SignIn/Loadable";
 
-import AuthorizedLayout from "components/Layout/AuthorizedLayout";
 import GuestLayout from "components/Layout/GuestLayout";
-import Public from "components/Layout/Public";
+import Home from "containers/Home";
 // Authorized router
 export const MainRouter = (props) => {
   return (
@@ -27,8 +26,8 @@ export const publicRouter = [
   },
   {
     path: "/",
-    layout: AuthorizedLayout,
-    component: MainRouter,
+    layout: GuestLayout,
+    component: Home,
   }
 ];
 export const authorizedRoutes = [

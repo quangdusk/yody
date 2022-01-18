@@ -26,7 +26,6 @@ import LanguageProvider from "containers/LanguageProvider";
 
 // Load the favicon and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
-import "!file-loader?name=[name].[ext]!./images/yody.png";
 import "file-loader?name=.htaccess!./.htaccess";
 /* eslint-enable import/no-unresolved, import/extensions */
 
@@ -56,7 +55,6 @@ const render = (messages) => {
       <ConfigProvider locale={frFR}>
         <LanguageProvider messages={messages}>
           <ConnectedRouter history={history}>
-            <h1>Nguyen Dac Quang</h1>
             <App />
           </ConnectedRouter>
         </LanguageProvider>

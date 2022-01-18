@@ -15,6 +15,7 @@ import classNames from "classnames";
 import { $Cookies } from "utils/cookies";
 import { JWT_TOKEN } from "utils/constants";
 import Globals from "utils/globals";
+import MenuLayout from "./Menu";
 
 const { Header, Footer, Content } = Layout;
 const AuthorizedLayout = ({
@@ -53,13 +54,14 @@ const AuthorizedLayout = ({
     onBrowseGlobalConfigRequest();
   }, [onBrowseGlobalConfig]);
   return (
-    <div
+    <Layout
       className={classNames({
         [className]: true,
       })}
     >
+      <MenuLayout />
       {children}
-    </div>
+    </Layout>
   );
 };
 const mapStateToProps = createStructuredSelector({
@@ -86,9 +88,6 @@ export default styled(
     padding: 0;
     height: 56px;
     line-height: inherit;
-    // position: sticky;
-    // top: 0;
-    // z-index: 10;
   }
   main {
     min-height: calc(100vh - 56px - 200px);

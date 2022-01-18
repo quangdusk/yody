@@ -9,7 +9,6 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@babel/polyfill": "7.4.3",
-    "@devexpress/dx-react-chart": "^4.1.5",
     "@devexpress/dx-react-core": "^2.7.0",
     "@devexpress/dx-react-grid": "^2.7.6",
     "@formatjs/intl-pluralrules": "^4.1.5",
